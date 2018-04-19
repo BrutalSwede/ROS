@@ -26,6 +26,7 @@ namespace ROS.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Boat.ToListAsync());
         }
 
@@ -58,10 +59,12 @@ namespace ROS.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] Boat boat)
+        public async Task<IActionResult> Create(/*[Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] */Boat boat)
         {
             if (ModelState.IsValid)
             {
+                // ADD COMMENT
+                boat.Owner = _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
                 boat.Id = Guid.NewGuid();
                 _context.Add(boat);
                 await _context.SaveChangesAsync();

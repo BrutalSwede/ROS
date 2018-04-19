@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
 using System;
 
-namespace ROS.Web.Data.Migrations
+namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180419095806_CreateUserModel")]
-    partial class CreateUserModel
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,14 +143,11 @@ namespace ROS.Web.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired();
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("GivenName")
-                        .IsRequired();
+                    b.Property<string>("GivenName");
 
-                    b.Property<string>("IcePhone")
-                        .IsRequired();
+                    b.Property<string>("IcePhone");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -194,19 +190,22 @@ namespace ROS.Web.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("Certificate");
 
-                    b.Property<double>("HandicapShorthandedWithForesail");
+                    b.Property<double?>("HandicapShorthandedWithForesail");
 
-                    b.Property<double>("HandicapShorthandedWithoutForesail");
+                    b.Property<double?>("HandicapShorthandedWithoutForesail")
+                        .IsRequired();
 
-                    b.Property<double>("HandicapStandardWithForesail");
+                    b.Property<double?>("HandicapStandardWithForesail");
 
-                    b.Property<double>("HandicapStandardWithoutForesail");
+                    b.Property<double?>("HandicapStandardWithoutForesail")
+                        .IsRequired();
 
                     b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("OwnerId")
                         .IsRequired();
 
                     b.Property<string>("Type")
@@ -214,7 +213,7 @@ namespace ROS.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Boat");
                 });
@@ -266,9 +265,10 @@ namespace ROS.Web.Data.Migrations
 
             modelBuilder.Entity("ROS.Web.Models.Boat", b =>
                 {
-                    b.HasOne("ROS.Web.Models.ApplicationUser")
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "Owner")
                         .WithMany("Boats")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
