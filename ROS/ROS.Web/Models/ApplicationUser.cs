@@ -13,18 +13,13 @@ namespace ROS.Web.Models
     {
         public ApplicationUser()
         { }
-
-
-
-        [Required]
+        
         [DisplayName("Förnamn")]
         public string FirstName { get; set; }
         
-        [Required]
         [DisplayName("Efternamn")]
         public string GivenName { get; set; }
         
-        [Required]
         [Phone]
         [DisplayName("ICE Telefonnummer")]
         public string IcePhone { get; set; }

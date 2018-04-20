@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,25 +10,22 @@ using ROS.Web.Models;
 
 namespace ROS.Web.Controllers
 {
-    [Authorize]
-    public class BoatsController : Controller
+    public class ClubsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BoatsController(ApplicationDbContext context)
+        public ClubsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Boats
-        [AllowAnonymous]
+        // GET: Clubs
         public async Task<IActionResult> Index()
         {
-
-            return View(await _context.Boat.ToListAsync());
+            return View(await _context.Clubs.ToListAsync());
         }
 
-        // GET: Boats/Details/5
+        // GET: Clubs/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -38,41 +33,44 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat
+            var club = await _context.Clubs
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            if (club == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(club);
         }
 
-        // GET: Boats/Create
+        // GET: Clubs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Boats/Create
+        // POST: Clubs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] */Boat boat)
+        public async Task<IActionResult> Create([Bind("Name,FoundedDate,JoinedDate,IsActive,Id")] Club club)
         {
+            
             if (ModelState.IsValid)
             {
-                boat.Owner = _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
-                boat.Id = Guid.NewGuid();
-                _context.Add(boat);
+                club.Owner = _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+                club.JoinedDate = DateTime.Now;
+                club.IsActive = true;
+                club.Id = Guid.NewGuid();
+                _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(club);
         }
 
-        // GET: Boats/Edit/5
+        // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -80,22 +78,22 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat.SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            var club = await _context.Clubs.SingleOrDefaultAsync(m => m.Id == id);
+            if (club == null)
             {
                 return NotFound();
             }
-            return View(boat);
+            return View(club);
         }
 
-        // POST: Boats/Edit/5
+        // POST: Clubs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] Boat boat)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,FoundedDate,JoinedDate,IsActive,Id")] Club club)
         {
-            if (id != boat.Id)
+            if (id != club.Id)
             {
                 return NotFound();
             }
@@ -104,12 +102,12 @@ namespace ROS.Web.Controllers
             {
                 try
                 {
-                    _context.Update(boat);
+                    _context.Update(club);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BoatExists(boat.Id))
+                    if (!ClubExists(club.Id))
                     {
                         return NotFound();
                     }
@@ -120,10 +118,10 @@ namespace ROS.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(club);
         }
 
-        // GET: Boats/Delete/5
+        // GET: Clubs/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,30 +129,30 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat
+            var club = await _context.Clubs
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            if (club == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(club);
         }
 
-        // POST: Boats/Delete/5
+        // POST: Clubs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var boat = await _context.Boat.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Boat.Remove(boat);
+            var club = await _context.Clubs.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Clubs.Remove(club);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BoatExists(Guid id)
+        private bool ClubExists(Guid id)
         {
-            return _context.Boat.Any(e => e.Id == id);
+            return _context.Clubs.Any(e => e.Id == id);
         }
     }
 }

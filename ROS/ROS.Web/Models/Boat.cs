@@ -10,9 +10,9 @@ namespace ROS.Web.Models
     public class Boat : BaseEntity
     {
         public Boat()
-        {
+        { }
         
-        }
+        public ApplicationUser Owner { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -23,20 +23,18 @@ namespace ROS.Web.Models
         [Url]
         public string Certificate { get; set; }
 
-        [Required]
         [DisplayName("SRS")]
-        public double HandicapStandardWithForesail { get; set; }
+        public double? HandicapStandardWithForesail { get; set; }
 
         [Required]
         [DisplayName("SRS u. flygande segel")]
-        public double HandicapStandardWithoutForesail { get; set; }
-
-        [Required]
+        public double? HandicapStandardWithoutForesail { get; set; }
+        
         [DisplayName("SRS S/H")]
-        public double HandicapShorthandedWithForesail { get; set; }
+        public double? HandicapShorthandedWithForesail { get; set; }
 
         [Required]
         [DisplayName("SRS S/H u. flygande segel")]
-        public double HandicapShorthandedWithoutForesail { get; set; }
+        public double? HandicapShorthandedWithoutForesail { get; set; }
     }
 }
