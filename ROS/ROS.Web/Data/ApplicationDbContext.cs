@@ -23,9 +23,11 @@ namespace ROS.Web.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             //builder.Entity<ApplicationUser>().HasMany(u => u.Boats).WithOne(b => b.Owner).HasForeignKey(u => u.OwnerId);
+
+            //builder.Entity<ClubUser>().HasKey(u => new { u.ClubId, u.UserId });
         }
 
         public DbSet<Boat> Boat { get; set; }
-
+        public DbSet<Club> Clubs { get; set; }
     }
 }
