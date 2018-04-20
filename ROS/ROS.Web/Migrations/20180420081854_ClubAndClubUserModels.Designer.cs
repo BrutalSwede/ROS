@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
 using System;
 
-namespace ROS.Web.Data.Migrations
+namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180419094042_CreateBoatModel")]
-    partial class CreateBoatModel
+    [Migration("20180420081854_ClubAndClubUserModels")]
+    partial class ClubAndClubUserModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,6 +144,12 @@ namespace ROS.Web.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("GivenName");
+
+                    b.Property<string>("IcePhone");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -187,23 +193,71 @@ namespace ROS.Web.Data.Migrations
 
                     b.Property<string>("Certificate");
 
-                    b.Property<double>("HandicapShorthandedWithForesail");
+                    b.Property<double?>("HandicapShorthandedWithForesail");
 
-                    b.Property<double>("HandicapShorthandedWithoutForesail");
+                    b.Property<double?>("HandicapShorthandedWithoutForesail")
+                        .IsRequired();
 
-                    b.Property<double>("HandicapStandardWithForesail");
+                    b.Property<double?>("HandicapStandardWithForesail");
 
-                    b.Property<double>("HandicapStandardWithoutForesail");
+                    b.Property<double?>("HandicapStandardWithoutForesail")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<string>("OwnerId");
 
                     b.Property<string>("Type")
                         .IsRequired();
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.ToTable("Boat");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Club", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("FoundedDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<DateTime>("JoinedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Clubs");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ClubId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ClubUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -249,6 +303,33 @@ namespace ROS.Web.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Boat", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "Owner")
+                        .WithMany("Boats")
+                        .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Club", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
+                {
+                    b.HasOne("ROS.Web.Models.Club", "Club")
+                        .WithMany("ClubUsers")
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
