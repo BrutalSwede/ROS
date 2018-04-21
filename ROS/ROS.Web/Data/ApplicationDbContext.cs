@@ -27,7 +27,7 @@ namespace ROS.Web.Data
             //builder.Entity<ClubUser>().HasKey(u => new { u.ClubId, u.UserId });
         }
 
-        public DbSet<Boat> Boat { get; set; }
+        public DbSet<Boat> Boats { get; set; }
         public DbSet<Club> Clubs { get; set; }
     }
 }

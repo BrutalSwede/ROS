@@ -27,7 +27,7 @@ namespace ROS.Web.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.Boat.ToListAsync());
+            return View(await _context.Boats.ToListAsync());
         }
 
         // GET: Boats/Details/5
@@ -38,7 +38,7 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat
+            var boat = await _context.Boats
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (boat == null)
             {
@@ -80,7 +80,7 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat.SingleOrDefaultAsync(m => m.Id == id);
+            var boat = await _context.Boats.SingleOrDefaultAsync(m => m.Id == id);
             if (boat == null)
             {
                 return NotFound();
@@ -131,7 +131,7 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boat
+            var boat = await _context.Boats
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (boat == null)
             {
@@ -146,15 +146,15 @@ namespace ROS.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var boat = await _context.Boat.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Boat.Remove(boat);
+            var boat = await _context.Boats.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Boats.Remove(boat);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BoatExists(Guid id)
         {
-            return _context.Boat.Any(e => e.Id == id);
+            return _context.Boats.Any(e => e.Id == id);
         }
     }
 }
