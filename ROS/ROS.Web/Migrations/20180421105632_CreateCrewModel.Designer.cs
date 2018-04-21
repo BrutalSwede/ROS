@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180421105632_CreateCrewModel")]
+    partial class CreateCrewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,7 +215,7 @@ namespace ROS.Web.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Boats");
+                    b.ToTable("Boat");
                 });
 
             modelBuilder.Entity("ROS.Web.Models.Club", b =>
@@ -263,7 +266,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<Guid>("BoatId");
 
-                    b.Property<string>("CaptainId");
+                    b.Property<string>("CaptainId")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -375,7 +379,8 @@ namespace ROS.Web.Migrations
 
                     b.HasOne("ROS.Web.Models.ApplicationUser", "Captain")
                         .WithMany()
-                        .HasForeignKey("CaptainId");
+                        .HasForeignKey("CaptainId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.CrewUser", b =>
