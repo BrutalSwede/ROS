@@ -8,8 +8,18 @@ namespace ROS.Web.Models.AccountViewModels
 {
     public class ExternalLoginViewModel
     {
+        
+        [Required]
+        [Display(Name = "Förnamn")]
+        public string SureName { get; set; }
+
+        [Required]
+        [Display(Name = "Efternamn")]
+        public string AfterName { get; set; }
+
         [Required]
         [EmailAddress]
+        [Display(Name = "E-Postadrss")]
         public string Email { get; set; }
     }
 }

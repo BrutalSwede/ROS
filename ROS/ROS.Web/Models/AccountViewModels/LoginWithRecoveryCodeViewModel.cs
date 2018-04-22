@@ -10,7 +10,7 @@ namespace ROS.Web.Models.AccountViewModels
     {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Recovery Code")]
+            [Display(Name = "Återvinning av konto")]
             public string RecoveryCode { get; set; }
     }
 }

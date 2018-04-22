@@ -10,6 +10,7 @@ namespace ROS.Web.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
+        [Display(Name = "E-Postadrss")]
         public string Email { get; set; }
     }
 }

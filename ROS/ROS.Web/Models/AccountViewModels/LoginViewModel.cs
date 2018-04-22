@@ -9,14 +9,16 @@ namespace ROS.Web.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Förnamn")]
+        public string SureName { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [Display(Name = "Efternamn")]
+        public string AfterName { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "E-Postadrss")]
+        public string Email { get; set; }
     }
 }
