@@ -16,7 +16,7 @@ namespace ROS.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration¨, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
 
             var builder = new ConfigurationBuilder();
