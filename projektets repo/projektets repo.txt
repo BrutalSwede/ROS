@@ -1,0 +1,9 @@
+projektets repo:
+
+https://github.com/BrutalSwede/ROS.git
+
+
+
+projektets plats i filstrukturen:
+
+G:\code\webb\projekt
