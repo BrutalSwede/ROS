@@ -17,6 +17,27 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Boat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Boat.Name)
+        </dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Captain)
+        </dt>
+        <dd>
+            @* This should be changed to show "Firstname Lastname" once those are in place. *@
+            @Html.DisplayFor(model => model.Captain.UserName)
+        </dd>
+    </dl>
+
+    @* List of crewmembers here *@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

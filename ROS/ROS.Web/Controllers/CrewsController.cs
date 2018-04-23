@@ -37,6 +37,9 @@ namespace ROS.Web.Controllers
             }
 
             var crew = await _context.Crews
+                .Include(c => c.Captain)
+                .Include(c => c.Boat)
+                .Include(c => c.Crewmen)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (crew == null)
             {
