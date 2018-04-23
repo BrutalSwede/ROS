@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20180420081544_ClubAndClubUserModels.Designer.cs" />
     <Compile Remove="Migrations\20180421133228_BoatIdExplicit.cs" />
     <Compile Remove="Migrations\20180421133228_BoatIdExplicit.Designer.cs" />
+    <Compile Remove="Migrations\20180423092956_UpdateEventModelValidation.cs" />
+    <Compile Remove="Migrations\20180423092956_UpdateEventModelValidation.Designer.cs" />
   </ItemGroup>
 
 
