@@ -16,6 +16,10 @@
     <Compile Remove="Migrations\20180423092956_UpdateEventModelValidation.Designer.cs" />
     <Compile Remove="Migrations\20180423130157_AddEventRegattaRelation.cs" />
     <Compile Remove="Migrations\20180423130157_AddEventRegattaRelation.Designer.cs" />
+    <Compile Remove="Migrations\20180423134933_CreateResultAndEntryModels.cs" />
+    <Compile Remove="Migrations\20180423134933_CreateResultAndEntryModels.Designer.cs" />
+    <Compile Remove="Migrations\20180423135100_CreateEntryAndResultModels.cs" />
+    <Compile Remove="Migrations\20180423135100_CreateEntryAndResultModels.Designer.cs" />
   </ItemGroup>
 
 

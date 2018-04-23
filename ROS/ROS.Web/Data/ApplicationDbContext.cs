@@ -32,6 +32,8 @@ namespace ROS.Web.Data
         public DbSet<Crew> Crews { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Regatta> Regattas { get; set; }
+        //public DbSet<Entry> Entries { get; set; }
+        public DbSet<Result> Results { get; set; }
 
     }
 }

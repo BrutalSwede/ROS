@@ -351,6 +351,24 @@ namespace ROS.Web.Migrations
                     b.ToTable("Regattas");
                 });
 
+            modelBuilder.Entity("ROS.Web.Models.Result", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("CalculatedDistance");
+
+                    b.Property<TimeSpan>("CalculatedTime");
+
+                    b.Property<double>("Distance");
+
+                    b.Property<TimeSpan>("Time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Results");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
