@@ -60,6 +60,7 @@ namespace ROS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                @event.CreatedBy = GetCurrentUser();
                 @event.Id = Guid.NewGuid();
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
@@ -152,5 +153,15 @@ namespace ROS.Web.Controllers
         {
             return _context.Events.Any(e => e.Id == id);
         }
+
+        #region Helpers
+
+        public ApplicationUser GetCurrentUser()
+        {
+            return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+        }
+
+        #endregion
+
     }
 }

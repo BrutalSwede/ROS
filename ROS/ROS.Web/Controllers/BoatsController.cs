@@ -63,7 +63,7 @@ namespace ROS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                boat.Owner = _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+                boat.Owner = GetCurrentUser();
                 boat.Id = Guid.NewGuid();
                 _context.Add(boat);
                 await _context.SaveChangesAsync();
@@ -156,5 +156,14 @@ namespace ROS.Web.Controllers
         {
             return _context.Boats.Any(e => e.Id == id);
         }
+
+        #region Helpers
+        
+        public ApplicationUser GetCurrentUser()
+        {
+            return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+        }
+
+        #endregion
     }
 }

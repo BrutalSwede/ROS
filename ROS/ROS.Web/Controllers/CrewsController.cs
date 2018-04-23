@@ -74,7 +74,7 @@ namespace ROS.Web.Controllers
                 Crew crew = new Crew();
 
                 crew.Name = crewVM.Name;
-                crew.Captain = _context.Users.Where(c => c.UserName == HttpContext.User.Identity.Name).SingleOrDefault();
+                crew.Captain = GetCurrentUser();
                 crew.BoatId = crewVM.SelectedBoatId;
 
                 crew.Id = Guid.NewGuid();
@@ -170,5 +170,15 @@ namespace ROS.Web.Controllers
         {
             return _context.Crews.Any(e => e.Id == id);
         }
+
+        #region Helpers
+
+        public ApplicationUser GetCurrentUser()
+        {
+            return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+        }
+
+        #endregion
+
     }
 }
