@@ -36,6 +36,9 @@ namespace ROS.Web.Models
         [DisplayName("Slutdatum")]
         public DateTime EndTime { get; set; }
 
+        [DisplayName("Skapad av")]
+        public ApplicationUser CreatedBy { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if(EndTime <= StartTime)

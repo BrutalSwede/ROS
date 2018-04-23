@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
+using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
@@ -300,6 +303,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CreatedById");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500);
@@ -315,6 +320,8 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Events");
                 });
@@ -412,6 +419,13 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
                 });
 #pragma warning restore 612, 618
         }

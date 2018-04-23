@@ -40,6 +40,12 @@
         <dd>
             @Html.DisplayFor(model => model.EndTime)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </dd>
     </dl>
 </div>
 <div>

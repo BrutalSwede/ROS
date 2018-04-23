@@ -36,6 +36,7 @@ namespace ROS.Web.Controllers
             }
 
             var @event = await _context.Events
+                .Include(e => e.CreatedBy)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (@event == null)
             {
