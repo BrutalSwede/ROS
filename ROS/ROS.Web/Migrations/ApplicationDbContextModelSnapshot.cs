@@ -143,9 +143,9 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("GivenName");
-
                     b.Property<string>("IcePhone");
+
+                    b.Property<string>("Lastname");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -293,6 +293,30 @@ namespace ROS.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CrewUser");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<int>("EventType");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
