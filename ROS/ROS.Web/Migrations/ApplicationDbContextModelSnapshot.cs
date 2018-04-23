@@ -326,6 +326,31 @@ namespace ROS.Web.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("Regattas");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -422,6 +447,13 @@ namespace ROS.Web.Migrations
                 });
 
             modelBuilder.Entity("ROS.Web.Models.Event", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()

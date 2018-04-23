@@ -39,6 +39,8 @@ namespace ROS.Web.Models
         [DisplayName("Skapad av")]
         public ApplicationUser CreatedBy { get; set; }
 
+        //public Regatta Regatta { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if(EndTime <= StartTime)
