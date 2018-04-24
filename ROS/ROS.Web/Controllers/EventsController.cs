@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -13,24 +12,22 @@ using ROS.Web.Models;
 namespace ROS.Web.Controllers
 {
     [Authorize]
-    public class BoatsController : Controller
+    public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BoatsController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Boats
-        [AllowAnonymous]
+        // GET: Events
         public async Task<IActionResult> Index()
         {
-
-            return View(await _context.Boats.ToListAsync());
+            return View(await _context.Events.ToListAsync());
         }
 
-        // GET: Boats/Details/5
+        // GET: Events/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -38,41 +35,42 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boats
+            var @event = await _context.Events
+                .Include(e => e.CreatedBy)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(@event);
         }
 
-        // GET: Boats/Create
+        // GET: Events/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Boats/Create
+        // POST: Events/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] */Boat boat)
+        public async Task<IActionResult> Create([Bind("Title,Description,EventType,StartTime,EndTime,Id")] Event @event)
         {
             if (ModelState.IsValid)
             {
-                boat.Owner = GetCurrentUser();
-                boat.Id = Guid.NewGuid();
-                _context.Add(boat);
+                @event.CreatedBy = GetCurrentUser();
+                @event.Id = Guid.NewGuid();
+                _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(@event);
         }
 
-        // GET: Boats/Edit/5
+        // GET: Events/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -80,22 +78,22 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boats.SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
+            if (@event == null)
             {
                 return NotFound();
             }
-            return View(boat);
+            return View(@event);
         }
 
-        // POST: Boats/Edit/5
+        // POST: Events/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] Boat boat)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Title,Description,EventType,StartTime,EndTime,Id")] Event @event)
         {
-            if (id != boat.Id)
+            if (id != @event.Id)
             {
                 return NotFound();
             }
@@ -104,12 +102,12 @@ namespace ROS.Web.Controllers
             {
                 try
                 {
-                    _context.Update(boat);
+                    _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BoatExists(boat.Id))
+                    if (!EventExists(@event.Id))
                     {
                         return NotFound();
                     }
@@ -120,10 +118,10 @@ namespace ROS.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(@event);
         }
 
-        // GET: Boats/Delete/5
+        // GET: Events/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -131,39 +129,40 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boats
+            var @event = await _context.Events
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (boat == null)
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(@event);
         }
 
-        // POST: Boats/Delete/5
+        // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var boat = await _context.Boats.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Boats.Remove(boat);
+            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Events.Remove(@event);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BoatExists(Guid id)
+        private bool EventExists(Guid id)
         {
-            return _context.Boats.Any(e => e.Id == id);
+            return _context.Events.Any(e => e.Id == id);
         }
 
         #region Helpers
-        
+
         public ApplicationUser GetCurrentUser()
         {
             return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
         }
 
         #endregion
+
     }
 }

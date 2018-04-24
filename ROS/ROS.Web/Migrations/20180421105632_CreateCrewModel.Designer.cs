@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180421105632_CreateCrewModel")]
+    partial class CreateCrewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,9 +146,9 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("IcePhone");
+                    b.Property<string>("GivenName");
 
-                    b.Property<string>("Lastname");
+                    b.Property<string>("IcePhone");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -215,7 +215,7 @@ namespace ROS.Web.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Boats");
+                    b.ToTable("Boat");
                 });
 
             modelBuilder.Entity("ROS.Web.Models.Club", b =>
@@ -266,7 +266,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<Guid>("BoatId");
 
-                    b.Property<string>("CaptainId");
+                    b.Property<string>("CaptainId")
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -296,77 +297,6 @@ namespace ROS.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CrewUser");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Regattas");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Result", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("CalculatedDistance");
-
-                    b.Property<TimeSpan>("CalculatedTime");
-
-                    b.Property<double>("Distance");
-
-                    b.Property<TimeSpan>("Time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -449,7 +379,8 @@ namespace ROS.Web.Migrations
 
                     b.HasOne("ROS.Web.Models.ApplicationUser", "Captain")
                         .WithMany()
-                        .HasForeignKey("CaptainId");
+                        .HasForeignKey("CaptainId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.CrewUser", b =>
@@ -462,20 +393,6 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
-                {
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
                 });
 #pragma warning restore 612, 618
         }
