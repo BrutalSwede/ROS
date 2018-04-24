@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace ROS.Web.Models
 {
+
     public class Boat : BaseEntity
     {
         public Boat()
         { }
         
         public ApplicationUser Owner { get; set; }
+
+        public IList<Crew> Crews { get; set; }
 
         [Required]
         public string Name { get; set; }
