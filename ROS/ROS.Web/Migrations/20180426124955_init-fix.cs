@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ROS.Web.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initfix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,17 +29,19 @@ namespace ROS.Web.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    GivenName = table.Column<string>(nullable: true),
                     IcePhone = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
@@ -49,6 +51,21 @@ namespace ROS.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Results",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CalculatedDistance = table.Column<double>(nullable: false),
+                    CalculatedTime = table.Column<TimeSpan>(nullable: false),
+                    Distance = table.Column<double>(nullable: false),
+                    Time = table.Column<TimeSpan>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Results", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,7 +175,7 @@ namespace ROS.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Boat",
+                name: "Boats",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -168,18 +185,160 @@ namespace ROS.Web.Migrations
                     HandicapStandardWithForesail = table.Column<double>(nullable: true),
                     HandicapStandardWithoutForesail = table.Column<double>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    OwnerId = table.Column<string>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Boat", x => x.Id);
+                    table.PrimaryKey("PK_Boats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Boat_AspNetUsers_OwnerId",
+                        name: "FK_Boats_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clubs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    FoundedDate = table.Column<DateTime>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    JoinedDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clubs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clubs_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedById = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    EventType = table.Column<int>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    Title = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Regattas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    CreatedById = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    Title = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Regattas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Regattas_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Crews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    BoatId = table.Column<Guid>(nullable: false),
+                    CaptainId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Crews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Crews_Boats_BoatId",
+                        column: x => x.BoatId,
+                        principalTable: "Boats",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Crews_AspNetUsers_CaptainId",
+                        column: x => x.CaptainId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClubUser",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ClubId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClubUser_Clubs_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Clubs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClubUser_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CrewUser",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CrewId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CrewUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CrewUser_Crews_CrewId",
+                        column: x => x.CrewId,
+                        principalTable: "Crews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CrewUser_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -222,9 +381,54 @@ namespace ROS.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Boat_OwnerId",
-                table: "Boat",
+                name: "IX_Boats_OwnerId",
+                table: "Boats",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clubs_OwnerId",
+                table: "Clubs",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubUser_ClubId",
+                table: "ClubUser",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClubUser_UserId",
+                table: "ClubUser",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Crews_BoatId",
+                table: "Crews",
+                column: "BoatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Crews_CaptainId",
+                table: "Crews",
+                column: "CaptainId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CrewUser_CrewId",
+                table: "CrewUser",
+                column: "CrewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CrewUser_UserId",
+                table: "CrewUser",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_CreatedById",
+                table: "Events",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Regattas_CreatedById",
+                table: "Regattas",
+                column: "CreatedById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -245,10 +449,31 @@ namespace ROS.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Boat");
+                name: "ClubUser");
+
+            migrationBuilder.DropTable(
+                name: "CrewUser");
+
+            migrationBuilder.DropTable(
+                name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Regattas");
+
+            migrationBuilder.DropTable(
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Clubs");
+
+            migrationBuilder.DropTable(
+                name: "Crews");
+
+            migrationBuilder.DropTable(
+                name: "Boats");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
