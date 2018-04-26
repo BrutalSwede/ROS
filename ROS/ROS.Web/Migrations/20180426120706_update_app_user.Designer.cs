@@ -11,9 +11,10 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180426120706_update_app_user")]
+    partial class update_app_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,7 +136,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Adress");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -147,9 +148,9 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("IcePhone");
+                    b.Property<string>("GivenName");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("IcePhone");
 
                     b.Property<bool>("LockoutEnabled");
 
