@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180426123259_adjust_appuser2")]
+    partial class adjust_appuser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,7 +219,7 @@ namespace ROS.Web.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Boats");
+                    b.ToTable("Boat");
                 });
 
             modelBuilder.Entity("ROS.Web.Models.Club", b =>
@@ -261,116 +261,6 @@ namespace ROS.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ClubUser");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Crew", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("BoatId");
-
-                    b.Property<string>("CaptainId");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoatId");
-
-                    b.HasIndex("CaptainId");
-
-                    b.ToTable("Crews");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.CrewUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CrewId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CrewId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CrewUser");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Regattas");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Result", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("CalculatedDistance");
-
-                    b.Property<TimeSpan>("CalculatedTime");
-
-                    b.Property<double>("Distance");
-
-                    b.Property<TimeSpan>("Time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -442,44 +332,6 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Crew", b =>
-                {
-                    b.HasOne("ROS.Web.Models.Boat", "Boat")
-                        .WithMany("Crews")
-                        .HasForeignKey("BoatId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "Captain")
-                        .WithMany()
-                        .HasForeignKey("CaptainId");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.CrewUser", b =>
-                {
-                    b.HasOne("ROS.Web.Models.Crew", "Crew")
-                        .WithMany("Crewmen")
-                        .HasForeignKey("CrewId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
-                {
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
                 });
 #pragma warning restore 612, 618
         }
