@@ -11,8 +11,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180426100001_AddStartTime_And_EndTime_To_Regatta")]
-    partial class AddStartTime_And_EndTime_To_Regatta
+    [Migration("20180427093254_resolve-merge-conflicts")]
+    partial class resolvemergeconflicts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,6 +136,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -148,7 +150,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("IcePhone");
 
-                    b.Property<string>("Lastname");
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -161,6 +163,8 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 

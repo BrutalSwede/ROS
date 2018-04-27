@@ -135,6 +135,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -147,7 +149,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("IcePhone");
 
-                    b.Property<string>("Lastname");
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -160,6 +162,8 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
