@@ -20,6 +20,7 @@ namespace ROS.Web.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -29,12 +30,14 @@ namespace ROS.Web.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         [TempData]
@@ -46,6 +49,9 @@ namespace ROS.Web.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            // Creates the account roles
+            await CreateRoles();
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -222,10 +228,12 @@ namespace ROS.Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    await _userManager.AddToRoleAsync(user, "User");
+                    
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
@@ -435,6 +443,59 @@ namespace ROS.Web.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+        
+        // Creates all roles + super admin if it does not exists in the db already
+        private async Task CreateRoles()
+        {
+            bool checkExistingAdminRole = false;
+            bool checkExistingUserRole = false;
+            bool checkExistingClubAdmin = false;
+            checkExistingAdminRole = await _roleManager.RoleExistsAsync("Admin");
+            checkExistingUserRole = await _roleManager.RoleExistsAsync("User");
+            checkExistingClubAdmin = await _roleManager.RoleExistsAsync("Club Admin");
+
+            // Checks if Admin role exists. If not it creates the Admin role
+            if (!checkExistingAdminRole)
+            {
+                // first we create the Admin role
+                var adminRole = new IdentityRole();
+                adminRole.Name = "Admin";
+                await _roleManager.CreateAsync(adminRole);
+
+                Console.WriteLine("Admin role created");
+
+                // Here the admin user is created and is assigned the admin role
+                var user = new ApplicationUser();
+                user.UserName = "admin@default.com";
+                user.Email = "admin@default.com";
+
+                string userPassword = "Password-1";
+
+                IdentityResult checkUser = await _userManager.CreateAsync(user, userPassword);
+
+                // Add default User to Role Admin    
+                if (checkUser.Succeeded)
+                {
+                    var result = await _userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+
+            // Checks if the User role exists. If not it creates the User role
+            if (!checkExistingUserRole)
+            {
+                var userRole = new IdentityRole();
+                userRole.Name = "User";
+                await _roleManager.CreateAsync(userRole);
+            }
+
+            // TO DO: Club Admin
+            if (!checkExistingClubAdmin)
+            {
+                var clubRole = new IdentityRole();
+                clubRole.Name = "Club Admin";
+                await _roleManager.CreateAsync(clubRole);
+            }
         }
 
         #region Helpers

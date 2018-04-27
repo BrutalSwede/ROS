@@ -12,60 +12,61 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Certificate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Certificate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Certificate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HandicapStandardWithForesail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HandicapStandardWithoutForesail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HandicapShorthandedWithForesail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HandicapShorthandedWithoutForesail)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Certificate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HandicapStandardWithForesail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HandicapStandardWithoutForesail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithForesail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithoutForesail)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

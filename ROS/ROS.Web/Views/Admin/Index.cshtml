@@ -1,0 +1,12 @@
+﻿@model ROS.Web.Models.AdminViewModels.AdminBoatViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Admin</h2>
+
+@foreach(var item in Model.Boats)
+{
+    <div>@item.Name</div>
+}
