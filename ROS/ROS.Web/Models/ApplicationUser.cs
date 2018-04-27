@@ -18,8 +18,15 @@ namespace ROS.Web.Models
         public string FirstName { get; set; }
         
         [DisplayName("Efternamn")]
-        public string Lastname { get; set; }
-        
+        public string LastName { get; set; }
+
+        [DisplayName("Adress")]
+        public  string Address { get; set; }
+
+        [Phone]
+        [DisplayName("Telefonnummer")]
+        public string Phone { get; set; }
+
         [Phone]
         [DisplayName("ICE Telefonnummer")]
         public string IcePhone { get; set; }
