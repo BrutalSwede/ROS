@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423081351_CreateEventModel")]
-    partial class CreateEventModel
+    [Migration("20180426100001_AddStartTime_And_EndTime_To_Regatta")]
+    partial class AddStartTime_And_EndTime_To_Regatta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -299,18 +298,21 @@ namespace ROS.Web.Migrations
                     b.ToTable("CrewUser");
                 });
 
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("CreatedById");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
 
                     b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
 
                     b.Property<DateTime>("StartTime");
 
@@ -320,7 +322,9 @@ namespace ROS.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events");
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("Regattas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -416,6 +420,13 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
                 });
 #pragma warning restore 612, 618
         }

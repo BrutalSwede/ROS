@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423113140_AddAuthorToEvent")]
-    partial class AddAuthorToEvent
+    [Migration("20180426094525_new_init")]
+    partial class new_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -299,22 +298,19 @@ namespace ROS.Web.Migrations
                     b.ToTable("CrewUser");
                 });
 
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
 
                     b.Property<string>("CreatedById");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
-
-                    b.Property<DateTime>("StartTime");
+                        .HasMaxLength(1000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -324,7 +320,7 @@ namespace ROS.Web.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("Events");
+                    b.ToTable("Regattas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -422,7 +418,7 @@ namespace ROS.Web.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()
