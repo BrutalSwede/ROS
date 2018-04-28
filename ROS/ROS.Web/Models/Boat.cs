@@ -18,12 +18,15 @@ namespace ROS.Web.Models
         public IList<Crew> Crews { get; set; }
 
         [Required]
+        [DisplayName("Båtens namn")]
         public string Name { get; set; }
 
         [Required]
+        [DisplayName("Båttyp")]
         public string Type { get; set; }
 
         [Url]
+        [DisplayName("Mätbrev")]
         public string Certificate { get; set; }
 
         [DisplayName("SRS")]
