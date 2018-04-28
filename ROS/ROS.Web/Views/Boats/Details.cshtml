@@ -4,52 +4,52 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h1 class="font-weight-bold">Detaljvy</h1>
 
 <div>
-    <h4>Boat</h4>
+    <h4>Båt</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="dl-horizontal lead text-dark font-weight-bold tabellhuvve">
+        <dt">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal" >
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Type)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Certificate)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.Certificate)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.HandicapStandardWithForesail)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.HandicapStandardWithoutForesail)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.HandicapShorthandedWithForesail)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
         </dt>
-        <dd>
+        <dd class="tabelltext font-weight-normal">
             @Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)
         </dd>
     </dl>
