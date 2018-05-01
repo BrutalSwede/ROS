@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<ROS.Web.Models.Club>
+
+<h2>Club Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Boats</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Club ID</th>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Founded</th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var club in Model)
+        {
+            <tr>
+                <td>@club.Id</td>
+                <td>@club.Name</td>
+                <td>@club.Owner</td>
+                <td>@club.FoundedDate</td>
+
+                <td>
+                    <form asp-action="DeleteClub" asp-route-id="@club.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditClubb" asp-route-id="@club.Id">Edit</a>
+                        <button type="submit" onclick="return confirm('Do you really want to delete this club?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.AdminViewModels.AdminBoatViewModel;
+﻿@model ROS.Web.Models.AdminViewModels.AdminViewModel;
 
 @{
     ViewData["Title"] = "Index";
@@ -6,7 +6,7 @@
 
 <h2>Admin</h2>
 
-@foreach(var item in Model.Boats)
-{
-    <div>@item.Name</div>
-}
+<a asp-action="usermanagement" class="btn btn-sm btn-secondary"> Users</a>
+<a asp-action="boatmanagement" class="btn btn-sm btn-secondary"> Boats</a>
+<a asp-action="clubmanagement" class="btn btn-sm btn-secondary"> Clubs</a>
+<a asp-action="regattamanagement" class="btn btn-sm btn-secondary"> Regattas</a>
