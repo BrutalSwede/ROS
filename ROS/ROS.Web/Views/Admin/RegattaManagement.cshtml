@@ -5,7 +5,7 @@
 
 @if (!Model.Any())
 {
-    <tr><td colspan="3" class="text-center">No Regattas</td></tr>
+    <tr><td colspan="3" class="text-center">No Regattas in the Database</td></tr>
 }
 else
 {
@@ -27,8 +27,8 @@ else
                 <td>@regatta.Description</td>
 
                 <td>
-                    <form asp-action="DeleteRegatta" asp-route-id="@regatta" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditRegatta" asp-route-id="@regatta">Edit</a>
+                    <form asp-action="DeleteRegatta" asp-route-id="@regatta.Id" method="post">
+                        @*<a class="btn btn-sm btn-primary" asp-action="EditRegatta" asp-route-id="@regatta">Edit</a>*@
                         <button type="submit" onclick="return confirm('Do you really want to delete this Regatta?');" class="btn btn-sm btn-danger">
                             Delete
                         </button>

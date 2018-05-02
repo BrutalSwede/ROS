@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
-using ROS.Web.Models.AdminViewModels;
 
 namespace ROS.Web.Controllers
 {
@@ -43,6 +42,33 @@ namespace ROS.Web.Controllers
             return View(users);
         }
 
+
+        //Post request that deletes the user if the user is found in db
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if(user != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("UserManagement");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong with while deleting this user.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "This user could not be found");
+            }
+
+            return View("UserManagement", _userManager.Users);
+        }
+
         // GET all boats
         public async Task<IActionResult> BoatManagement()
         {
@@ -50,13 +76,55 @@ namespace ROS.Web.Controllers
             
             return View(boats);
         }
-       
+
+        //Post request to delete boats
+        [HttpPost]
+        public async Task<IActionResult> DeleteBoat(Guid id)
+        {
+            var boat = await _context.Boats.FindAsync(id);
+
+            if (boat != null)
+            {
+                _context.Boats.Remove(boat);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("BoatManagement");
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "The boat could not be found");
+            }
+
+            return View("BoatManagement", _context.Boats);
+        }
+
         // GET all clubs
         public async Task<IActionResult> ClubManagement()
         {
             var clubs = await _context.Clubs.Include(o => o.Owner).ToListAsync();
 
             return View(clubs);
+        }
+
+        //Post request to delete clubs
+        [HttpPost]
+        public async Task<IActionResult> DeleteClub(Guid id)
+        {
+            var club = await _context.Clubs.FindAsync(id);
+
+            if(club != null)
+            {
+                _context.Clubs.Remove(club);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("ClubManagement");
+            }
+            else
+            {
+                ModelState.AddModelError("", "The club could not be found.");
+            }
+
+            return View("ClubManagement", _context.Clubs);
         }
 
         // GET all regattas
@@ -66,7 +134,28 @@ namespace ROS.Web.Controllers
 
             return View(regattas);
         }
-        
+
+        //Post request to delete regatta
+        [HttpPost]
+        public async Task<IActionResult> DeleteRegatta(Guid id)
+        {
+            var regatta = await _context.Regattas.FindAsync(id);
+
+            if (regatta!= null)
+            {
+                _context.Regattas.Remove(regatta);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("RegattaManagement");
+            }
+            else
+            {
+                ModelState.AddModelError("", "The regatta could not be found.");
+            }
+
+            return View("RegattaManagement", _context.Regattas);
+        }
+
 
         //TODO: Edit and Delete User, Boat, Club, Regatta
 
