@@ -38,6 +38,9 @@ namespace ROS.Web.Models
 
         public ApplicationUser CreatedBy { get; set; }
 
+        public List<RegattaRegistration> Registrations { get; set; }
+
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (EndTime < StartTime)
