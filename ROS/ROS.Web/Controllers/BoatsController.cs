@@ -12,6 +12,7 @@ using ROS.Web.Models;
 
 namespace ROS.Web.Controllers
 {
+    [Authorize]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,11 +23,13 @@ namespace ROS.Web.Controllers
         }
 
         // GET: Boats
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            string _userId = GetCurrentUser().Id;
 
-            return View(await _context.Boats.ToListAsync());
+            var boats = await _context.Boats.Where(o => o.Owner.Id == _userId).ToListAsync();
+
+            return View(boats);
         }
 
         // GET: Boats/Details/5
@@ -43,6 +46,8 @@ namespace ROS.Web.Controllers
             {
                 return NotFound();
             }
+
+            
 
             return View(boat);
         }
@@ -79,11 +84,19 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boats.SingleOrDefaultAsync(m => m.Id == id);
+            var boat = await _context.Boats.Include(o => o.Owner).SingleOrDefaultAsync(m => m.Id == id);
             if (boat == null)
             {
                 return NotFound();
             }
+
+            string _userId = GetCurrentUser().Id;
+
+            if (boat.Owner.Id != _userId)
+            {
+                return Forbid();
+            }
+
             return View(boat);
         }
 
@@ -130,11 +143,18 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var boat = await _context.Boats
+            var boat = await _context.Boats.Include(o => o.Owner)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (boat == null)
             {
                 return NotFound();
+            }
+
+            string _userId = GetCurrentUser().Id;
+
+            if (boat.Owner.Id != _userId)
+            {
+                return Forbid();
             }
 
             return View(boat);
