@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
@@ -136,6 +135,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -148,7 +149,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("IcePhone");
 
-                    b.Property<string>("Lastname");
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -161,6 +162,8 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
@@ -298,34 +301,6 @@ namespace ROS.Web.Migrations
                     b.ToTable("CrewUser");
                 });
 
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
-
-                    b.Property<DateTime>("StartTime");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.ToTable("Events");
-                });
-
             modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.Property<Guid>("Id")
@@ -338,7 +313,11 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<DateTime>("StartTime");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -349,24 +328,6 @@ namespace ROS.Web.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("Regattas");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Result", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("CalculatedDistance");
-
-                    b.Property<TimeSpan>("CalculatedTime");
-
-                    b.Property<double>("Distance");
-
-                    b.Property<TimeSpan>("Time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -462,13 +423,6 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
-                {
-                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
                 });
 
             modelBuilder.Entity("ROS.Web.Models.Regatta", b =>

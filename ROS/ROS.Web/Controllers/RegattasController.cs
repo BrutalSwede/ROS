@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using ROS.Web.Models;
 
 namespace ROS.Web.Controllers
 {
+    [Authorize]
     public class RegattasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,9 +23,12 @@ namespace ROS.Web.Controllers
         }
 
         // GET: Regattas
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Regattas.ToListAsync());
+            return View(await _context.Regattas
+                .Include(r => r.CreatedBy)
+                .ToListAsync());
         }
 
         // GET: Regattas/Details/5
@@ -34,6 +40,7 @@ namespace ROS.Web.Controllers
             }
 
             var regatta = await _context.Regattas
+                .Include(r => r.CreatedBy)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (regatta == null)
             {
@@ -54,10 +61,13 @@ namespace ROS.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Address,Id")] Regatta regatta)
+        public async Task<IActionResult> Create([Bind("Title,Description,StartTime,EndTime,Address,Id")] Regatta regatta)
         {
             if (ModelState.IsValid)
             {
+                var _currentUser = GetCurrentUser();
+
+                regatta.CreatedBy = _currentUser;
                 regatta.Id = Guid.NewGuid();
                 _context.Add(regatta);
                 await _context.SaveChangesAsync();
@@ -74,11 +84,21 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var regatta = await _context.Regattas.SingleOrDefaultAsync(m => m.Id == id);
+            var regatta = await _context.Regattas
+                .Include(r => r.CreatedBy)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (regatta == null)
             {
                 return NotFound();
             }
+
+            string _userId = GetCurrentUser().Id;
+
+            if(regatta.CreatedBy.Id != _userId)
+            {
+                return Forbid();
+            }
+
             return View(regatta);
         }
 
@@ -87,7 +107,7 @@ namespace ROS.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Title,Description,Address,Id")] Regatta regatta)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Title,Description,StartTime,EndTime,Address,Id")] Regatta regatta)
         {
             if (id != regatta.Id)
             {
@@ -126,10 +146,16 @@ namespace ROS.Web.Controllers
             }
 
             var regatta = await _context.Regattas
+                .Include(r => r.CreatedBy)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (regatta == null)
             {
                 return NotFound();
+            }
+
+            if(regatta.CreatedBy.Id != GetCurrentUser().Id)
+            {
+                return Forbid();
             }
 
             return View(regatta);
@@ -150,5 +176,14 @@ namespace ROS.Web.Controllers
         {
             return _context.Regattas.Any(e => e.Id == id);
         }
+
+        #region Helpers
+
+        public ApplicationUser GetCurrentUser()
+        {
+            return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+        }
+
+        #endregion
     }
 }
