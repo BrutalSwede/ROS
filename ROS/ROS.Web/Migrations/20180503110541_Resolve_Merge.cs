@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ROS.Web.Migrations
 {
-    public partial class Initialö : Migration
+    public partial class Resolve_Merge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,17 +29,19 @@ namespace ROS.Web.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     IcePhone = table.Column<string>(nullable: true),
-                    Lastname = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
@@ -49,21 +51,6 @@ namespace ROS.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Results",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CalculatedDistance = table.Column<double>(nullable: false),
-                    CalculatedTime = table.Column<TimeSpan>(nullable: false),
-                    Distance = table.Column<double>(nullable: false),
-                    Time = table.Column<TimeSpan>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Results", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,36 +207,15 @@ namespace ROS.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedById = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 500, nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
-                    EventType = table.Column<int>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    Title = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Events", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Events_AspNetUsers_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Regattas",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Address = table.Column<string>(nullable: false),
                     CreatedById = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    Description = table.Column<string>(maxLength: 1000, nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -419,11 +385,6 @@ namespace ROS.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_CreatedById",
-                table: "Events",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Regattas_CreatedById",
                 table: "Regattas",
                 column: "CreatedById");
@@ -453,13 +414,7 @@ namespace ROS.Web.Migrations
                 name: "CrewUser");
 
             migrationBuilder.DropTable(
-                name: "Events");
-
-            migrationBuilder.DropTable(
                 name: "Regattas");
-
-            migrationBuilder.DropTable(
-                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
