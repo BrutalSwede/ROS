@@ -11,8 +11,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180427093254_resolve-merge-conflicts")]
-    partial class resolvemergeconflicts
+    [Migration("20180503110541_Resolve_Merge")]
+    partial class Resolve_Merge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

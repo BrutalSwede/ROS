@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ROS.Web.Migrations
 {
-    public partial class resolvemergeconflicts : Migration
+    public partial class Resolve_Merge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

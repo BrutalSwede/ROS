@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignInManager 
+@inject UserManager<ApplicationUser> UserManager
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,6 +31,14 @@
                 <li class="nav-item">
                     <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a>
                 </li>
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="nav-link">Admin</a>
+                    </li>
+
+                }
+
             </ul>
             <span class="navbar-text">
                 @await Html.PartialAsync("_LoginPartial")
