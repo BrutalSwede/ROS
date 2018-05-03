@@ -11,7 +11,7 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180503110541_Resolve_Merge")]
+    [Migration("20180503112216_Resolve_Merge")]
     partial class Resolve_Merge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -331,6 +331,30 @@ namespace ROS.Web.Migrations
                     b.ToTable("Regattas");
                 });
 
+            modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("BoatId");
+
+                    b.Property<string>("Message");
+
+                    b.Property<Guid>("RegattaId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoatId");
+
+                    b.HasIndex("RegattaId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RegattaRegistration");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -431,6 +455,23 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>
+                {
+                    b.HasOne("ROS.Web.Models.Boat", "Boat")
+                        .WithMany()
+                        .HasForeignKey("BoatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.Regatta", "Regatta")
+                        .WithMany("Registrations")
+                        .HasForeignKey("RegattaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

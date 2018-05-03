@@ -281,6 +281,39 @@ namespace ROS.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RegattaRegistration",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    BoatId = table.Column<Guid>(nullable: false),
+                    Message = table.Column<string>(nullable: true),
+                    RegattaId = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegattaRegistration", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RegattaRegistration_Boats_BoatId",
+                        column: x => x.BoatId,
+                        principalTable: "Boats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RegattaRegistration_Regattas_RegattaId",
+                        column: x => x.RegattaId,
+                        principalTable: "Regattas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RegattaRegistration_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CrewUser",
                 columns: table => new
                 {
@@ -385,6 +418,21 @@ namespace ROS.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RegattaRegistration_BoatId",
+                table: "RegattaRegistration",
+                column: "BoatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegattaRegistration_RegattaId",
+                table: "RegattaRegistration",
+                column: "RegattaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegattaRegistration_UserId",
+                table: "RegattaRegistration",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Regattas_CreatedById",
                 table: "Regattas",
                 column: "CreatedById");
@@ -414,7 +462,7 @@ namespace ROS.Web.Migrations
                 name: "CrewUser");
 
             migrationBuilder.DropTable(
-                name: "Regattas");
+                name: "RegattaRegistration");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -424,6 +472,9 @@ namespace ROS.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Crews");
+
+            migrationBuilder.DropTable(
+                name: "Regattas");
 
             migrationBuilder.DropTable(
                 name: "Boats");
