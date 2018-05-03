@@ -37,6 +37,18 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (Model.Owner.UserName == Context.User.Identity.Name)
+    {
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        </div>
+
+    }
+    else
+    {
+        <div>
+            <a href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta klubbens ägare</a>
+        </div>
+    }
     <a asp-action="Index">Back to List</a>
 </div>
