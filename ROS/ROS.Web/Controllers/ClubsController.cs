@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,16 @@ namespace ROS.Web.Controllers
     public class ClubsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ClubsController(ApplicationDbContext context)
+        public ClubsController(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         // GET: Clubs
@@ -56,10 +63,14 @@ namespace ROS.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,FoundedDate,JoinedDate,IsActive,Id")] Club club)
         {
-            
             if (ModelState.IsValid)
             {
                 club.Owner = _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+
+                // Adds "Club Admin"-role to the user
+                var user = _context.Users.FirstOrDefault(o => o.UserName == club.Owner.UserName);
+                await _userManager.AddToRoleAsync(user, "Club Admin");
+
                 club.JoinedDate = DateTime.Now;
                 club.IsActive = true;
                 club.Id = Guid.NewGuid();

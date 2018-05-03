@@ -12,7 +12,6 @@ using ROS.Web.Models;
 
 namespace ROS.Web.Controllers
 {
-    [Authorize]
     public class BoatsController : Controller
     {
         private readonly ApplicationDbContext _context;
