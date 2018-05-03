@@ -33,20 +33,20 @@
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-
+                
 
                 <div id="map" style="height:300px; width: 100%;"></div>
                 <!-- Replace the value of the key parameter with your own API key. -->
                 <script src="~/js/maps.js"></script>
 
                 <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADpGQkpO2VrLNxfIAUZ2BU_kKbMg2mZ2o&callback=initialize&libraries=places">
+                        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyADpGQkpO2VrLNxfIAUZ2BU_kKbMg2mZ2o&callback=initialize">
                 </script>
 
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" placeholder="Adress eller koordinat" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
-                <input class="btn btn-success" type="button" value="Visa på kartan" onclick="codeAddress()">
+                <input id="mapsGeocode" class="btn btn-success" type="button" value="Visa på kartan" onclick="codeAddress()">
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -61,4 +61,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    
 }
