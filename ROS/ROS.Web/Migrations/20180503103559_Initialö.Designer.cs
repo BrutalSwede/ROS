@@ -12,8 +12,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423081351_CreateEventModel")]
-    partial class CreateEventModel
+    [Migration("20180503103559_Initialö")]
+    partial class Initialö
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,6 +304,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CreatedById");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500);
@@ -320,7 +322,52 @@ namespace ROS.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedById");
+
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("CreatedById");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("Regattas");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Result", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("CalculatedDistance");
+
+                    b.Property<TimeSpan>("CalculatedTime");
+
+                    b.Property<double>("Distance");
+
+                    b.Property<TimeSpan>("Time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -416,6 +463,20 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
                 });
 #pragma warning restore 612, 618
         }
