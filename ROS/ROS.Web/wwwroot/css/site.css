@@ -1,11 +1,89 @@
 ﻿body {
     padding-bottom: 20px;
 }
+nav {
+    background-color: #085394;
+    height:10vh;
+}
+
+.container-fluid {
+    height:100%;
+    background-color:black;
+    color:black;
+}
+
+#sidebar {
+    min-width: 170px;
+    max-width: 170px;
+    height:90vh;
+    overflow: hidden;
+    z-index: 3;
+    background-color: black;
+}
+#sidebar .list-group-item{
+    background-color: black;
+    color: white;
+}
+
+
+footer {
+    position:absolute;
+    bottom:0;
+    left:45%;
+    height:1.7em;
+    clear:both;
+}
+
+
+@media (max-width:768px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 40px;
+        transition: all 0.25s ease;
+        position: fixed;
+        height: 100%;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+            overflow: visible;
+        }
+
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
+
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+        }
+            /* overlay sub levels on small screens */
+            #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+                position: relative;
+                z-index: 1;
+                width: 190px;
+                top: 0;
+            }
+
+    #sidebar .list-group > .list-group-item {
+        text-align: center;
+        padding: .75rem .5rem;
+    }
+}
+
+
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
+    padding-left: 0;
     padding-right: 15px;
 }
 
