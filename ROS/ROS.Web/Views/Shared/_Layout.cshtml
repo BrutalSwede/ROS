@@ -31,15 +31,15 @@
         <div class="row d-flex d-md-block flex-nowrap wrapper">
             <div class="col-md-3 float-left col-1 pl-0 pr-0 width show" id="sidebar">
                 <div class="list-group border-0 card text-center text-md-left">
-                    <a href="/Home/Index" class="list-group-item d-inline-block"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Home</span></a>
-                    <a href="/Boats/Index" class="list-group-item d-inline-block"><i class="fa fa-anchor"></i> <span class="d-none d-md-inline">Boats</span></a>
+                    <a asp-controller="Home" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Home</span></a>
+                    <a asp-controller="Boats" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-anchor"></i> <span class="d-none d-md-inline">Boats</span></a>
                     <a href="#menu3" class="list-group-item d-inline-block" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Club</span></a>
                     <div class="collapse" id="menu3" data-parent="#sidebar" style="">
                         <a href="#" class="list-group-item" data-parent="#menu3">First</a>
                         <a href="#" class="list-group-item" data-parent="#menu3">Second</a>
                         <a href="#" class="list-group-item" data-parent="#menu3">Third</a>
                     </div>
-                    <a href="#" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Regatta</span></a>
+                    <a asp-controller="Regattas" asp-action="Index" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Regatta</span></a>
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="list-group-item d-inline-block collapsed">Admin</a>
