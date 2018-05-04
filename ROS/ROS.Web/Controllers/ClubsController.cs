@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.ClubViewModels;
 
 namespace ROS.Web.Controllers
 {
@@ -31,9 +32,18 @@ namespace ROS.Web.Controllers
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            var clubs = await _context.Clubs.Include(c => c.Owner).ToListAsync();
+            var clubs = await _context.Clubs.Include(c => c.Owner).Include(u => u.ClubUsers).ToListAsync();
 
-            return View(clubs);
+            var clubVMList = new List<GetClubsViewModel>();
+
+
+            foreach (var item in clubs)
+            {
+                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
+            }
+            
+
+            return View(clubVMList);
         }
 
         // GET: Clubs/Details/5
@@ -78,14 +88,18 @@ namespace ROS.Web.Controllers
                 club.JoinedDate = DateTime.Now;
                 club.IsActive = true;
                 club.Id = Guid.NewGuid();
+
+                // adds user to club user table
+                var clubUser = new ClubUser { User = user, ClubId = club.Id, Club = club, UserId = club.Owner.Id, Id = Guid.NewGuid() };
+                _context.Add(clubUser);
+
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(club);
         }
-
-        [Authorize(Roles = "Club Admin")]
+        
         // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
