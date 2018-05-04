@@ -76,8 +76,13 @@ namespace ROS.Web.Controllers
                 crew.Name = crewVM.Name;
                 crew.Captain = GetCurrentUser();
                 crew.BoatId = crewVM.SelectedBoatId;
-
                 crew.Id = Guid.NewGuid();
+
+                crew.Crewmen = new List<CrewUser>()
+                {
+                    new CrewUser {Id = Guid.NewGuid(), User = GetCurrentUser(), CrewId = crew.Id }
+                };
+
                 _context.Add(crew);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
