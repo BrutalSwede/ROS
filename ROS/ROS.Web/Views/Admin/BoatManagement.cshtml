@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<ROS.Web.Models.Boat>
+
+<h2>Boat Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Boats in the Database</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Boat ID</th>
+            <th>Owner</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        
+        @foreach (var boat in Model)
+        {
+            <tr>
+                <td>@boat.Id</td>
+                <td>@boat.Owner</td>
+                <td>@boat.Name</td>
+
+                <td>
+                    <form asp-action="DeleteBoat" asp-route-id="@boat.Id" method="post">
+                        @*<a class="btn btn-sm btn-primary" asp-action="EditBoat" asp-route-id="@boat.Id">Edit</a>*@
+                        <button type="submit" onclick="return confirm('Do you really want to delete this boat?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}

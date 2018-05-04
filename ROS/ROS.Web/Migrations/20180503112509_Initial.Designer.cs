@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423081351_CreateEventModel")]
-    partial class CreateEventModel
+    [Migration("20180503112509_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,6 +136,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -149,7 +150,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("IcePhone");
 
-                    b.Property<string>("Lastname");
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -162,6 +163,8 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
+
+                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
@@ -299,18 +302,21 @@ namespace ROS.Web.Migrations
                     b.ToTable("CrewUser");
                 });
 
-            modelBuilder.Entity("ROS.Web.Models.Event", b =>
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("CreatedById");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500);
+                        .HasMaxLength(1000);
 
                     b.Property<DateTime>("EndTime");
-
-                    b.Property<int>("EventType");
 
                     b.Property<DateTime>("StartTime");
 
@@ -320,7 +326,33 @@ namespace ROS.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events");
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("Regattas");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("BoatId");
+
+                    b.Property<string>("Message");
+
+                    b.Property<Guid>("RegattaId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoatId");
+
+                    b.HasIndex("RegattaId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RegattaRegistration");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -411,6 +443,30 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.Crew", "Crew")
                         .WithMany("Crewmen")
                         .HasForeignKey("CrewId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.Regatta", b =>
+                {
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>
+                {
+                    b.HasOne("ROS.Web.Models.Boat", "Boat")
+                        .WithMany()
+                        .HasForeignKey("BoatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.Regatta", "Regatta")
+                        .WithMany("Registrations")
+                        .HasForeignKey("RegattaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ROS.Web.Models.ApplicationUser", "User")

@@ -23,14 +23,50 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Address)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </dd>
     </dl>
 </div>
+
+@if (Context.User.Identity.IsAuthenticated)
+{ 
+        @*
+        Change it so that the register button only appears if you have not yet registered
+        Probably best to do this via a flag from the controller.
+        *@
+    <div>
+        <a asp-action="Register" asp-route-id="@Model.Id">Registrera dig</a>
+    </div>
+
+    <div>
+        <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title">Kontakta värden</a>
+    </div>
+}
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    @if (Model.CreatedBy.Email == Context.User.Identity.Name)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> @:|
+    }
     <a asp-action="Index">Back to List</a>
 </div>

@@ -103,6 +103,14 @@ footer {
     margin: 15px;
 }
 
+#mapsGeocode {
+    margin-top: 10px;
+}
+
+.max-glyph-count{
+    color:slategray;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
