@@ -1,37 +1,39 @@
 ﻿body {
     padding-bottom: 20px;
 }
+
 nav {
     background-color: #085394;
-    height:10vh;
+    height: 10vh;
 }
 
 .container-fluid {
-    height:100%;
-    background-color:black;
-    color:black;
+    height: 100%;
+    background-color: black;
+    color: black;
 }
 
 #sidebar {
     min-width: 170px;
     max-width: 170px;
-    height:90vh;
+    height: 90vh;
     overflow: hidden;
     z-index: 3;
     background-color: black;
 }
-#sidebar .list-group-item{
-    background-color: black;
-    color: white;
-}
+
+    #sidebar .list-group-item {
+        background-color: black;
+        color: white;
+    }
 
 
 footer {
-    position:absolute;
-    bottom:0;
-    left:45%;
-    height:1.7em;
-    clear:both;
+    position: absolute;
+    bottom: 0;
+    left: 45%;
+    height: 1.7em;
+    clear: both;
 }
 
 
@@ -52,17 +54,6 @@ footer {
             overflow: visible;
         }
 
-        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
-            position: relative;
-            z-index: 1;
-            width: 190px;
-            top: 0;
-        }
-
-        #sidebar, #sidebar .list-group {
-            min-width: 35px;
-        }
-            /* overlay sub levels on small screens */
             #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
                 position: relative;
                 z-index: 1;
@@ -70,10 +61,21 @@ footer {
                 top: 0;
             }
 
-    #sidebar .list-group > .list-group-item {
-        text-align: center;
-        padding: .75rem .5rem;
-    }
+            #sidebar, #sidebar .list-group {
+                min-width: 35px;
+            }
+                /* overlay sub levels on small screens */
+                #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+                    position: relative;
+                    z-index: 1;
+                    width: 190px;
+                    top: 0;
+                }
+
+                #sidebar .list-group > .list-group-item {
+                    text-align: center;
+                    padding: .75rem .5rem;
+                }
 }
 
 
@@ -107,9 +109,33 @@ footer {
     margin-top: 10px;
 }
 
-.max-glyph-count{
-    color:slategray;
+.max-glyph-count {
+    color: slategray;
 }
+
+/*Boat details page*/
+
+#boat-details-handicap {
+    margin: 0 0 10px 0;
+}
+
+    #boat-details-handicap th {
+        padding: 5px;
+    }
+
+    #boat-details-handicap tr > td {
+        text-align: center;
+    }
+
+.table-margined {
+    margin: 10px;
+}
+
+.small-text-grey {
+    font-size: 0.8em;
+    color: slategray;
+}
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
