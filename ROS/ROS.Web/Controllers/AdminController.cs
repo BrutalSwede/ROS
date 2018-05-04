@@ -156,8 +156,7 @@ namespace ROS.Web.Controllers
             return View("RegattaManagement", _context.Regattas);
         }
 
-
-        //TODO: Edit and Delete User, Boat, Club, Regatta
+        //TODO: Edit User, Boat, Club, Regatta?
 
 
     }
