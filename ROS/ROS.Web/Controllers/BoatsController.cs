@@ -40,14 +40,18 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
+            // We want both the Captain and the Crewmembers from the crew.
             var boat = await _context.Boats
+                .Include(b => b.Crews)              // It is possible to include properties on a collection:
+                .ThenInclude(c => c.Captain)        // https://github.com/aspnet/EntityFrameworkCore/issues/6560
+                .Include(b => b.Crews)
+                .ThenInclude(c => c.Crewmen)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (boat == null)
             {
                 return NotFound();
             }
-
-            
 
             return View(boat);
         }

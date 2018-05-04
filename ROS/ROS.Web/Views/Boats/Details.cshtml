@@ -4,18 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Boat</h4>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Type)
         </dt>
@@ -38,17 +30,40 @@
                 <th>Shorthand</th>
             </tr>
         </thead>
-        <tr>
-            <th scope="row">Försegel</th>
-            <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
-            <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
-        </tr>
-        <tr>
-            <th scope="row">u. Försegel</th>
-            <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
-            <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
-        </tr>
+        <tbody>
+            <tr>
+                <th scope="row">Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
+            </tr>
+            <tr>
+                <th scope="row">u. Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
+            </tr>
+        </tbody>
     </table>
+
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>Besättningsnamn</th>
+                <th>Kapten</th>
+                <th>Besättningsmedlemmar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
+            {
+                <tr>
+                    <td>@Model.Crews[crewIndex].Name</td>
+                    <td>@Model.Crews[crewIndex].Captain.UserName</td>
+                    <td>@Model.Crews[crewIndex].Crewmen.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
