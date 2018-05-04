@@ -33,6 +33,25 @@
     color:slategray;
 }
 
+/*Boat details page*/
+#boat-details-handicap th {
+    padding: 5px;
+}
+
+#boat-details-handicap tr > td {
+    text-align: center;
+}
+
+.table-margined {
+    margin: 10px;
+}
+
+.small-text-grey {
+    font-size: 0.8em;
+    color: slategray;
+}
+
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
