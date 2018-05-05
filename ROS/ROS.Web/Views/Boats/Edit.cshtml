@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Change boat information</h2>
 
 <h4>Boat</h4>
 <hr />
@@ -13,38 +13,38 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="Name" class="form-control tabletext" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <label asp-for="Type" class="control-label lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="Type" class="form-control tabletext" />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Certificate" class="control-label"></label>
-                <input asp-for="Certificate" class="form-control" />
+                <label asp-for="Certificate" class="control-label lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="Certificate" class="form-control tabletext" />
                 <span asp-validation-for="Certificate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HandicapStandardWithForesail" class="control-label"></label>
-                <input asp-for="HandicapStandardWithForesail" class="form-control" />
+                <label asp-for="HandicapStandardWithForesail" class="control-label lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="HandicapStandardWithForesail" class="form-control tabletext" />
                 <span asp-validation-for="HandicapStandardWithForesail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HandicapStandardWithoutForesail" class="control-label"></label>
-                <input asp-for="HandicapStandardWithoutForesail" class="form-control" />
+                <label asp-for="HandicapStandardWithoutForesail" class="control-label  lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="HandicapStandardWithoutForesail" class="form-control  tabletext" />
                 <span asp-validation-for="HandicapStandardWithoutForesail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HandicapShorthandedWithForesail" class="control-label"></label>
-                <input asp-for="HandicapShorthandedWithForesail" class="form-control" />
+                <label asp-for="HandicapShorthandedWithForesail" class="control-label  lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="HandicapShorthandedWithForesail" class="form-control  tabletext" />
                 <span asp-validation-for="HandicapShorthandedWithForesail" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HandicapShorthandedWithoutForesail" class="control-label"></label>
-                <input asp-for="HandicapShorthandedWithoutForesail" class="form-control" />
+                <label asp-for="HandicapShorthandedWithoutForesail" class="control-label  lead text-dark font-weight-bold tablehead"></label>
+                <input asp-for="HandicapShorthandedWithoutForesail" class="form-control  tabletext" />
                 <span asp-validation-for="HandicapShorthandedWithoutForesail" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />

@@ -144,3 +144,22 @@ footer {
         display: none;
     }
 }
+
+
+
+.tablehead {
+    font-family: Verdana;
+    font-size: medium;
+}
+
+.tabletext {
+    font-family: Open-Sans;
+    font-size: medium;
+}
+
+.tableheadercolor {
+    color: red;
+}
+
+
+

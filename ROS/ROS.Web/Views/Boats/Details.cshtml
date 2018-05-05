@@ -2,22 +2,25 @@
 
 @{
     ViewData["Title"] = "Details";
+
 }
+
+<h1 class="font-weight-bold">Detail View</h1>
 
 <div>
     <h4>@Html.DisplayFor(model => model.Name)</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="dl-horizontal lead text-dark font-weight-bold tablehead">
+        <dt class="lead text-dark font-weight-bold tablehead">
             @Html.DisplayNameFor(model => model.Type)
         </dt>
-        <dd>
+        <dd class="tabletext font-weight-normal">
             @Html.DisplayFor(model => model.Type)
         </dd>
-        <dt>
+        <dt class="lead text-dark font-weight-bold tablehead">
             @Html.DisplayNameFor(model => model.Certificate)
         </dt>
-        <dd>
+        <dd class="tabletext font-weight-normal">
             @Html.DisplayFor(model => model.Certificate)
         </dd>
     </dl>
@@ -25,43 +28,46 @@
     <table id="boat-details-handicap" class="table-bordered">
         <thead>
             <tr>
-                <th><span class="small-text-grey">Handikapp</span></th>
-                <th>Normal</th>
-                <th>Shorthand</th>
+                <th><span class="lead text-dark font-weight-bold tablehead">Handikapp</span></th>
+                <th class="lead text-dark font-weight-bold tablehead">Normal</th>
+                <th class="lead text-dark font-weight-bold tablehead">Shorthand</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th scope="row">Försegel</th>
-                <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
-                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
+                <td class=" tabletext">@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
+                <td class=" tabletext">@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
             </tr>
             <tr>
                 <th scope="row">u. Försegel</th>
-                <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
-                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
+                <td class=" tabletext">@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
+                <td class=" tabletext">@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
             </tr>
         </tbody>
     </table>
 
     <table class="table-bordered">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <th>Besättningsnamn</th>
-                <th>Kapten</th>
-                <th>Besättningsmedlemmar</th>
-            </tr>
+                
+                    <th>Besättningsnamn</th>
+                    <th>Kapten</th>
+                    <th>Besättningsmedlemmar</th>
+               
+
+        </tr>
         </thead>
-        <tbody>
-            @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
-            {
-                <tr>
-                    <td>@Model.Crews[crewIndex].Name</td>
-                    <td>@Model.Crews[crewIndex].Captain.UserName</td>
-                    <td>@Model.Crews[crewIndex].Crewmen.Count()</td>
-                </tr>
-            }
-        </tbody>
+<tbody>
+    @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
+    {
+        <tr>
+            <td class=" tabletext">@Model.Crews[crewIndex].Name</td>
+            <td class=" tabletext">@Model.Crews[crewIndex].Captain.UserName</td>
+            <td class=" tabletext">@Model.Crews[crewIndex].Crewmen.Count()</td>
+        </tr>
+    }
+</tbody>
     </table>
 
 </div>

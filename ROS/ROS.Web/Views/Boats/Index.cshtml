@@ -4,69 +4,78 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h1 class="font-weight-bold">Register over available boats</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Certificate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Certificate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapStandardWithForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapStandardWithoutForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithoutForesail)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+
+<!-- <div class="container"> -->
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr class="lead text-dark font-weight-bold tablehead">
+                <th>
+                    <!-- bootstrap:  col-någonting -->
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Certificate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
+                    <!-- bootstrap:  col-någonting -->
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
+                    <!-- bootstrap:  col-någonting -->
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
+                    <!-- bootstrap:  col-någonting -->
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.Certificate)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.HandicapStandardWithForesail)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.HandicapStandardWithoutForesail)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.HandicapShorthandedWithForesail)
+                    </td>
+                    <td class="tabletext">
+                        @Html.DisplayFor(modelItem => item.HandicapShorthandedWithoutForesail)
+                    </td>
+                    <td class="tabletext">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!--   </div>  -->
