@@ -48,8 +48,17 @@
         </dd>
     </dl>
 </div>
+
 @if (Context.User.Identity.IsAuthenticated)
 { 
+        @*
+        Change it so that the register button only appears if you have not yet registered
+        Probably best to do this via a flag from the controller.
+        *@
+    <div>
+        <a asp-action="Register" asp-route-id="@Model.Id">Registrera dig</a>
+    </div>
+
     <div>
         <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title">Kontakta värden</a>
     </div>

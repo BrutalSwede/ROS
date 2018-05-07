@@ -11,50 +11,55 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="false" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">ROS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="About" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a>
-                </li>
-                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                {
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="nav-link">Admin</a>
-                    </li>
-
-                }
-
-            </ul>
             <span class="navbar-text">
                 @await Html.PartialAsync("_LoginPartial")
             </span>
 
         </div>
     </nav>
+    <div class="container-fluid">
+        <div class="row d-flex d-md-block flex-nowrap wrapper">
+            <div class="col-md-3 float-left col-1 pl-0 pr-0 width show" id="sidebar">
+                <div class="list-group border-0 card text-center text-md-left">
+                    <a asp-controller="Home" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-film"></i> <span class="d-none d-md-inline">Home</span></a>
+                    <a asp-controller="Boats" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-anchor"></i> <span class="d-none d-md-inline">Boats</span></a>
+                    <a href="#menu3" class="list-group-item d-inline-block" data-toggle="collapse" aria-expanded="false"><i class="fa fa-book"></i> <span class="d-none d-md-inline">Club</span></a>
+                    <div class="collapse" id="menu3" data-parent="#sidebar" style="">
+                        <a href="#" class="list-group-item" data-parent="#menu3">First</a>
+                        <a href="#" class="list-group-item" data-parent="#menu3">Second</a>
+                        <a href="#" class="list-group-item" data-parent="#menu3">Third</a>
+                    </div>
+                    <a asp-controller="Regattas" asp-action="Index" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-md-inline">Regatta</span></a>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="list-group-item d-inline-block collapsed">Admin</a>
+                    }
+                </div>
+            </div>
+            @*<main class="col-md-9 float-left col px-5 pl-md-2 pt-2 main">
+                <a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-1"></i></a>
+            </main>*@
+        </div>
+    </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; 2018 - ROS.Web</p>
         </footer>
     </div>
 
     @RenderSection("Scripts", required: false)
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
 </body>

@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.ClubViewModels;
 
 namespace ROS.Web.Controllers
 {
+    [Authorize]
     public class ClubsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,7 +32,18 @@ namespace ROS.Web.Controllers
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clubs.ToListAsync());
+            var clubs = await _context.Clubs.Include(c => c.Owner).Include(u => u.ClubUsers).ToListAsync();
+
+            var clubVMList = new List<GetClubsViewModel>();
+
+
+            foreach (var item in clubs)
+            {
+                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
+            }
+            
+
+            return View(clubVMList);
         }
 
         // GET: Clubs/Details/5
@@ -40,7 +54,7 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var club = await _context.Clubs
+            var club = await _context.Clubs.Include(o => o.Owner)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (club == null)
             {
@@ -74,13 +88,18 @@ namespace ROS.Web.Controllers
                 club.JoinedDate = DateTime.Now;
                 club.IsActive = true;
                 club.Id = Guid.NewGuid();
+
+                // adds user to club user table
+                var clubUser = new ClubUser { User = user, ClubId = club.Id, Club = club, UserId = club.Owner.Id, Id = Guid.NewGuid() };
+                _context.Add(clubUser);
+
                 _context.Add(club);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(club);
         }
-
+        
         // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -89,11 +108,19 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var club = await _context.Clubs.SingleOrDefaultAsync(m => m.Id == id);
+            var club = await _context.Clubs.Include(o => o.Owner).SingleOrDefaultAsync(m => m.Id == id);
             if (club == null)
             {
                 return NotFound();
             }
+
+            string _userId = GetCurrentUser().Id;
+
+            if (club.Owner.Id != _userId)
+            {
+                return Forbid();
+            }
+
             return View(club);
         }
 
@@ -140,11 +167,18 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var club = await _context.Clubs
+            var club = await _context.Clubs.Include(o => o.Owner)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (club == null)
             {
                 return NotFound();
+            }
+
+            string _userId = GetCurrentUser().Id;
+
+            if (club.Owner.Id != _userId)
+            {
+                return Forbid();
             }
 
             return View(club);
@@ -165,5 +199,13 @@ namespace ROS.Web.Controllers
         {
             return _context.Clubs.Any(e => e.Id == id);
         }
+
+        #region Helpers
+        public ApplicationUser GetCurrentUser()
+        {
+            return _context.Users.SingleOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+        }
+        #endregion
+
     }
 }

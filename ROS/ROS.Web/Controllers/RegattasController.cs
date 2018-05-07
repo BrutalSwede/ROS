@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.RegattaViewModels;
 
 namespace ROS.Web.Controllers
 {
@@ -76,7 +77,73 @@ namespace ROS.Web.Controllers
             return View(regatta);
         }
 
-        // GET: Regattas/Edit/5
+        // GET: Regattas/Register/{guid}
+        public async Task<IActionResult> Register(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var regatta = await _context.Regattas.SingleOrDefaultAsync(r => r.Id == id);
+
+            if (regatta == null)
+            {
+                return NotFound();
+            }
+
+            // Get the boats from the user and convert them to SelectListItems to be consumed by the view.
+            var _boatItems = _context.Boats.Where(b => b.Owner.Id == GetCurrentUser().Id)
+                .Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.Name }).ToList();
+
+            var regattaVm = new RegattaRegistrationViewModel { Regatta = regatta, BoatItems = new SelectList(_boatItems, "Value", "Text") };
+
+            return View(regattaVm);
+        }
+
+        [HttpPost, ActionName("Register")]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> RegisterConfirmed(Guid? id, RegattaRegistrationViewModel registration)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                Regatta regatta = await _context.Regattas.SingleOrDefaultAsync(r => r.Id == id);
+                var _user = GetCurrentUser();
+
+                // Check if there is already a registration for this user
+                if(_context.RegattaRegistration.FirstOrDefault(r => r.User.Id == _user.Id) != null)
+                {
+                    // If you have already registered you should be redirected somewhere else.
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Get the boat the user selected from the dropdown
+                Boat _boat = await _context.Boats.SingleOrDefaultAsync(b => b.Id == registration.SelectedBoatId);
+
+                var newRegistration = new RegattaRegistration
+                {
+                    Regatta = regatta,
+                    Boat = _boat,
+                    User = _user,
+                    Message = registration.Message
+                };
+
+                _context.RegattaRegistration.Add(newRegistration);
+                _context.SaveChanges();
+            }
+
+            // Create Registration confirmation view!
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // GET: Regattas/Edit/{guid}
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -94,7 +161,7 @@ namespace ROS.Web.Controllers
 
             string _userId = GetCurrentUser().Id;
 
-            if(regatta.CreatedBy.Id != _userId)
+            if (regatta.CreatedBy.Id != _userId)
             {
                 return Forbid();
             }
@@ -153,7 +220,7 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            if(regatta.CreatedBy.Id != GetCurrentUser().Id)
+            if (regatta.CreatedBy.Id != GetCurrentUser().Id)
             {
                 return Forbid();
             }
@@ -181,7 +248,7 @@ namespace ROS.Web.Controllers
 
         public ApplicationUser GetCurrentUser()
         {
-            return _context.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
+            return _context.Users.SingleOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
         }
 
         #endregion
