@@ -1,5 +1,5 @@
 ﻿body {
-    padding-bottom: 20px;
+    padding-bottom: 0;
 }
 
 nav {
@@ -7,16 +7,29 @@ nav {
     height: 10vh;
 }
 
-.container-fluid {
+div .fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 2%;
+    left: 0.3em;
+    align-content: center;
+    color: white;
+}
+
+/*.container-fluid {
     height: 100%;
     background-color: black;
     color: black;
+}*/
+
+#navbarSupportedContent {
+    justify-content: flex-end;
 }
 
 #sidebar {
     min-width: 170px;
     max-width: 170px;
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
     z-index: 3;
     background-color: black;
@@ -28,31 +41,38 @@ nav {
     }
 
 
-footer {
-    position: absolute;
-    bottom: 0;
-    left: 45%;
-    height: 1.7em;
-    clear: both;
-}
 
-
-@media (max-width:768px) {
+@media (max-width:767px) {
     #sidebar {
         min-width: 35px;
         max-width: 40px;
         transition: all 0.25s ease;
-        position: fixed;
-        height: 100%;
+        position: absolute;
+        height: 100vh;
         z-index: 3;
         transform: translateX(0);
         visibility: visible;
+    }
+
+        #navbarSupportedContent{
+            text-align:right;
+        }
+    
+    .navbar-text {
+        background: #085394;
+        padding-left: 2vh;
+        padding-right: 2vh;
     }
 
         #sidebar, #sidebar .list-group {
             min-width: 35px;
             overflow: visible;
         }
+
+    .fixed-bottom {
+        margin-bottom: 7em;
+        font-size: 8px;
+    }
 
             #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
                 position: relative;
@@ -76,9 +96,65 @@ footer {
                     text-align: center;
                     padding: .75rem .5rem;
                 }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 16em;
+    }
 }
 
+@media (max-width:322px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 40px;
+        transition: all 0.25s ease;
+        position: absolute;
+        height: 100vh;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
 
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+            overflow: visible;
+        }
+
+    .fixed-bottom {
+        margin-bottom: 7em;
+        font-size: 8px;
+    }
+
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
+
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
+        }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 13em;
+    }
+}
 
 
 
