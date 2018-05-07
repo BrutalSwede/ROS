@@ -1,5 +1,7 @@
 ﻿body {
-    padding-bottom: 0;
+    padding-bottom: 10px;
+    height:100%;
+    width:100%;
 }
 
 nav {
@@ -15,6 +17,9 @@ div .fixed-bottom {
     color: white;
 }
 
+.body-content{
+    margin-left:180px;
+}
 
 #navbarSupportedContent {
     justify-content: flex-end;
@@ -23,12 +28,11 @@ div .fixed-bottom {
 #sidebar {
     min-width: 170px;
     max-width: 170px;
-    height: 100vh;
     overflow: hidden;
     z-index: 3;
     background-color: black;
-    /*margin-bottom: -101%;
-    padding-bottom:101%;*/
+    margin-bottom: -101%;
+    padding-bottom:101%;
 }
 
     #sidebar .list-group-item {
@@ -97,6 +101,7 @@ div .fixed-bottom {
         padding-left: 0;
         padding-right: 0;
         max-width: 16em;
+        margin-left:45px;
     }
 }
 
