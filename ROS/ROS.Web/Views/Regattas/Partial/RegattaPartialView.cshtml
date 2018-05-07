@@ -1,0 +1,23 @@
+﻿@model ROS.Web.Models.Regatta
+
+@{
+    ViewData["Title"] = "RegattaPartialView";
+}
+
+<div class="card col-12 col-md-3" style="margin:0 5px 5px 0;">
+    <img src="https://via.placeholder.com/1920x1080" class="card-img-top" alt="Regatta-bild" />
+    <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(model => model.Title)</h5>
+        <p class="card-text">@Model.StartTime.ToString("dd MMM yyyy, HH:mm")</p>
+    </div>
+    <div class="card-footer">
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
+        }
+        else
+        {
+            <p class="card-text"><small class="text-muted">Logga in för att visa mer</small></p>
+        }
+    </div>
+</div>
