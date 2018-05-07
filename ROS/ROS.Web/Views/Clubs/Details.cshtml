@@ -40,29 +40,27 @@
                 <li class="list-group-item">
                     <p class="card-text">
                         @if (Model.IsActive)
-                        {
-                            @:<strong>Klubben är aktiv</strong>
-                        }
-                        else
-                        {
-                            @:<strong>Klubben är inaktiv</strong>
-                        }
+                    {
+                        @:<strong>Klubben är aktiv</strong>
+                }
+                else
+                {
+                    @:<strong>Klubben är inaktiv</strong>
+            }
                     </p>
                 </li>
             </ul>
 
-            <ul class="list-group list-overflow float-right col-12 col-md-8">
+            @*<ul class="list-group list-overflow float-right col-12 col-md-8">
                 @foreach (var clubMember in Model.ClubUsers)
                 {
                     <li class="list-group-item">
                         @clubMember.Id
 
                     </li>
-                }
-            </ul>
+
+            </ul>*@
         </div>
-
-
 
     </div>
     <div class="card-footer">

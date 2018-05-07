@@ -213,14 +213,11 @@ div .fixed-bottom {
     margin-right: 10px;
 }
 
-
-
 .list-overflow {
     height: 320px;
     width: 300px;
     overflow-y: scroll;
 }
-
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

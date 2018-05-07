@@ -7,10 +7,10 @@
 <div>
     <h1 class="display-4">Klubbar</h1>
 </div>
-
+<hr />
 @if (Context.User.Identity.IsAuthenticated)
 {
-    <h5>
+    <h5 class="pb-1">
         @Html.DisplayNameFor(model => model.ClubName) <a asp-action="index" asp-route-sortorder="@ViewData["NameSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
         @Html.DisplayNameFor(model => model.NumberOfMembers) <a asp-action="index" asp-route-sortorder="@ViewData["MemberSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
 
