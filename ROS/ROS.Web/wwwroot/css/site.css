@@ -13,7 +13,14 @@
 
 .centered {
     position: absolute;
-    top: 70%;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centered2 {
+    position: absolute;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -54,6 +61,25 @@ footer {
     left: 45%;
     height: 1.7em;
     clear: both;
+}
+
+.jumbotron {
+    background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
+    height: 90vh;
+    width: 175vh;
+    background-size: cover;
+}
+
+.jumbotronOld {
+    /* The image used */
+    background-image: url(/images/beach-blue-boat-996328.jpg);
+    /* Full height */
+    height: 90vh;
+    width: 180vh;
+    /* Center and scale the image nicely */
+    background-position: center,bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
@@ -164,3 +190,5 @@ footer {
         display: none;
     }
 }
+
+

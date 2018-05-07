@@ -1,15 +1,22 @@
-﻿@{
+﻿@model IEnumerable<ROS.Web.Models.Regatta>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
-    <div class="container">
-        <img class="rounded" src="~/images/pic1.jpg" />
-        <h1 class="centered">Välkommen till ROS</h1>
-        
+    <div class="jumbotron">
+        <h1>Välkommen till ROS</h1>
+        <div>
+            @foreach (Regatta R in Model)
+        {
+            <div>Title @R.Title | StartTime @R.StartTime | EndTime @R.EndTime</div>
+    }
+        </div>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
     </div>
-    <div class="news">
-        NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
 
-    </div>
+
+
+
