@@ -1,48 +1,110 @@
 ﻿body {
-    padding-bottom: 20px;
-}
-nav {
-    background-color: #085394;
-    height:10vh;
+    padding-bottom: 0;
 }
 
-.container-fluid {
-    height:100%;
-    background-color:black;
-    color:black;
+nav {
+    background-color: #085394;
+    height: 10vh;
+}
+
+div .fixed-bottom {
+    position: fixed;
+    right: 0;
+    left: 0.3em;
+    align-content: center;
+    color: white;
+}
+
+
+#navbarSupportedContent {
+    justify-content: flex-end;
 }
 
 #sidebar {
     min-width: 170px;
     max-width: 170px;
-    height:90vh;
+    height: 100vh;
     overflow: hidden;
     z-index: 3;
     background-color: black;
-}
-#sidebar .list-group-item{
-    background-color: black;
-    color: white;
+    /*margin-bottom: -101%;
+    padding-bottom:101%;*/
 }
 
-
-footer {
-    position:absolute;
-    bottom:0;
-    left:45%;
-    height:1.7em;
-    clear:both;
-}
-
-
+    #sidebar .list-group-item {
+        background-color: black;
+        color: white;
+    }
 
 @media (max-width:768px) {
     #sidebar {
         min-width: 35px;
-        max-width: 40px;
+        max-width: 35px;
         transition: all 0.25s ease;
-        position: fixed;
-        height: 100%;
+        position: absolute;
+        height: 100vh;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+
+        #navbarSupportedContent{
+            text-align:right;
+        }
+    
+    .navbar-text {
+        background: #085394;
+        padding-left: 2vh;
+        padding-right: 2vh;
+    }
+
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+            overflow: visible;
+        }
+
+    .fixed-bottom {
+        font-size: 8px;
+    }
+
+            #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+                position: relative;
+                z-index: 1;
+                width: 190px;
+                top: 0;
+            }
+
+            #sidebar, #sidebar .list-group {
+                min-width: 35px;
+            }
+                /* overlay sub levels on small screens */
+                #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+                    position: relative;
+                    z-index: 1;
+                    width: 190px;
+                    top: 0;
+                }
+
+                #sidebar .list-group > .list-group-item {
+                    text-align: center;
+                    padding: .75rem .5rem;
+                }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 16em;
+    }
+}
+
+@media (max-width:322px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 35px;
+        transition: all 0.25s ease;
+        position: absolute;
+        height: 100vh;
         z-index: 3;
         transform: translateX(0);
         visibility: visible;
@@ -53,6 +115,21 @@ footer {
             overflow: visible;
         }
 
+    .fixed-bottom {
+        font-size: 8px;
+    }
+
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
         #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
             position: relative;
             z-index: 1;
@@ -60,24 +137,17 @@ footer {
             top: 0;
         }
 
-        #sidebar, #sidebar .list-group {
-            min-width: 35px;
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
         }
-            /* overlay sub levels on small screens */
-            #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
-                position: relative;
-                z-index: 1;
-                width: 190px;
-                top: 0;
-            }
 
-    #sidebar .list-group > .list-group-item {
-        text-align: center;
-        padding: .75rem .5rem;
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 13em;
     }
 }
-
-
 
 
 
@@ -108,12 +178,38 @@ footer {
     margin-top: 10px;
 }
 
-.max-glyph-count{
-    color:slategray;
+.max-glyph-count {
+    color: slategray;
+}
+
+/*Boat details page*/
+
+#boat-details-handicap {
+    margin: 0 0 10px 0;
 }
 
 .nounderline {
     text-decoration: none !important;
+}
+    #boat-details-handicap th {
+        padding: 5px;
+    }
+
+    #boat-details-handicap tr > td {
+        text-align: center;
+    }
+
+.table-margined {
+    margin: 10px;
+}
+
+.small-text-grey {
+    font-size: 0.8em;
+    color: slategray;
+}
+
+.regatta-card-img {
+    margin-right: 10px;
 }
 
 /* Hide/rearrange for smaller screens */

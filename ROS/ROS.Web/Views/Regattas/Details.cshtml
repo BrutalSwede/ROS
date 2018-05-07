@@ -1,11 +1,8 @@
 ﻿@model ROS.Web.Models.Regatta
-
 @{
     ViewData["Title"] = "Details";
 }
-
 <h2>Details</h2>
-
 <div>
     <h4>Regatta</h4>
     <hr />
@@ -38,8 +35,8 @@
             @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
+</dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
@@ -48,16 +45,20 @@
         </dd>
     </dl>
 </div>
-
 @if (Context.User.Identity.IsAuthenticated)
-{ 
-        @*
-        Change it so that the register button only appears if you have not yet registered
-        Probably best to do this via a flag from the controller.
-        *@
-    <div>
-        <a asp-action="Register" asp-route-id="@Model.Id">Registrera dig</a>
-    </div>
+{
+    @if (ViewBag.IsRegistered)
+    {
+        <div>
+            Du har redan registrerat dig.
+        </div>
+    }
+    else
+    {
+        <div>
+            <a asp-action="Register" asp-route-id="@Model.Id">Registrera dig</a>
+        </div>
+    }
 
     <div>
         <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title">Kontakta värden</a>

@@ -4,18 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Boat</h4>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Type)
         </dt>
@@ -28,31 +20,50 @@
         <dd>
             @Html.DisplayFor(model => model.Certificate)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HandicapStandardWithForesail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HandicapStandardWithoutForesail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HandicapShorthandedWithForesail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)
-        </dd>
     </dl>
+
+    <table id="boat-details-handicap" class="table-bordered">
+        <thead>
+            <tr>
+                <th><span class="small-text-grey">Handikapp</span></th>
+                <th>Normal</th>
+                <th>Shorthand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
+            </tr>
+            <tr>
+                <th scope="row">u. Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>Besättningsnamn</th>
+                <th>Kapten</th>
+                <th>Besättningsmedlemmar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
+            {
+                <tr>
+                    <td>@Model.Crews[crewIndex].Name</td>
+                    <td>@Model.Crews[crewIndex].Captain.UserName</td>
+                    <td>@Model.Crews[crewIndex].Crewmen.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
