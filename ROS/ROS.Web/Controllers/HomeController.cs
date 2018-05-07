@@ -4,15 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ROS.Web.Data;
 using ROS.Web.Models;
 
 namespace ROS.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<Regatta> RList = _context.Regattas.ToList();
+            return View(RList);
         }
 
         public IActionResult About()

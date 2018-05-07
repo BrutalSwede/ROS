@@ -1,7 +1,6 @@
-﻿body {
-    padding-bottom: 10px;
-    height:100%;
-    width:100%;
+﻿
+body {
+    padding-bottom: 20px;
 }
 
 nav {
@@ -39,6 +38,13 @@ div .fixed-bottom {
         background-color: black;
         color: white;
     }
+
+.jumbotron {
+    background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
+    height: 90vh;
+    width: 175vh;
+    background-size: cover;
+}
 
 @media (max-width:768px) {
     #sidebar {
@@ -224,3 +230,5 @@ div .fixed-bottom {
         display: none;
     }
 }
+
+
