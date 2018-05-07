@@ -13,7 +13,7 @@
     <div class="card-footer">
         @if (Context.User.Identity.IsAuthenticated)
         {
-            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
+            <a asp-controller="Regattas" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
         }
         else
         {
