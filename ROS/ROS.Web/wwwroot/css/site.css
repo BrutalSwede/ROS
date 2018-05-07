@@ -10,17 +10,11 @@ nav {
 div .fixed-bottom {
     position: fixed;
     right: 0;
-    bottom: 2%;
     left: 0.3em;
     align-content: center;
     color: white;
 }
 
-/*.container-fluid {
-    height: 100%;
-    background-color: black;
-    color: black;
-}*/
 
 #navbarSupportedContent {
     justify-content: flex-end;
@@ -33,6 +27,8 @@ div .fixed-bottom {
     overflow: hidden;
     z-index: 3;
     background-color: black;
+    /*margin-bottom: -101%;
+    padding-bottom:101%;*/
 }
 
     #sidebar .list-group-item {
@@ -45,7 +41,7 @@ div .fixed-bottom {
 @media (max-width:767px) {
     #sidebar {
         min-width: 35px;
-        max-width: 40px;
+        max-width: 35px;
         transition: all 0.25s ease;
         position: absolute;
         height: 100vh;
@@ -53,6 +49,7 @@ div .fixed-bottom {
         transform: translateX(0);
         visibility: visible;
     }
+
 
         #navbarSupportedContent{
             text-align:right;
@@ -70,7 +67,6 @@ div .fixed-bottom {
         }
 
     .fixed-bottom {
-        margin-bottom: 7em;
         font-size: 8px;
     }
 
@@ -107,7 +103,7 @@ div .fixed-bottom {
 @media (max-width:322px) {
     #sidebar {
         min-width: 35px;
-        max-width: 40px;
+        max-width: 35px;
         transition: all 0.25s ease;
         position: absolute;
         height: 100vh;
@@ -122,7 +118,6 @@ div .fixed-bottom {
         }
 
     .fixed-bottom {
-        margin-bottom: 7em;
         font-size: 8px;
     }
 
