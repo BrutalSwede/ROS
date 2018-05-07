@@ -30,20 +30,55 @@ namespace ROS.Web.Controllers
         }
 
         // GET: Clubs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
             var clubs = await _context.Clubs.Include(c => c.Owner).Include(u => u.ClubUsers).ToListAsync();
 
             var clubVMList = new List<GetClubsViewModel>();
 
-
             foreach (var item in clubs)
             {
                 clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
             }
-            
 
-            return View(clubVMList);
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["MemberSortParm"] = sortOrder == "member" ? "member_desc" : "member";
+
+            var sortQuery = from x in clubVMList
+                            select x;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    sortQuery = sortQuery.OrderByDescending(s => s.ClubName);
+                    break;
+
+                case "name":
+                    sortQuery = sortQuery.OrderBy(s => s.ClubName);
+                    break;
+
+                case "date":
+                    sortQuery = sortQuery.OrderBy(s => s.FoundedDate);
+                    break;
+
+                case "date_desc":
+                    sortQuery = sortQuery.OrderByDescending(s => s.FoundedDate);
+                    break;
+
+                case "member":
+                    sortQuery = sortQuery.OrderBy(s => s.NumberOfMembers);
+                    break;
+
+                case "member_desc":
+                    sortQuery = sortQuery.OrderByDescending(s => s.NumberOfMembers);
+                    break;
+
+                default:
+                    break;
+            }
+            
+            return View(sortQuery);
         }
 
         // GET: Clubs/Details/5
@@ -99,7 +134,7 @@ namespace ROS.Web.Controllers
             }
             return View(club);
         }
-        
+
         // GET: Clubs/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {

@@ -4,62 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Clubs</h2>
+<div class="jumbotron text-center">
+    <h1 class="display-4">Klubbar</h1>
+</div>
 
 @if (Context.User.Identity.IsAuthenticated)
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClubName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfMembers)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoundedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClubName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfMembers)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FoundedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ClubId">Details</a>
-                    @if (Context.User.Identity.Name == item.Owner.UserName)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.ClubId">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.ClubId">Delete</a>
-                    }
-                    else
-                    {
-                        <a asp-action="Apply" asp-route-id="@item.ClubId">Apply</a>
-                    }
+    <h5 class="text-center">
+            @Html.DisplayNameFor(model => model.ClubName) <a asp-action="index" asp-route-sortorder="@ViewData["NameSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
+        @Html.DisplayNameFor(model => model.NumberOfMembers) <a asp-action="index" asp-route-sortorder="@ViewData["MemberSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        @Html.DisplayNameFor(model => model.FoundedDate)
+        <a asp-action="index" asp-route-sortorder="@ViewData["DateSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
+    </h5>
+
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("Partial/ClubListItem", item);
+    }
+}
+

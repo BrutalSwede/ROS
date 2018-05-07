@@ -34,34 +34,34 @@ nav {
     height: 10vh;
 }
 
-.container-fluid {
-    height: 100%;
-    background-color: black;
-    color: black;
+div .fixed-bottom {
+    position: fixed;
+    right: 0;
+    left: 0.3em;
+    align-content: center;
+    color: white;
+}
+
+
+#navbarSupportedContent {
+    justify-content: flex-end;
 }
 
 #sidebar {
     min-width: 170px;
     max-width: 170px;
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
     z-index: 3;
     background-color: black;
+    /*margin-bottom: -101%;
+    padding-bottom:101%;*/
 }
 
     #sidebar .list-group-item {
         background-color: black;
         color: white;
     }
-
-
-footer {
-    position: absolute;
-    bottom: 0;
-    left: 45%;
-    height: 1.7em;
-    clear: both;
-}
 
 .jumbotron {
     background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
@@ -70,35 +70,37 @@ footer {
     background-size: cover;
 }
 
-.jumbotronOld {
-    /* The image used */
-    background-image: url(/images/beach-blue-boat-996328.jpg);
-    /* Full height */
-    height: 90vh;
-    width: 180vh;
-    /* Center and scale the image nicely */
-    background-position: center,bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
 @media (max-width:768px) {
     #sidebar {
         min-width: 35px;
-        max-width: 40px;
+        max-width: 35px;
         transition: all 0.25s ease;
-        position: fixed;
-        height: 100%;
+        position: absolute;
+        height: 100vh;
         z-index: 3;
         transform: translateX(0);
         visibility: visible;
+    }
+
+
+        #navbarSupportedContent{
+            text-align:right;
+        }
+    
+    .navbar-text {
+        background: #085394;
+        padding-left: 2vh;
+        padding-right: 2vh;
     }
 
         #sidebar, #sidebar .list-group {
             min-width: 35px;
             overflow: visible;
         }
+
+    .fixed-bottom {
+        font-size: 8px;
+    }
 
             #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
                 position: relative;
@@ -122,9 +124,64 @@ footer {
                     text-align: center;
                     padding: .75rem .5rem;
                 }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 16em;
+    }
 }
 
+@media (max-width:322px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 35px;
+        transition: all 0.25s ease;
+        position: absolute;
+        height: 100vh;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
 
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+            overflow: visible;
+        }
+
+    .fixed-bottom {
+        font-size: 8px;
+    }
+
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
+
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
+        }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 13em;
+    }
+}
 
 
 
@@ -165,6 +222,9 @@ footer {
     margin: 0 0 10px 0;
 }
 
+.nounderline {
+    text-decoration: none !important;
+}
     #boat-details-handicap th {
         padding: 5px;
     }
@@ -182,6 +242,9 @@ footer {
     color: slategray;
 }
 
+.regatta-card-img {
+    margin-right: 10px;
+}
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
