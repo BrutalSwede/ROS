@@ -35,8 +35,8 @@
             @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
+</dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
