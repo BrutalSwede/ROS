@@ -5,7 +5,7 @@
     ViewData["Title"] = "ClubListItem";
 }
 
-<div class="card col-sm-5 col-sx-12 float-left mr-1">
+<div class="card col-12 col-md-3" style="margin:0 5px 5px 0;">
     <div class="card-body">
         <h5 class="card-title">
             <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark"> @Html.DisplayFor(modelItem => Model.ClubName)</a>
@@ -16,25 +16,23 @@
         <p class="card-text">
             <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>  @Html.DisplayFor(modelitem => Model.FoundedDate)
         </p>
-        @if (Model.IsActive)
+        <br>
+        <p class="card-text">
+            @if (Model.IsActive)
+            {
+                @:<strong>Klubben är aktiv</strong>
+            }
+            else
+            {
+                @:<strong>Klubben är inaktiv</strong>
+            }
+        </p>
+    </div>
+    <div class="card-footer">
+        @if (Context.User.Identity.Name != Model.Owner.UserName)
         {
-        <strong> Aktiv</strong>
+            <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark">Ansök</a>
         }
-        else
-        {
-        <strong> Inaktiv</strong>
-        }
-
-        @if (Context.User.Identity.Name == Model.Owner.UserName)
-        {
-            <a asp-action="Delete" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ta bort</a>
-            <a asp-action="Edit" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ändra</a>
-        }
-        else
-        {
-            <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ansök</a>
-        }
-        <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Visa </a>
-
+        <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-success float-right">Visa ></a>
     </div>
 </div>

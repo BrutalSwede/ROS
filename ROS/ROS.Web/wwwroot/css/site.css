@@ -49,47 +49,47 @@ div .fixed-bottom {
     }
 
 
-        #navbarSupportedContent{
-            text-align:right;
-        }
-    
+    #navbarSupportedContent {
+        text-align: right;
+    }
+
     .navbar-text {
         background: #085394;
         padding-left: 2vh;
         padding-right: 2vh;
     }
 
-        #sidebar, #sidebar .list-group {
-            min-width: 35px;
-            overflow: visible;
-        }
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+        overflow: visible;
+    }
 
     .fixed-bottom {
         font-size: 8px;
     }
 
-            #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
-                position: relative;
-                z-index: 1;
-                width: 190px;
-                top: 0;
-            }
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
 
-            #sidebar, #sidebar .list-group {
-                min-width: 35px;
-            }
-                /* overlay sub levels on small screens */
-                #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
-                    position: relative;
-                    z-index: 1;
-                    width: 190px;
-                    top: 0;
-                }
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
 
-                #sidebar .list-group > .list-group-item {
-                    text-align: center;
-                    padding: .75rem .5rem;
-                }
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
+        }
 
     .body-content {
         padding-left: 0;
@@ -191,13 +191,14 @@ div .fixed-bottom {
 .nounderline {
     text-decoration: none !important;
 }
-    #boat-details-handicap th {
-        padding: 5px;
-    }
 
-    #boat-details-handicap tr > td {
-        text-align: center;
-    }
+#boat-details-handicap th {
+    padding: 5px;
+}
+
+#boat-details-handicap tr > td {
+    text-align: center;
+}
 
 .table-margined {
     margin: 10px;
@@ -211,6 +212,15 @@ div .fixed-bottom {
 .regatta-card-img {
     margin-right: 10px;
 }
+
+
+
+.list-overflow {
+    height: 320px;
+    width: 300px;
+    overflow-y: scroll;
+}
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
