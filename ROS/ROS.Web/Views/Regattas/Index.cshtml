@@ -13,7 +13,9 @@
     </p>
 }
 
-@foreach (var item in Model)
-{
-    @await Html.PartialAsync("Partial/RegattaPartialView", item)
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("Partial/RegattaPartialView", item)
+    }
+</div>

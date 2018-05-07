@@ -4,11 +4,18 @@
     ViewData["Title"] = "RegattaPartialView";
 }
 
-<div class="card" style="margin-bottom:5px;">
+<div class="card col-xs-12 col-sm-3" style="margin:0 5px 5px 0;">
+    <img src="https://via.placeholder.com/1920x1080" class="card-img-top" alt="Regatta-bild" />
     <div class="card-body">
-        <img src="http://via.placeholder.com/150x100" class="float-left regatta-card-img" alt="Regatta-bild" />
         <h5 class="card-title">@Html.DisplayFor(model => model.Title)</h5>
-        <p class="card-text">@Html.DisplayFor(model => model.StartTime)</p>
-        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
+        <p class="card-text">@Model.StartTime.ToString("dd MMM yyyy, HH:mm")</p>
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
+        }
+        else
+        {
+            <p class="card-text"><small class="text-muted">Logga in för att visa mer</small></p>
+        }
     </div>
 </div>
