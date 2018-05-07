@@ -4,18 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Club</h4>
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FoundedDate)
         </dt>
@@ -42,7 +34,6 @@
         <div>
             <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
         </div>
-
     }
     else
     {

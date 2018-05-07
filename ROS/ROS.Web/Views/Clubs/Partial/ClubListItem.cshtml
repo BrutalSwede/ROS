@@ -1,0 +1,40 @@
+﻿@model ROS.Web.Models.ClubViewModels.GetClubsViewModel;
+
+
+@{
+    ViewData["Title"] = "ClubListItem";
+}
+
+<div class="card col-sm-5 col-sx-12 float-left mr-1">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark"> @Html.DisplayFor(modelItem => Model.ClubName)</a>
+        </h5>
+        <p class="card-text">
+            <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
+        </p>
+        <p class="card-text">
+            <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>  @Html.DisplayFor(modelitem => Model.FoundedDate)
+        </p>
+        @if (Model.IsActive)
+        {
+        <strong> Aktiv</strong>
+        }
+        else
+        {
+        <strong> Inaktiv</strong>
+        }
+
+        @if (Context.User.Identity.Name == Model.Owner.UserName)
+        {
+            <a asp-action="Delete" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ta bort</a>
+            <a asp-action="Edit" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ändra</a>
+        }
+        else
+        {
+            <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Ansök</a>
+        }
+        <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-outline-dark float-right mr-2">Visa </a>
+
+    </div>
+</div>
