@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,11 +43,18 @@ namespace ROS.Web.Controllers
 
             var regatta = await _context.Regattas
                 .Include(r => r.CreatedBy)
+                .Include(r => r.Registrations)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (regatta == null)
             {
                 return NotFound();
             }
+
+            // Check if the user is already registered
+            ViewData["IsRegistered"] = regatta.Registrations.Exists(element => element.UserId == GetCurrentUser().Id);
+            ViewData["NavUrlEncoded"] = HttpUtility.UrlEncode(regatta.Address);
+
 
             return View(regatta);
         }
