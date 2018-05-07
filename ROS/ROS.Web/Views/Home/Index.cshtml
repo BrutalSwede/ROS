@@ -4,18 +4,18 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="jumbotron">
-        <h1>Välkommen till ROS</h1>
-        <div>
-            @foreach (Regatta R in Model)
-            {
-                <div>Title @R.Title | StartTime @R.StartTime | EndTime @R.EndTime</div>
-            }
-        </div>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p>
-    </div>
+<div class="jumbotron">
+    <h1>Välkommen till ROS</h1>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+<div class="row no-gutters">
+    @foreach (Regatta R in Model)
+    {
+        @await Html.PartialAsync("../Regattas/Partial/RegattaPartialView", R)
+    }
+</div>
 
 
 
