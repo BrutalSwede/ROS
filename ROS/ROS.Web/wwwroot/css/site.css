@@ -36,9 +36,7 @@ div .fixed-bottom {
         color: white;
     }
 
-
-
-@media (max-width:767px) {
+@media (max-width:768px) {
     #sidebar {
         min-width: 35px;
         max-width: 35px;
@@ -190,6 +188,9 @@ div .fixed-bottom {
     margin: 0 0 10px 0;
 }
 
+.nounderline {
+    text-decoration: none !important;
+}
     #boat-details-handicap th {
         padding: 5px;
     }
@@ -210,7 +211,6 @@ div .fixed-bottom {
 .regatta-card-img {
     margin-right: 10px;
 }
-
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
