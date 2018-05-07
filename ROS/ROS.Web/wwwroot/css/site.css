@@ -136,6 +136,10 @@ footer {
     color: slategray;
 }
 
+.regatta-card-img {
+    margin-right: 10px;
+}
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

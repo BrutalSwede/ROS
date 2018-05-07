@@ -1,0 +1,14 @@
+﻿@model ROS.Web.Models.Regatta
+
+@{
+    ViewData["Title"] = "RegattaPartialView";
+}
+
+<div class="card" style="margin-bottom:5px;">
+    <div class="card-body">
+        <img src="http://via.placeholder.com/150x100" class="float-left regatta-card-img" alt="Regatta-bild" />
+        <h5 class="card-title">@Html.DisplayFor(model => model.Title)</h5>
+        <p class="card-text">@Html.DisplayFor(model => model.StartTime)</p>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success float-right">Visa ></a>
+    </div>
+</div>
