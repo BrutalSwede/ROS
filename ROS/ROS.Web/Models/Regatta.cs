@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ROS.Web.Models
 {
-    public class Regatta : BaseEntity
+    public class Regatta : BaseEntity, IValidatableObject
     {
         public Regatta()
         {
@@ -15,23 +16,37 @@ namespace ROS.Web.Models
 
         [Required]
         [MaxLength(50)]
+        [DisplayName("Titel")]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(1000)]
+        [DisplayName("Beskrivning")]
         public string Description { get; set; }
 
-        /* 
-         * This can be a street address or a coordinate. 
-         * We'll use this with the Google Maps api or Open Street Maps
-        */
         [Required]
-        public string Address { get; set; }
+        [DisplayName("Starttid")]
+        public DateTime StartTime { get; set; }
+
+        [Required]
+        [DisplayName("Sluttid")]
+        public DateTime EndTime { get; set; }
+
+        [Required]
+        [DisplayName("Adress")]
+        public string Address { get; set; } // This might get changed depending on Google maps API
 
         public ApplicationUser CreatedBy { get; set; }
 
-        //public List<Event> Events { get; set; }
+        public List<RegattaRegistration> Registrations { get; set; }
 
-        //public IList<Entry> Entries { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (EndTime < StartTime)
+            {
+                yield return new ValidationResult("Sluttiden måste vara efter starttiden.", new[] { "EndTime" });
+            }
+        }
     }
 }

@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
-
-<h4>Club</h4>
+<div>
+    <h1 class="display-4">Skapa klubb</h1>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,33 +22,12 @@
                 @Html.TextBoxFor(m => m.FoundedDate, "{0:dd/MM/yyy}", new { placeholder = " dd/mm/åååå " })
                 <span asp-validation-for="FoundedDate" class="text-danger"></span>
             </div>
-
-            @*<div class="form-group">
-            <label asp-for="FoundedDate" class="control-label"></label>
-            <input asp-for="FoundedDate" class="form-control" />
-            <span asp-validation-for="FoundedDate" class="text-danger"></span>
-        </div>*@
-            @*<div class="form-group">
-                <label asp-for="JoinedDate" class="control-label"></label>
-                <input asp-for="JoinedDate" class="form-control" />
-                <span asp-validation-for="JoinedDate" class="text-danger"></span>
-            </div>*@
-            @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                    </label>
-                </div>
-            </div>*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Skapa" class="btn btn-outline-dark" />
+                <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

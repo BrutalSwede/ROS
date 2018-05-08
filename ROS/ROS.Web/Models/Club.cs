@@ -16,13 +16,16 @@ namespace ROS.Web.Models
         [DisplayName("Namn")]
         public string Name { get; set; }
 
+        [DisplayName("Ägare")]
         public ApplicationUser Owner { get; set; }
 
         [DisplayName("Skapad")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime FoundedDate { get; set; }
 
         [Required]
         [DisplayName("Gick med")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime JoinedDate { get; set; }
 
         [Required]

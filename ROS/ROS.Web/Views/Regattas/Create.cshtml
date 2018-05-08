@@ -9,28 +9,47 @@
 <h4>Regatta</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
+                <span class="max-glyph-count">(max 50 tecken)</span>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <span class="max-glyph-count">(max 1000 tecken)</span>
+                <textarea asp-for="Description" class="form-control" ></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
-
-            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div id="map" style="height:300px; width: 100%;"></div>
+                <!-- Replace the value of the key parameter with your own API key. -->
+                <script src="~/js/maps.js"></script>
+
+                <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyADpGQkpO2VrLNxfIAUZ2BU_kKbMg2mZ2o&callback=initialize">
+                </script>
+
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" placeholder="Adress eller koordinat" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+                <input id="mapsGeocode" class="btn btn-info" type="button" value="Visa på kartan" onclick="codeAddress()">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Skapa" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -42,4 +61,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    
 }

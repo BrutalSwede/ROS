@@ -6,20 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180420080928_ClubAndClubUserAdded.cs" />
-    <Compile Remove="Migrations\20180420080928_ClubAndClubUserAdded.Designer.cs" />
-    <Compile Remove="Migrations\20180420081544_ClubAndClubUserModels.cs" />
-    <Compile Remove="Migrations\20180420081544_ClubAndClubUserModels.Designer.cs" />
-    <Compile Remove="Migrations\20180421133228_BoatIdExplicit.cs" />
-    <Compile Remove="Migrations\20180421133228_BoatIdExplicit.Designer.cs" />
-    <Compile Remove="Migrations\20180423092956_UpdateEventModelValidation.cs" />
-    <Compile Remove="Migrations\20180423092956_UpdateEventModelValidation.Designer.cs" />
-    <Compile Remove="Migrations\20180423130157_AddEventRegattaRelation.cs" />
-    <Compile Remove="Migrations\20180423130157_AddEventRegattaRelation.Designer.cs" />
-    <Compile Remove="Migrations\20180423134933_CreateResultAndEntryModels.cs" />
-    <Compile Remove="Migrations\20180423134933_CreateResultAndEntryModels.Designer.cs" />
-    <Compile Remove="Migrations\20180423135100_CreateEntryAndResultModels.cs" />
-    <Compile Remove="Migrations\20180423135100_CreateEntryAndResultModels.Designer.cs" />
+    <Compile Remove="Models\Admin\**" />
+    <Content Remove="Models\Admin\**" />
+    <EmbeddedResource Remove="Models\Admin\**" />
+    <None Remove="Models\Admin\**" />
   </ItemGroup>
 
 

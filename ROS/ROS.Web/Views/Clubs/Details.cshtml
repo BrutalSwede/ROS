@@ -4,39 +4,78 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
 
-<div>
-    <h4>Club</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FoundedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FoundedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.JoinedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.JoinedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="card-body">
+            <ul class="list-group col-12 col-md-4 float-left">
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.Owner.FirstName) @Html.DisplayFor(model => model.Owner.LastName)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.FoundedDate)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.FoundedDate)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.JoinedDate)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.JoinedDate)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">
+                        @if (Model.IsActive)
+                    {
+                        @:<strong>Klubben är aktiv</strong>
+                }
+                else
+                {
+                    @:<strong>Klubben är inaktiv</strong>
+            }
+                    </p>
+                </li>
+            </ul>
+
+            @*<ul class="list-group list-overflow float-right col-12 col-md-8">
+                @foreach (var clubMember in Model.ClubUsers)
+                {
+                    <li class="list-group-item">
+                        @clubMember.Id
+
+                    </li>
+
+            </ul>*@
+        </div>
+
+    </div>
+    <div class="card-footer">
+        @if (Context.User.Identity.Name != Model.Owner.UserName)
+        {
+
+            <a asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-outline-dark mr-2">Ansök</a>
+            <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
+        }
+        else
+        {
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info float-right">Ändra</a>
+        }
+        <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
+    </div>
+
 </div>
