@@ -32,13 +32,14 @@ namespace ROS.Web.Controllers
         // GET: Clubs
         public async Task<IActionResult> Index(string sortOrder)
         {
-            var clubs = await _context.Clubs.Include(c => c.Owner).Include(u => u.ClubUsers).ToListAsync();
+            var clubs = await _context.Clubs.Include(c => c.Owner)
+                .Include(u => u.ClubUsers).ToListAsync();
 
             var clubVMList = new List<GetClubsViewModel>();
 
             foreach (var item in clubs)
             {
-                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
+                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner});
             }
 
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
@@ -89,8 +90,28 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var club = await _context.Clubs.Include(o => o.Owner)
+            var club = await _context.Clubs
+                .Include(o => o.Owner)
+                .Include(c => c.ClubUsers)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+
+
+            var newList = new List<ClubUser>()
+            {
+                new ClubUser{ Id = Guid.NewGuid() },
+                new ClubUser{ Id = Guid.NewGuid() },
+                new ClubUser{ Id = Guid.NewGuid() },
+                new ClubUser{ Id = Guid.NewGuid() },
+                new ClubUser{ Id = Guid.NewGuid() },
+                new ClubUser{ Id = Guid.NewGuid() }, 
+            };
+
+            foreach(var i in newList)
+            {
+                club.ClubUsers.Add(i);
+            }
+
             if (club == null)
             {
                 return NotFound();
