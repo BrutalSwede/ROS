@@ -27,7 +27,14 @@ namespace ROS.Web.Models
         public DateTime Date { get; set; }
 
         [Required]
-        public bool IsHandled { get; set; }
+        public ApplicationStatus Status { get; set; }
         
+    }
+
+    public enum ApplicationStatus
+    {
+        Pending,
+        Approved,
+        Rejected
     }
 }

@@ -7,6 +7,6 @@
        <li>
             <p>@Model.User.UserName</p>
             <p>@Model.Date.ToString("dd/MM/yyyy hh:mm")</p>
-            <a asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success">Godkänn</a>
-            <a asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-danger">Avböj</a>
+            <a asp-action="ApproveApplication" asp-route-id="@Model.Id" class="btn btn-success">Godkänn</a>
+            <a asp-action="RejectApplication" asp-route-id="@Model.Id" class="btn btn-danger">Avböj</a>
         </li>

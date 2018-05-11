@@ -50,7 +50,7 @@ namespace ROS.Web.Controllers
                     NumberOfMembers = item.ClubUsers.Count,
                     Owner = item.Owner,
                     IsMember = item.ClubUsers.Exists(m => m.UserId == currentUser),
-                    HasApplied = item.Applications.Exists(a => (a.UserId == currentUser && a.IsHandled == false))
+                    HasApplied = item.Applications.Exists(a => (a.UserId == currentUser && a.Status == ApplicationStatus.Pending))
                 });
             }
 
@@ -114,7 +114,19 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            return View(club);
+            var clubViewModel = new ClubDetailsViewModel
+            {
+                ClubId = club.Id,
+                Name = club.Name,
+                IsActive = club.IsActive,
+                Members = club.ClubUsers,
+                FoundedDate = club.FoundedDate,
+                JoinedDate = club.JoinedDate,
+                Owner = club.Owner,
+                PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
+            };
+
+            return View(clubViewModel);
         }
 
         [Authorize]
@@ -342,7 +354,7 @@ namespace ROS.Web.Controllers
                 ClubId = club.Id,
                 Date = DateTime.Now,
                 UserId = GetCurrentUser().Id,
-                IsHandled = false,
+                Status = ApplicationStatus.Pending,
                 Id = Guid.NewGuid(),
                 Club = club,
                 User = GetCurrentUser()
@@ -354,25 +366,6 @@ namespace ROS.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //GET: Clubs/Applications/id
-        //[HttpGet]
-        //public async Task<IActionResult> Applications(Guid id)
-        //{
-        //    if(id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var applications = await _context.Clubs.SingleOrDefaultAsync(o => o.Id == id);
-
-        //    if(applications == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(applications);
-        //}
-
         public async Task<IActionResult> ApproveApplication(Guid id)
         {
             if(id == null)
@@ -380,13 +373,46 @@ namespace ROS.Web.Controllers
                 return NotFound();
             }
 
-            var application = _context.ClubApplications
+            var application = await _context.ClubApplications
                 .Include(c => c.User)
                 .Include(c => c.Club)
+                .ThenInclude(c => c.ClubUsers)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
+            if(application == null)
+            {
+                return NotFound();
+            }
 
-            return View();
+            application.Status = ApplicationStatus.Approved;
+
+            var user = application.User;
+            var club = application.Club;
+
+            club.ClubUsers.Add(new ClubUser { Id = Guid.NewGuid(), Club = club, User = user });
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> RejectApplication(Guid id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var application = await _context.ClubApplications.SingleOrDefaultAsync(c => c.Id == id);
+
+            if(application == null)
+            {
+                return NotFound();
+            }
+
+            application.Status = ApplicationStatus.Rejected;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ClubExists(Guid id)

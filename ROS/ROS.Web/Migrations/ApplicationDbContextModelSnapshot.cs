@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
+using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
@@ -253,7 +254,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<bool>("IsHandled");
+                    b.Property<int>("Status");
 
                     b.Property<string>("UserId")
                         .IsRequired();
@@ -264,7 +265,7 @@ namespace ROS.Web.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ClubApplication");
+                    b.ToTable("ClubApplications");
                 });
 
             modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
