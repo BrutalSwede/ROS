@@ -30,5 +30,8 @@ namespace ROS.Web.Models.ClubViewModels
 
         [DisplayName("Ägare")]
         public ApplicationUser Owner { get; set; }
+        
+        public bool IsMember { get; set; }
+        public bool HasApplied { get; set; }
     }
 }

@@ -31,6 +31,7 @@ namespace ROS.Web.Models
         [DisplayName("ICE Telefonnummer")]
         public string IcePhone { get; set; }
 
+        public IList<ClubApplication> Applications { get; set; }
         public IList<Boat> Boats { get; set; }
     }
 }

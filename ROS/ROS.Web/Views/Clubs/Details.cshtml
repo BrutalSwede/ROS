@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.Club
+﻿@model ROS.Web.Models.ClubViewModels.ClubDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -46,32 +46,37 @@
                         else
                         {
                             @:<strong>Klubben är inaktiv</strong>
-                        }
+            }
                     </p>
                 </li>
             </ul>
 
-            @*<ul class="list-group list-overflow float-right col-12 col-md-8">
-                    @foreach (var clubMember in Model.ClubUsers)
+
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <h4 class="float-right">Ansökningar</h4>
+                <ul class="list-group col-12 col-md-4 float-right">
+
+
+                    @foreach (var item in Model.PendingApplications)
                     {
-                        <li class="list-group-item">
-                            @clubMember.Id
+                        @await Html.PartialAsync("./Partial/ApplicationListItem", item);
 
-                        </li>
+                    }
+                </ul>
+            }
 
-                </ul>*@
         </div>
         <div class="card-footer">
-            @if (Context.User.Identity.Name != Model.Owner.UserName)
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
             {
-
-                <a asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-outline-dark mr-2">Ansök</a>
-                <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
+                <a asp-action="Delete" asp-route-id="@Model.ClubId" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
+                <a asp-action="Edit" asp-route-id="@Model.ClubId" class="btn btn-info float-right">Ändra</a>
             }
             else
             {
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info float-right">Ändra</a>
+                <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark mr-2">Ansök</a>
+                <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
             }
             <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
         </div>
