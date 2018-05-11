@@ -244,6 +244,29 @@ namespace ROS.Web.Migrations
                     b.ToTable("Clubs");
                 });
 
+            modelBuilder.Entity("ROS.Web.Models.ClubApplication", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ClubId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<bool>("IsHandled");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ClubApplication");
+                });
+
             modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -411,6 +434,19 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.ClubApplication", b =>
+                {
+                    b.HasOne("ROS.Web.Models.Club", "Club")
+                        .WithMany("Applications")
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>

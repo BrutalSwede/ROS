@@ -32,6 +32,8 @@ namespace ROS.Web.Models
         [DisplayName("Aktiv")]
         public bool IsActive { get; set; }
 
-        public IList<ClubUser> ClubUsers { get; set; }
+        public List<ClubApplication> Applications { get; set; }
+
+        public List<ClubUser> ClubUsers { get; set; }
     }
 }

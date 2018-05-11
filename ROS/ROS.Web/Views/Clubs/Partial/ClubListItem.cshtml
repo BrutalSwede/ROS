@@ -32,7 +32,20 @@
     <div class="card-footer">
         @if (Context.User.Identity.Name != Model.Owner.UserName)
         {
-            <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark">Ansök</a>
+            @if (!Model.HasApplied && !Model.IsMember)
+            {
+                <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark">Ansök</a>
+            }
+            else if(Model.HasApplied && !Model.IsMember)
+            {
+                <span>Du har en aktiv ansökan</span>
+
+            }
+            else
+            {
+                <span>Redan medlem</span>
+
+            }
         }
         <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-success float-right">Visa ></a>
     </div>
