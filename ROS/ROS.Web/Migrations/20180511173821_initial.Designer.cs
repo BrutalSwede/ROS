@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
+using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511114222_ClubApplicationContext")]
-    partial class ClubApplicationContext
+    [Migration("20180511173821_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -254,7 +255,7 @@ namespace ROS.Web.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<bool>("IsHandled");
+                    b.Property<int>("Status");
 
                     b.Property<string>("UserId")
                         .IsRequired();
