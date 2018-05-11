@@ -105,24 +105,9 @@ namespace ROS.Web.Controllers
             var club = await _context.Clubs
                 .Include(o => o.Owner)
                 .Include(c => c.ClubUsers)
+                .Include(a => a.Applications)
+                .ThenInclude(k => k.User)
                 .SingleOrDefaultAsync(m => m.Id == id);
-
-
-
-            var newList = new List<ClubUser>()
-            {
-                new ClubUser{ Id = Guid.NewGuid() },
-                new ClubUser{ Id = Guid.NewGuid() },
-                new ClubUser{ Id = Guid.NewGuid() },
-                new ClubUser{ Id = Guid.NewGuid() },
-                new ClubUser{ Id = Guid.NewGuid() },
-                new ClubUser{ Id = Guid.NewGuid() },
-            };
-
-            foreach (var i in newList)
-            {
-                club.ClubUsers.Add(i);
-            }
 
             if (club == null)
             {
@@ -334,9 +319,12 @@ namespace ROS.Web.Controllers
 
             var club = await _context.Clubs.SingleOrDefaultAsync(m => m.Id == id);
 
+            if (club == null)
+            {
+                return NotFound();
+            }
 
-
-            return View();
+            return View(club);
         }
 
         //POST: Clubs/Apply/id
@@ -364,8 +352,41 @@ namespace ROS.Web.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        //GET: Clubs/Applications/id
+        //[HttpGet]
+        //public async Task<IActionResult> Applications(Guid id)
+        //{
+        //    if(id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var applications = await _context.Clubs.SingleOrDefaultAsync(o => o.Id == id);
+
+        //    if(applications == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(applications);
+        //}
+
+        public async Task<IActionResult> ApproveApplication(Guid id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var application = _context.ClubApplications
+                .Include(c => c.User)
+                .Include(c => c.Club)
+                .SingleOrDefaultAsync(c => c.Id == id);
 
 
+            return View();
         }
 
         private bool ClubExists(Guid id)
