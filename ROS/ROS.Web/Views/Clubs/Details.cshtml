@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.Club
+﻿@model ROS.Web.Models.ClubViewModels.ClubDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -40,42 +40,47 @@
                 <li class="list-group-item">
                     <p class="card-text">
                         @if (Model.IsActive)
-                    {
-                        @:<strong>Klubben är aktiv</strong>
-                }
-                else
-                {
-                    @:<strong>Klubben är inaktiv</strong>
+                        {
+                            @:<strong>Klubben är aktiv</strong>
+                        }
+                        else
+                        {
+                            @:<strong>Klubben är inaktiv</strong>
             }
                     </p>
                 </li>
             </ul>
 
-            @*<ul class="list-group list-overflow float-right col-12 col-md-8">
-                @foreach (var clubMember in Model.ClubUsers)
-                {
-                    <li class="list-group-item">
-                        @clubMember.Id
 
-                    </li>
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <h4 class="float-right">Ansökningar</h4>
+                <ul class="list-group col-12 col-md-4 float-right">
 
-            </ul>*@
+
+                    @foreach (var item in Model.PendingApplications)
+                    {
+                        @await Html.PartialAsync("./Partial/ApplicationListItem", item);
+
+                    }
+                </ul>
+            }
+
         </div>
-
+        <div class="card-footer">
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <a asp-action="Delete" asp-route-id="@Model.ClubId" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
+                <a asp-action="Edit" asp-route-id="@Model.ClubId" class="btn btn-info float-right">Ändra</a>
+            }
+            else
+            {
+                <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark mr-2">Ansök</a>
+                <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
+            }
+            <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
+        </div>
     </div>
-    <div class="card-footer">
-        @if (Context.User.Identity.Name != Model.Owner.UserName)
-        {
 
-            <a asp-action="Apply" asp-route-id="@Model.Id" class="btn btn-outline-dark mr-2">Ansök</a>
-            <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
-        }
-        else
-        {
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info float-right">Ändra</a>
-        }
-        <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
-    </div>
 
 </div>

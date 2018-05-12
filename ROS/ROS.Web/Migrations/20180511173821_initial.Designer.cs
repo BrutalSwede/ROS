@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
+using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180504085808_initial")]
+    [Migration("20180511173821_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,6 +246,29 @@ namespace ROS.Web.Migrations
                     b.ToTable("Clubs");
                 });
 
+            modelBuilder.Entity("ROS.Web.Models.ClubApplication", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ClubId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ClubApplications");
+                });
+
             modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -412,6 +436,19 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
+                });
+
+            modelBuilder.Entity("ROS.Web.Models.ClubApplication", b =>
+                {
+                    b.HasOne("ROS.Web.Models.Club", "Club")
+                        .WithMany("Applications")
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ROS.Web.Models.ApplicationUser", "User")
+                        .WithMany("Applications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.ClubUser", b =>
