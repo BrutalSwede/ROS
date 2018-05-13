@@ -1,0 +1,63 @@
+﻿@model ROS.Web.Models.ClubViewModels.ClubDetailsViewModel
+
+@{
+    ViewData["Title"] = "ClubMembers";
+}
+
+<div class="container">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+        <ul class="pagination">
+            <li class="page-item">
+                <a asp-action="Details" asp-route-id="@Model.ClubId" class="page-link">Info</a>
+            </li>
+            <li class="page-item">
+                <a asp-action="ClubMembers" asp-route-id="@Model.ClubId" class="page-link">Medlemmar</a>
+            </li>
+
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <li class="page-item">
+                    <a asp-action="ClubApplications" asp-route-id="@Model.ClubId" class="page-link">Ansökningar</a>
+                </li>
+            }
+
+        </ul>
+        <div class="card-body">
+
+            <table id="total votes" class="table table-hover text-centered">
+                <thead>
+                    <tr>
+                        <th>Användare</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Members)
+                    {
+                        <tr>
+                            <td>
+                                @item.User.UserName
+                            </td>
+                            @if (Context.User.Identity.Name == Model.Owner.UserName)
+                            {
+                                <td>
+                                    Om ägare -> Knappar för låsa/ta bort användare 
+                                </td>
+                            }
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-outline-info ml-2">Tillbaka</a>
+        </div>
+    </div>
+
+</div>

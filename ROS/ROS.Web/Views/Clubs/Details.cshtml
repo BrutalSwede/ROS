@@ -10,7 +10,24 @@
         <div class="card-header">
             Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
         </div>
+        <ul class="pagination">
+            <li class="page-item">
+                <a asp-action="Details" asp-route-id="@Model.ClubId" class="page-link">Info</a>
+            </li>
+            <li class="page-item">
+                <a asp-action="ClubMembers" asp-route-id="@Model.ClubId" class="page-link">Medlemmar</a>
+            </li>
 
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <li class="page-item">
+                    <a asp-action="ClubApplications" asp-route-id="@Model.ClubId" class="page-link">
+                        Ansökningar
+                    </a>
+                </li>
+            }
+
+        </ul>
         <div class="card-body">
             <ul class="list-group col-12 col-md-4 float-left">
                 <li class="list-group-item">
@@ -46,26 +63,10 @@
                         else
                         {
                             @:<strong>Klubben är inaktiv</strong>
-            }
+                        }
                     </p>
                 </li>
             </ul>
-
-
-            @if (Context.User.Identity.Name == Model.Owner.UserName)
-            {
-                <h4 class="float-right">Ansökningar</h4>
-                <ul class="list-group col-12 col-md-4 float-right">
-
-
-                    @foreach (var item in Model.PendingApplications)
-                    {
-                        @await Html.PartialAsync("./Partial/ApplicationListItem", item);
-
-                    }
-                </ul>
-            }
-
         </div>
         <div class="card-footer">
             @if (Context.User.Identity.Name == Model.Owner.UserName)
