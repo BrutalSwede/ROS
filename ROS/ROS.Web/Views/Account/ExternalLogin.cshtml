@@ -1,32 +1,53 @@
 ﻿@model ExternalLoginViewModel
-@{
-    ViewData["Title"] = "Register";
-}
 
-<h2>@ViewData["Title"]</h2>
-<h4>Associate your @ViewData["LoginProvider"] account.</h4>
+<h3>Koppla ditt @ViewData["LoginProvider"]-konto.</h3>
 <hr />
-
 <p class="text-info">
-    You've successfully authenticated with <strong>@ViewData["LoginProvider"]</strong>.
-    Please enter an email address for this site below and click the Register button to finish
-    logging in.
+    Du har loggat in med <strong>@ViewData["LoginProvider"]</strong>. <br />
+    Eftersom det är första gången du loggar in vill vi gärna veta lite mer om dig. <br />
 </p>
-
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="IcePhone"></label>
+                    <input asp-for="IcePhone" class="form-control"/>
+                    <span asp-validation-for="IcePhone"></span>
+                </div>
+            </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
 </div>
-
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
