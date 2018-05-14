@@ -247,4 +247,16 @@ div .fixed-bottom {
     }
 }
 
+.card{
+    padding:0;
+}
 
+.forsail{
+    font-weight:bold;
+    font-size:larger;
+
+}
+
+.marginabove {
+    margin-top: 1.875rem;
+}
