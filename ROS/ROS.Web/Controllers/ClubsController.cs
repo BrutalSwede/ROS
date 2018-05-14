@@ -104,6 +104,8 @@ namespace ROS.Web.Controllers
 
             var club = await _context.Clubs
                 .Include(o => o.Owner)
+                .Include(u => u.ClubUsers)
+                .Include(a => a.Applications)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (club == null)
@@ -117,10 +119,21 @@ namespace ROS.Web.Controllers
                 Name = club.Name,
                 IsActive = club.IsActive,
                 Members = club.ClubUsers,
+                NumberOfMembers = club.ClubUsers.Count(),
                 FoundedDate = club.FoundedDate,
                 JoinedDate = club.JoinedDate,
                 Owner = club.Owner,
+                PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
             };
+
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
 
             return View(clubViewModel);
         }
@@ -136,9 +149,10 @@ namespace ROS.Web.Controllers
 
             var club = await _context.Clubs
                 .Include(o => o.Owner)
-                .Include(m => m.ClubUsers)
-                .ThenInclude(n => n.User)
-                .SingleOrDefaultAsync(c => c.Id == id);
+                .Include(u => u.ClubUsers)
+                .ThenInclude(u => u.User)
+                .Include(a => a.Applications)
+                .SingleOrDefaultAsync(m => m.Id == id);
 
             if (club == null)
             {
@@ -148,12 +162,24 @@ namespace ROS.Web.Controllers
             var clubViewModel = new ClubDetailsViewModel
             {
                 ClubId = club.Id,
-                Owner = club.Owner,
                 Name = club.Name,
+                IsActive = club.IsActive,
                 Members = club.ClubUsers,
+                NumberOfMembers = club.ClubUsers.Count(),
                 FoundedDate = club.FoundedDate,
                 JoinedDate = club.JoinedDate,
+                Owner = club.Owner,
+                PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
             };
+
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
 
             return View(clubViewModel);
         }
@@ -190,6 +216,15 @@ namespace ROS.Web.Controllers
                 Owner = club.Owner,
                 PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
             };
+
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
 
             return View(clubViewModel);
         }
@@ -481,6 +516,9 @@ namespace ROS.Web.Controllers
 
             return RedirectToAction("Details", getClub);
         }
+
+        //POST: KickMember from Club
+
 
         private bool ClubExists(Guid id)
         {

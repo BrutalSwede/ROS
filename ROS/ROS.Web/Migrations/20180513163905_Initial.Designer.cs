@@ -12,8 +12,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511173821_initial")]
-    partial class initial
+    [Migration("20180513163905_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

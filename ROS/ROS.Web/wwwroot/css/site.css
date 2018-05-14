@@ -239,6 +239,8 @@ div .fixed-bottom {
     overflow-y: scroll;
 }
 
+
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

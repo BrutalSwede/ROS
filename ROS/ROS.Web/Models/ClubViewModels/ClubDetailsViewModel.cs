@@ -19,6 +19,9 @@ namespace ROS.Web.Models.ClubViewModels
         [DisplayName("Medlemmar")]
         public List<ClubUser> Members { get; set; }
 
+        [DisplayName("Antal medlemmar")]
+        public int NumberOfMembers { get; set; }
+
         [DisplayName("Grundad")]
         public DateTime FoundedDate { get; set; }
 

@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "ClubApplications";
+
+    var numberOfApplicants = Convert.ToInt32(ViewData["NumberOfApplicants"]);
 }
 
 
@@ -13,7 +15,8 @@
             <div class="card-header">
                 Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
             </div>
-            <ul class="pagination">
+
+            <ul class="pagination m-2">
                 <li class="page-item">
                     <a asp-action="Details" asp-route-id="@Model.ClubId" class="page-link">Info</a>
                 </li>
@@ -24,17 +27,28 @@
                 @if (Context.User.Identity.Name == Model.Owner.UserName)
                 {
                     <li class="page-item">
-                        <a asp-action="ClubApplications" asp-route-id="@Model.ClubId" class="page-link">Ansökningar</a>
+                        <a asp-action="ClubApplications" asp-route-id="@Model.ClubId" class="page-link">
+                            Ansökningar
+                            @if (numberOfApplicants > 0)
+                            {
+                                <span class="badge badge-success" style="vertical-align: top">
+                                    @numberOfApplicants
+                                </span>
+
+                            }
+                        </a>
                     </li>
                 }
 
             </ul>
-            <div class="card-body">
 
+            <div class="card-body">
                 <table id="total votes" class="table table-hover text-centered">
+                    <h4 class="ml-2">Ansökningar</h4>
                     <thead>
                         <tr>
-                            <th>Användare</th>
+                            <th>Namn</th>
+                            <th>Email</th>
                             <th>Datum</th>
                             <th></th>
                         </tr>
@@ -44,7 +58,20 @@
                         @foreach (var item in Model.PendingApplications)
                         {
                             <tr>
-                                @await Html.PartialAsync("./Partial/ApplicationListItem", item)
+                                <td>
+                                    @item.User.FirstName
+                                    @item.User.LastName
+                                </td>
+                                <td>
+                                    @item.User.Email
+                                </td>
+                                <td>
+                                    @item.Date.ToString("dd/MM/yyyy hh:mm")
+                                </td>
+                                <td>
+                                    <a asp-action="ApproveApplication" asp-route-id="@item.Id" class="btn btn-success">Godkänn</a>
+                                    <a asp-action="RejectApplication" asp-route-id="@item.Id" class="btn btn-danger ml-2">Avböj</a>
+                                </td>
                             </tr>
                         }
 
