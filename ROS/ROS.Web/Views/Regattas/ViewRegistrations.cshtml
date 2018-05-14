@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ROS.Web.Models.RegattaRegistration>
+
+
+<h2>Anmälningar till @ViewData["RegattaTitle"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.IcePhone)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Boat.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.IcePhone)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
