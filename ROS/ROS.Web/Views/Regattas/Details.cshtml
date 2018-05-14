@@ -36,7 +36,7 @@
         </dt>
         <dd>
             <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
-</dd>
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </dt>
@@ -49,25 +49,27 @@
 {
     @if (ViewBag.IsRegistered)
     {
-        <div>
-            Du har redan registrerat dig.
+        <div class="mb-1">
+            <a href="#" class="btn btn-success disabled">Du är redan anmäld</a>
         </div>
     }
     else
     {
-        <div>
-            <a asp-action="Register" asp-route-id="@Model.Id">Registrera dig</a>
+        <div class="mb-1">
+            <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">Anmäl dig</a>
         </div>
     }
 
-    <div>
-        <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title">Kontakta värden</a>
+    <div class="mb-1">
+        <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title" class="btn btn-info">Kontakta värden</a>
     </div>
 }
 <div>
-    @if (Model.CreatedBy.Email == Context.User.Identity.Name)
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> @:|
-    }
-    <a asp-action="Index">Back to List</a>
+    <div class="btn-group mb-1" role="group">
+        @if (Model.CreatedBy.Email == Context.User.Identity.Name)
+        {
+            <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Redigera</a>
+        }
+    </div>
 </div>
