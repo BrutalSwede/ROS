@@ -259,13 +259,13 @@ namespace ROS.Web.Controllers
                 {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Address  = model.Address,
+                    Address = model.Address,
                     Phone = model.Phone,
                     IcePhone = model.IcePhone,
-                    Email =  model.Email,
+                    Email = model.Email,
                     UserName = model.Email
-                    
-              
+
+
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -366,7 +366,16 @@ namespace ROS.Web.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Phone = model.PhoneNumber,
+                    IcePhone = model.IcePhone,
+                    Address = model.Address
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -492,7 +501,7 @@ namespace ROS.Web.Controllers
         {
             return View();
         }
-        
+
         // Creates all roles + super admin if it does not exists in the db already
         private async Task CreateRoles()
         {

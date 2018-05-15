@@ -59,6 +59,38 @@ namespace ROS.Web.Controllers
             return View(regatta);
         }
 
+        public async Task<IActionResult> ViewRegistrations(Guid? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var regatta = await _context.Regattas
+                .Include(r => r.CreatedBy)
+                .SingleOrDefaultAsync(r => r.Id == id);
+
+            ViewData["RegattaTitle"] = regatta.Title;
+
+            if(HttpContext.User.Identity.Name != regatta.CreatedBy.Email)
+            {
+                return Forbid();
+            }
+            
+            var registrations = await _context.RegattaRegistration
+                .Include(r => r.User)
+                .Include(r => r.Boat)
+                .Where(r => r.RegattaId == id).ToListAsync();
+
+
+            if(registrations == null)
+            {
+                return NotFound();
+            }
+
+            return View(registrations);
+        }
+
         // GET: Regattas/Create
         public IActionResult Create()
         {
