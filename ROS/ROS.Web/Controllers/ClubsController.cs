@@ -510,7 +510,7 @@ namespace ROS.Web.Controllers
             club.ClubUsers.Add(new ClubUser { Id = Guid.NewGuid(), Club = club, User = user });
             _context.SaveChanges();
 
-            return RedirectToAction("Details", club);
+            return RedirectToAction("ClubApplications", club);
         }
 
         public async Task<IActionResult> RejectApplication(Guid id)
@@ -532,7 +532,7 @@ namespace ROS.Web.Controllers
             application.Status = ApplicationStatus.Rejected;
             _context.SaveChanges();
 
-            return RedirectToAction("Details", getClub);
+            return RedirectToAction("ClubApplications", getClub);
         }
 
         //POST: KickMember from Club
