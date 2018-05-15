@@ -17,7 +17,7 @@ div .fixed-bottom {
 }
 
 .body-content{
-    margin-left:180px;
+    margin-left:0px;
 }
 
 .list-group-item:first-child {
@@ -51,7 +51,7 @@ div .fixed-bottom {
 .jumbotron {
     background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
     height: 90vh;
-    width: 175vh;
+    width: 100%;
     background-size: cover;
 }
 
@@ -260,3 +260,4 @@ div .fixed-bottom {
 .marginabove {
     margin-top: 1.875rem;
 }
+
