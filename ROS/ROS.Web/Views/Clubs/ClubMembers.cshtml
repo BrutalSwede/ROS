@@ -57,8 +57,8 @@
                     {
                         <tr>
                             <td>
-                               @item.User.FirstName
-                               @item.User.LastName
+                                @item.User.FirstName
+                                @item.User.LastName
                             </td>
                             <td>
                                 @item.User.Email
@@ -76,7 +76,7 @@
                                 @if (item.User.Id != Model.Owner.Id)
                                 {
                                     <td>
-                                        <a asp-action="KickMember" asp-route-id="@item.Club.ClubUsers" class="btn btn-danger">
+                                        <a asp-action="KickMember" asp-route-id="@item.Club.Id, @item.Id" class="btn btn-danger">
                                             Ta bort
                                         </a>
                                     </td>

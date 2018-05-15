@@ -535,8 +535,34 @@ namespace ROS.Web.Controllers
             return RedirectToAction("ClubApplications", getClub);
         }
 
-        //POST: KickMember from Club
 
+        // TO DO: SKRIV FÄRDIGT KICKMEMBER ACTION
+        ////POST: KickMember from Club
+        //[HttpPost, ActionName("KickMember")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> KickMember(Guid? clubid, Guid? userid)
+        //{
+        //    if(clubid == null || userid == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var club = await _context.Clubs.Where(c => c.Id == clubid).SingleOrDefaultAsync();
+            
+        //    if(club == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var getUser = club.ClubUsers.Where(u => u.Id == userid).SingleOrDefault();
+
+        //    if(getUser == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+
+        //}
 
         private bool ClubExists(Guid id)
         {
