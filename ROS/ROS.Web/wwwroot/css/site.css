@@ -239,7 +239,6 @@ div .fixed-bottom {
     overflow-y: scroll;
 }
 
-
 /* 
     This can be used on fields that are required
     Set the the form-group should also have the class 'required' and then the label needs the class 'form-label'

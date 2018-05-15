@@ -1,0 +1,50 @@
+﻿@model ROS.Web.Models.ClubViewModels.GetClubsViewModel;
+
+@{
+    ViewData["Title"] = "MyClubListItem";
+}
+
+
+@if (Model.IsMember == true)
+{
+    <div class="card col-12 col-md-3" style="margin:0 5px 5px 0;">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark">
+                    @Html.DisplayFor(modelItem => Model.ClubName)
+                </a>
+                @if (Context.User.Identity.Name == Model.Owner.UserName)
+                {
+                    <span class="badge badge-info float-right">Ägare</span>
+                }
+                else
+                {
+                    <span class="badge badge-info float-right">Medlem</span>
+                }
+            </h5>
+
+            <p class="card-text">
+                <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
+            </p>
+            <p class="card-text">
+                <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>
+                @Model.FoundedDate.ToString("dd MMM yyyy")
+            </p>
+            <br>
+            <p class="card-text">
+                @if (Model.IsActive)
+                {
+                    @:Klubben är <strong>aktiv</strong>
+                }
+                else
+                {
+                    @:Klubben är <strong>inaktiv</strong>
+                }
+            </p>
+
+        </div>
+        <div class="card-footer">
+            <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-success float-right">Visa ></a>
+        </div>
+    </div>
+}
