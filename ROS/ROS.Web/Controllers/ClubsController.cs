@@ -529,10 +529,7 @@ namespace ROS.Web.Controllers
             return RedirectToAction("ClubApplications", getClub);
         }
 
-
-        // TO DO: SKRIV FÄRDIGT KICKMEMBER ACTION
         //POST: KickMember from Club
-        //[HttpPost, ActionName("KickMember")]
         public async Task<IActionResult> KickMember(Guid? clubUserId, Guid? clubId)
         {
             if (clubUserId == null || clubId == null)
