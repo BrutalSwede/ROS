@@ -1,0 +1,86 @@
+﻿@model ROS.Web.Models.ClubViewModels.ClubDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+
+        <div class="card-body">
+            <ul class="list-group col-12 col-md-4 float-left">
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.Owner.FirstName) @Html.DisplayFor(model => model.Owner.LastName)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.FoundedDate)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.FoundedDate)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.JoinedDate)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.JoinedDate)
+                    </p>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">
+                        @if (Model.IsActive)
+                        {
+                            @:<strong>Klubben är aktiv</strong>
+                        }
+                        else
+                        {
+                            @:<strong>Klubben är inaktiv</strong>
+            }
+                    </p>
+                </li>
+            </ul>
+
+
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <h4 class="float-right">Ansökningar</h4>
+                <ul class="list-group col-12 col-md-4 float-right">
+
+
+                    @foreach (var item in Model.PendingApplications)
+                    {
+                        @await Html.PartialAsync("./Partial/ApplicationListItem", item);
+
+                    }
+                </ul>
+            }
+
+        </div>
+        <div class="card-footer">
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <a asp-action="Delete" asp-route-id="@Model.ClubId" class="btn btn-danger float-right mr-2 ml-1">Ta bort</a>
+                <a asp-action="Edit" asp-route-id="@Model.ClubId" class="btn btn-info float-right">Ändra</a>
+            }
+            else
+            {
+                <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark mr-2">Ansök</a>
+                <a class="btn btn-outline-dark" href="mailto:@Model.Owner.Email?subject=@Model.Name">Kontakta ägaren</a>
+            }
+            <a asp-action="Index" class="btn btn-outline-info ml-2">Tillbaka</a>
+        </div>
+    </div>
+
+
+</div>

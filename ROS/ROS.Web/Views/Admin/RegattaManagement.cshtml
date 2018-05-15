@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<ROS.Web.Models.Regatta>
+
+<h2>Regatta Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Regattas in the Database</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Regatta ID</th>
+            <th>Created By</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var regatta in Model)
+        {
+            <tr>
+                <td>@regatta.Id</td>
+                <td>@regatta.CreatedBy</td>
+                <td>@regatta.Title</td>
+                <td>@regatta.Description</td>
+
+                <td>
+                    <form asp-action="DeleteRegatta" asp-route-id="@regatta.Id" method="post">
+                        @*<a class="btn btn-sm btn-primary" asp-action="EditRegatta" asp-route-id="@regatta">Edit</a>*@
+                        <button type="submit" onclick="return confirm('Do you really want to delete this Regatta?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}

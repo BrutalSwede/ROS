@@ -1,0 +1,71 @@
+﻿@model ROS.Web.Models.Boat
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Certificate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Certificate)
+        </dd>
+    </dl>
+
+    <table id="boat-details-handicap" class="table-bordered">
+        <thead>
+            <tr>
+                <th><span class="small-text-grey">Handikapp</span></th>
+                <th>Normal</th>
+                <th>Shorthand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
+            </tr>
+            <tr>
+                <th scope="row">u. Försegel</th>
+                <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
+                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>Besättningsnamn</th>
+                <th>Kapten</th>
+                <th>Besättningsmedlemmar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
+            {
+                <tr>
+                    <td>@Model.Crews[crewIndex].Name</td>
+                    <td>@Model.Crews[crewIndex].Captain.UserName</td>
+                    <td>@Model.Crews[crewIndex].Crewmen.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

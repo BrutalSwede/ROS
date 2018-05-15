@@ -1,0 +1,283 @@
+﻿
+body {
+    padding-bottom: 20px;
+}
+
+nav {
+    background-color: #085394;
+    height: 10vh;
+}
+
+#login-row{
+    justify-content:center;
+}
+
+#login-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.fa-facebook-square {
+    font-size: 40px;
+    color: #3B5998;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.fa-google-plus-official {
+    font-size: 40px;
+    color: #dd4b39;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+div .fixed-bottom {
+    position: fixed;
+    right: 0;
+    left: 0.3em;
+    align-content: center;
+    color: white;
+}
+
+.body-content{
+    margin-left:180px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.list-group-item:last-child {
+    border-bottom-left-radius: 0; 
+    border-bottom-right-radius: 0; 
+}
+
+#navbarSupportedContent {
+    justify-content: flex-end;
+}
+
+#sidebar {
+    min-width: 170px;
+    max-width: 170px;
+    overflow: hidden;
+    z-index: 3;
+    background-color: black;
+    margin-bottom: -101%;
+    padding-bottom:101%;
+}
+
+    #sidebar .list-group-item {
+        background-color: black;
+        color: white;
+    }
+
+.jumbotron {
+    background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
+    height: 90vh;
+    width: 175vh;
+    background-size: cover;
+}
+
+@media (max-width:768px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 35px;
+        transition: all 0.25s ease;
+        position: absolute;
+        height: 100vh;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+
+    #navbarSupportedContent {
+        text-align: right;
+    }
+
+    .navbar-text {
+        background: #085394;
+        padding-left: 2vh;
+        padding-right: 2vh;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+        overflow: visible;
+    }
+
+    .fixed-bottom {
+        font-size: 8px;
+    }
+
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
+
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
+        }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 16em;
+        margin-left:45px;
+    }
+}
+
+@media (max-width:322px) {
+    #sidebar {
+        min-width: 35px;
+        max-width: 35px;
+        transition: all 0.25s ease;
+        position: absolute;
+        height: 100vh;
+        z-index: 3;
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+        #sidebar, #sidebar .list-group {
+            min-width: 35px;
+            overflow: visible;
+        }
+
+    .fixed-bottom {
+        font-size: 8px;
+    }
+
+    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+        position: relative;
+        z-index: 1;
+        width: 190px;
+        top: 0;
+    }
+
+    #sidebar, #sidebar .list-group {
+        min-width: 35px;
+    }
+        /* overlay sub levels on small screens */
+        #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+            position: relative;
+            z-index: 1;
+            width: 190px;
+            top: 0;
+        }
+
+        #sidebar .list-group > .list-group-item {
+            text-align: center;
+            padding: .75rem .5rem;
+        }
+
+    .body-content {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 13em;
+    }
+}
+
+
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+#mapsGeocode {
+    margin-top: 10px;
+}
+
+.max-glyph-count {
+    color: slategray;
+}
+
+/*Boat details page*/
+
+#boat-details-handicap {
+    margin: 0 0 10px 0;
+}
+
+.nounderline {
+    text-decoration: none !important;
+}
+
+#boat-details-handicap th {
+    padding: 5px;
+}
+
+#boat-details-handicap tr > td {
+    text-align: center;
+}
+
+.table-margined {
+    margin: 10px;
+}
+
+.small-text-grey {
+    font-size: 0.8em;
+    color: slategray;
+}
+
+.regatta-card-img {
+    margin-right: 10px;
+}
+
+.list-overflow {
+    height: 320px;
+    width: 300px;
+    overflow-y: scroll;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+

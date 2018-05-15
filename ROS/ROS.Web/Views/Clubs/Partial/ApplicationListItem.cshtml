@@ -1,0 +1,12 @@
+﻿@model ROS.Web.Models.ClubApplication
+
+@{
+    ViewData["Title"] = "ApplicationListItem";
+}
+
+       <li>
+            <p>@Model.User.UserName</p>
+            <p>@Model.Date.ToString("dd/MM/yyyy hh:mm")</p>
+            <a asp-action="ApproveApplication" asp-route-id="@Model.Id" class="btn btn-success">Godkänn</a>
+            <a asp-action="RejectApplication" asp-route-id="@Model.Id" class="btn btn-danger">Avböj</a>
+        </li>
