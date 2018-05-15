@@ -235,8 +235,16 @@ namespace ROS.Web.Controllers
         {
             string _userId = GetCurrentUser().Id;
 
-            var clubs = await _context.Clubs.Where(c => c.Owner.Id == _userId)
+            // Checks if user is owner
+            //var clubs = await _context.Clubs.Where(c => c.Owner.Id == _userId)
+            //    .Include(u => u.ClubUsers).ToListAsync();
+
+
+            // NY TEST - 15/5
+            var clubs = await _context.Clubs
+                .Include(o => o.Owner)
                 .Include(u => u.ClubUsers).ToListAsync();
+
 
             if (clubs.Count() <= 0)
             {
@@ -244,49 +252,59 @@ namespace ROS.Web.Controllers
             }
             var clubVMList = new List<GetClubsViewModel>();
 
+
             foreach (var item in clubs)
             {
-                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
+                clubVMList.Add(new GetClubsViewModel
+                {
+                    ClubId = item.Id,
+                    ClubName = item.Name,
+                    FoundedDate = item.FoundedDate,
+                    IsActive = item.IsActive,
+                    IsMember = item.ClubUsers.Exists(m => m.UserId == _userId),
+                    NumberOfMembers = item.ClubUsers.Count,
+                    Owner = item.Owner
+                });
             }
 
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["MemberSortParm"] = sortOrder == "member" ? "member_desc" : "member";
 
-            var sortQuery = from x in clubVMList
-                            select x;
+            var clubSort = from x in clubVMList
+                           select x;
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.ClubName);
+                    clubSort = clubSort.OrderByDescending(s => s.ClubName);
                     break;
 
                 case "name":
-                    sortQuery = sortQuery.OrderBy(s => s.ClubName);
+                    clubSort = clubSort.OrderBy(s => s.ClubName);
                     break;
 
                 case "date":
-                    sortQuery = sortQuery.OrderBy(s => s.FoundedDate);
+                    clubSort = clubSort.OrderBy(s => s.FoundedDate);
                     break;
 
                 case "date_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.FoundedDate);
+                    clubSort = clubSort.OrderByDescending(s => s.FoundedDate);
                     break;
 
                 case "member":
-                    sortQuery = sortQuery.OrderBy(s => s.NumberOfMembers);
+                    clubSort = clubSort.OrderBy(s => s.NumberOfMembers);
                     break;
 
                 case "member_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.NumberOfMembers);
+                    clubSort = clubSort.OrderByDescending(s => s.NumberOfMembers);
                     break;
 
                 default:
                     break;
             }
 
-            return View(sortQuery);
+            return View(clubSort);
         }
 
         // GET: Clubs/Create

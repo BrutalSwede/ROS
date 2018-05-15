@@ -9,6 +9,14 @@
     <div class="card-body">
         <h5 class="card-title">
             <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark"> @Html.DisplayFor(modelItem => Model.ClubName)</a>
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <span class="badge badge-info float-right">Ägare</span>
+            }
+            else if(Model.IsMember == true)
+            {
+                <span class="badge badge-info float-right">Medlem</span>
+            }
         </h5>
         <p class="card-text">
             <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
@@ -16,7 +24,6 @@
         <p class="card-text">
             <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>
             @Model.FoundedDate.ToString("dd MMM yyyy")
-
         </p>
         <br>
         <p class="card-text">
