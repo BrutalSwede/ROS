@@ -9,12 +9,21 @@
     <div class="card-body">
         <h5 class="card-title">
             <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark"> @Html.DisplayFor(modelItem => Model.ClubName)</a>
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <span class="badge badge-info float-right">Ägare</span>
+            }
+            else if (Model.IsMember == true)
+            {
+                <span class="badge badge-info float-right">Medlem</span>
+            }
         </h5>
         <p class="card-text">
             <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
         </p>
         <p class="card-text">
-            <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>  @Html.DisplayFor(modelitem => Model.FoundedDate)
+            <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>
+            @Model.FoundedDate.ToString("dd MMM yyyy")
         </p>
         <br>
         <p class="card-text">
@@ -36,15 +45,9 @@
             {
                 <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark">Ansök</a>
             }
-            else if(Model.HasApplied && !Model.IsMember)
+            else if (Model.HasApplied && !Model.IsMember)
             {
-                <span>Du har en aktiv ansökan</span>
-
-            }
-            else
-            {
-                <span>Redan medlem</span>
-
+                <span class="badge badge-secondary float-left">Du har en aktiv ansökan</span>
             }
         }
         <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-success float-right">Visa ></a>

@@ -372,7 +372,7 @@ namespace ROS.Web.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Phone = model.Phone,
+                    Phone = model.PhoneNumber,
                     IcePhone = model.IcePhone,
                     Address = model.Address
                 };

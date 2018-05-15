@@ -4,9 +4,17 @@
     ViewData["Title"] = "ApplicationListItem";
 }
 
-       <li>
-            <p>@Model.User.UserName</p>
-            <p>@Model.Date.ToString("dd/MM/yyyy hh:mm")</p>
-            <a asp-action="ApproveApplication" asp-route-id="@Model.Id" class="btn btn-success">Godkänn</a>
-            <a asp-action="RejectApplication" asp-route-id="@Model.Id" class="btn btn-danger">Avböj</a>
-        </li>
+<td>
+    @Model.User.FirstName
+    @Model.User.LastName
+</td>
+<td>
+    @Model.User.Email
+</td>
+<td>
+    @Model.Date.ToString("dd/MM/yyyy hh:mm")
+</td>
+<td>
+    <a asp-action="ApproveApplication" asp-route-id="@Model.Id" class="btn btn-success">Godkänn</a>
+    <a asp-action="RejectApplication" asp-route-id="@Model.Id" class="btn btn-danger ml-2">Avböj</a>
+</td>
