@@ -235,12 +235,6 @@ namespace ROS.Web.Controllers
         {
             string _userId = GetCurrentUser().Id;
 
-            // Checks if user is owner
-            //var clubs = await _context.Clubs.Where(c => c.Owner.Id == _userId)
-            //    .Include(u => u.ClubUsers).ToListAsync();
-
-
-            // NY TEST - 15/5
             var clubs = await _context.Clubs
                 .Include(o => o.Owner)
                 .Include(u => u.ClubUsers).ToListAsync();
@@ -537,32 +531,36 @@ namespace ROS.Web.Controllers
 
 
         // TO DO: SKRIV FÄRDIGT KICKMEMBER ACTION
-        ////POST: KickMember from Club
+        //POST: KickMember from Club
         //[HttpPost, ActionName("KickMember")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> KickMember(Guid? clubid, Guid? userid)
-        //{
-        //    if(clubid == null || userid == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> KickMember(Guid? clubUserId, Guid? clubId)
+        {
+            if (clubUserId == null || clubId == null)
+            {
+                return NotFound();
+            }
 
-        //    var club = await _context.Clubs.Where(c => c.Id == clubid).SingleOrDefaultAsync();
-            
-        //    if(club == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var club = await _context.Clubs.Include(c => c.ClubUsers).SingleOrDefaultAsync(o => o.Id == clubId);
 
-        //    var getUser = club.ClubUsers.Where(u => u.Id == userid).SingleOrDefault();
+            if (club == null)
+            {
+                return NotFound();
+            }
 
-        //    if(getUser == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var getUser = club.ClubUsers.SingleOrDefault(u => u.Id == clubUserId);
 
+            if (getUser == null)
+            {
+                return NotFound();
+            }
 
-        //}
+            club.ClubUsers.Remove(getUser);
+            _context.Clubs.Update(club);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ClubMembers", club);
+
+        }
 
         private bool ClubExists(Guid id)
         {
