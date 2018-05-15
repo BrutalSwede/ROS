@@ -400,7 +400,7 @@ namespace ROS.Web.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction("LandingPage", "Home", userId);
+                return RedirectToAction("LandingPage", "Home");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)

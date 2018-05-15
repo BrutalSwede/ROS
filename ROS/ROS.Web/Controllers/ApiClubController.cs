@@ -44,6 +44,20 @@ namespace ROS.Web.Controllers
             return clubApiViewModel.OrderByDescending(o => o.NumberOfMembers).Take(5);
         }
 
+        //Samuels Api function. Gets number om members in specific club
+        //GET: api/ApiClub/numberofmembers
+        public int NumberOfMembers(Guid id)
+        {
+            Club club = _context.Clubs.SingleOrDefault(o => o.Id == id);
+
+            if(club == null)
+            {
+                return 0;
+            }
+
+            return club.ClubUsers.Count();
+        }
+
 
         private bool ClubExists(Guid id)
         {

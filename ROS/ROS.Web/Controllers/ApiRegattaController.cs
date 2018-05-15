@@ -46,11 +46,5 @@ namespace ROS.Web.Controllers
 
             return Ok(regatta);
         }
-
-        public async Task<IActionResult> GetRegatta(int cord)
-        {
-
-            return Ok();
-        }
     }
 }
