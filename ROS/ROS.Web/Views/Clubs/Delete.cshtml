@@ -1,0 +1,63 @@
+﻿@model ROS.Web.Models.Club
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <br />
+        <div class="card">
+            <div class="card-header">
+                Ta bort <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+            </div>
+            <div class="card-body">
+                <h3>Är du säker på att du vill ta bort klubben?</h3>
+                <h4 class="ml-2"></h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Owner.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FoundedDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FoundedDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JoinedDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.JoinedDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IsActive)
+                    </dd>
+                </dl>                
+            </div>
+            <div class="card-footer">
+                <div>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Delete" class="btn btn-danger ml-2 float-right" onclick="return confirm('Är du helt säker på att du vill ta bort denna klubben?');"/>
+                    </form>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-info ml-2 float-left">Tillbaka</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

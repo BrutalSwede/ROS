@@ -1,0 +1,97 @@
+﻿@model ROS.Web.Models.ClubViewModels.ClubDetailsViewModel
+
+@{
+    ViewData["Title"] = "ClubMembers";
+    var numberOfApplicants = Convert.ToInt32(ViewData["NumberOfApplicants"]);
+}
+
+<div class="container-fluid">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Klubb <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+        <ul class="pagination m-2">
+            <li class="page-item">
+                <a asp-action="Details" asp-route-id="@Model.ClubId" class="page-link">Info</a>
+            </li>
+            <li class="page-item">
+                <a asp-action="ClubMembers" asp-route-id="@Model.ClubId" class="page-link">Medlemmar</a>
+            </li>
+
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <li class="page-item">
+                    <a asp-action="ClubApplications" asp-route-id="@Model.ClubId" class="page-link">
+                        Ansökningar
+                        @if (numberOfApplicants > 0)
+                        {
+                            <span class="badge badge-success" style="vertical-align: top">
+                                @numberOfApplicants
+                            </span>
+
+                        }
+                    </a>
+                </li>
+            }
+
+        </ul>
+        <div class="card-body">
+            <h4 class="ml-2">Medlemmar</h4>
+            <table id="total votes" class="table table-hover text-centered">
+                <thead>
+                    <tr>
+                        <th>Namn</th>
+                        <th>Email</th>
+                        @if (Context.User.Identity.Name == Model.Owner.UserName)
+                        {
+                            <th>Telefon</th>
+                            <th>ICE Telefon</th>
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Members)
+                    {
+                        <tr>
+                            <td>
+                                @item.User.FirstName
+                                @item.User.LastName
+                            </td>
+                            <td>
+                                @item.User.Email
+                                @if (item.User.Id == Model.Owner.Id)
+                                {
+                                    @:<strong>(Ägare)</strong>
+                                }
+                            </td>
+                            @if (Context.User.Identity.Name == Model.Owner.UserName)
+                            {
+
+
+                                <td>@item.User.PhoneNumber</td>
+                                <td>@item.User.IcePhone</td>
+                                @if (item.User.Id != Model.Owner.Id)
+                                {
+                                    <td>
+                                        <a asp-action="KickMember" asp-route-clubUserId="@item.Id" asp-route-clubId="@item.ClubId" class="btn btn-danger"onclick="return confirm('Är du helt säker på att du vill ta bort denna medlem?');">
+                                            Ta bort
+                                        </a>
+                                    </td>
+                                }
+
+                            }
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-outline-info ml-2">Tillbaka</a>
+        </div>
+    </div>
+
+</div>

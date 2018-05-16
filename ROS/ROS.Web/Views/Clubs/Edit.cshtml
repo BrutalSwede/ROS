@@ -1,0 +1,55 @@
+﻿@model ROS.Web.Models.Club
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <div class="container">
+        <br />
+        <div class="card">
+            <div class="card-header">
+                Ändra <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+            </div>
+
+
+            <div class="card-body">
+                <h4 class="ml-2"></h4>
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FoundedDate" class="control-label"></label>
+                        <input asp-for="FoundedDate" class="form-control"  />
+                        <span asp-validation-for="FoundedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <input type="submit" value="Spara ändringar" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-info ml-2">Tillbaka</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+}

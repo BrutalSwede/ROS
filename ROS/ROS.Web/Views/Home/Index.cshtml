@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ROS.Web.Models.Regatta>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Välkommen till ROS</h1>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Läs mer</a>
+    </p>
+</div>
+<div class="row no-gutters">
+    @foreach (Regatta R in Model)
+    {
+        @await Html.PartialAsync("../Regattas/Partial/RegattaPartialView", R)
+    }
+</div>
+
+
+
+

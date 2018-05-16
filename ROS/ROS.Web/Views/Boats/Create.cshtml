@@ -1,0 +1,126 @@
+﻿@model ROS.Web.Models.Boat
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <h1 class="display-6">Registrera din båt</h1>
+</div>
+
+
+
+<form asp-action="Create" class="marginabove">
+    <div class="card col-md-6 bg-light">
+        <div class="card-header">
+
+            <div>
+                <h4 class="display-6">Information</h4>
+            </div>
+
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Type" class="control-label"></label>
+                            <input asp-for="Type" class="form-control" />
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Certificate" class="control-label"></label>
+                            <input asp-for="Certificate" class="form-control" />
+                            <span asp-validation-for="Certificate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="card col-md-8 bg-light marginabove">
+        <div class="card-header">
+
+            <div>
+                <h4 class="display-8">Handikapp</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-row">
+
+
+                    <div class="form-group col-md-4 forsail">Med Flygande Försegel</div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="HandicapStandardWithForesail" class="control-label"></label>
+                        <input asp-for="HandicapStandardWithForesail" class="form-control" />
+                        <span asp-validation-for="HandicapStandardWithForesail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="HandicapShorthandedWithForesail" class="control-label"></label>
+                        <input asp-for="HandicapShorthandedWithForesail" class="form-control" />
+                        <span asp-validation-for="HandicapShorthandedWithForesail" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-4 forsail">Utan Flygande Försegel</div>
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="HandicapStandardWithoutForesail" class="control-label"></label>
+                        <input asp-for="HandicapStandardWithoutForesail" class="form-control" />
+                        <span asp-validation-for="HandicapStandardWithoutForesail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group  col-md-4">
+                        <label asp-for="HandicapShorthandedWithoutForesail" class="control-label"></label>
+                        <input asp-for="HandicapShorthandedWithoutForesail" class="form-control" />
+                        <span asp-validation-for="HandicapShorthandedWithoutForesail" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.ActionLink("Till båtlista", "Index", new { id = "boatList" }, new { @class = "btn btn-outline-info ml-2 marginabove" })
+        </div>
+        <div class="form-group col-md-2">
+            <input type="submit" value="Registrera" class="btn btn-outline-info ml-2 marginabove" />
+        </div>
+    </div>
+
+
+
+</form>
+
+ 
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
