@@ -8,6 +8,17 @@ nav {
     height: 10vh;
 }
 
+#reg-row {
+    justify-content: center;
+}
+
+#reg-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
 #login-row{
     justify-content:center;
 }
