@@ -19,6 +19,24 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
+#externlLogin-row {
+    justify-content: center;
+}
+
+#externalLogin-col {
+    margin-top: 5vh;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.iceice {
+    position: relative;
+}
+
+.iceice input {
+    text-indent: 32px;
+}
+
 .fa-facebook-square {
     font-size: 40px;
     color: #3B5998;
@@ -40,6 +58,15 @@ nav {
     overflow: hidden;
     outline: none;
 }
+
+
+.fa-question-circle {
+    position: absolute;
+    text-align: right;
+    top: 10px;
+    left: 10px;
+}
+
 
 div .fixed-bottom {
     position: fixed;
