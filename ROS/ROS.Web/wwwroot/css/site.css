@@ -8,6 +8,39 @@ nav {
     height: 10vh;
 }
 
+#login-row{
+    justify-content:center;
+}
+
+#login-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.fa-facebook-square {
+    font-size: 40px;
+    color: #3B5998;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.fa-google-plus-official {
+    font-size: 40px;
+    color: #dd4b39;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
 div .fixed-bottom {
     position: fixed;
     right: 0;
