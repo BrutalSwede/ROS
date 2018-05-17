@@ -9,8 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ROS.Web</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="false" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -34,7 +33,7 @@
                 <div class="list-group border-0 card text-center text-md-left">
                     <a asp-controller="Home" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-home"></i> <span class="d-none d-md-inline">Hem</span></a>
                     <a asp-controller="Boats" asp-action="Index" class="list-group-item d-inline-block"><i class="fa fa-anchor"></i> <span class="d-none d-md-inline">Båtar</span></a>
-                    <a href="#menu3" class="list-group-item d-inline-block" data-toggle="collapse" aria-expanded="false"><i class="fa fa-group"></i> <span class="d-none d-md-inline">Klubb</span></a>
+                    <a href="#menu3" class="list-group-item d-inline-block" data-toggle="collapse" aria-expanded="false"><i class="fas fa-users"></i> <span class="d-none d-md-inline">Klubb</span></a>
                     <div class="collapse" id="menu3" data-parent="#sidebar" style="">
                         <a asp-controller="Clubs" asp-action="MyClubs" class="list-group-item" data-parent="#menu3">Mina Klubbar</a>
                         <a asp-controller="Clubs" asp-action="Index" class="list-group-item" data-parent="#menu3">Alla Klubbar</a>
