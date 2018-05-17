@@ -21,11 +21,7 @@ namespace ROS.Web.Models
         public string LastName { get; set; }
 
         [DisplayName("Adress")]
-        public  string Address { get; set; }
-
-        [Phone]
-        [DisplayName("Telefonnummer")]
-        public string Phone { get; set; }
+        public string Address { get; set; }
 
         [Phone]
         [DisplayName("ICE Telefonnummer")]
