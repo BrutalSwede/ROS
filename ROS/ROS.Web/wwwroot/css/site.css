@@ -8,6 +8,77 @@ nav {
     height: 10vh;
 }
 
+#reg-row {
+    justify-content: center;
+}
+
+#reg-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+#login-row{
+    justify-content:center;
+}
+
+#login-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+#externlLogin-row {
+    justify-content: center;
+}
+
+#externalLogin-col {
+    margin-top: 5vh;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.iceice {
+    position: relative;
+}
+
+.iceice input {
+    text-indent: 32px;
+}
+
+.fa-facebook-square {
+    font-size: 40px;
+    color: #3B5998;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.fa-google-plus-official {
+    font-size: 40px;
+    color: #dd4b39;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+
+.fa-question-circle {
+    position: absolute;
+    text-align: right;
+    top: 10px;
+    left: 10px;
+}
+
+
 div .fixed-bottom {
     position: fixed;
     right: 0;
