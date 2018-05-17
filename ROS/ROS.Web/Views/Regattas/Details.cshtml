@@ -26,34 +26,40 @@
                 @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName)
             </span>
         </div>
-        <hr />
-        <h4>@Html.DisplayNameFor(model => model.Description)</h4>
-        <p class="regatta-description">
-            @Html.DisplayFor(model => model.Description)
-        </p>
-    </div>
-    <div class="card-footer">
-        @if (Context.User.Identity.IsAuthenticated)
-        {
-            @if (ViewBag.IsRegistered)
+
+        <div class="card-footer">
+            @if (Model.EndTime < DateTime.Now)
             {
-                <a href="#" class="btn btn-success disabled">Du är redan anmäld</a>
+               <span data-toggle="tooltip" data-placement="top" title="Regattans sluttid har redan varit" ><a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success disabled">Anmäl dig</a></span> 
+                <span data-toggle="tooltip" data-placement="top" title="Regattans sluttid har redan varit"><a href="#" class="btn btn-info disabled ">Kontakta värden</a></span>
+                <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary" >Visa anmälda <span class="badge badge-light">@Model.Registrations.Count</span></a>
             }
             else
             {
-                <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">Anmäl dig</a>
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    @if (ViewBag.IsRegistered)
+                    {
+                        <a href="#" class="btn btn-success disabled">Du är redan anmäld</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">Anmäl dig</a>
+                    }
+                    <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title" class="btn btn-info">Kontakta värden</a>
+                }
+
+                @if (Model.CreatedBy.Email == Context.User.Identity.Name)
+                {
+                    <div class="btn-group" role="group">
+
+                        <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda <span class="badge badge-light">@Model.Registrations.Count</span></a>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Redigera</a>
+
+                    </div>
+                }
             }
-            <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title" class="btn btn-info">Kontakta värden</a>
-        }
-
-        @if (Model.CreatedBy.Email == Context.User.Identity.Name)
-        {
-            <div class="btn-group" role="group">
-
-                <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda <span class="badge badge-light">@Model.Registrations.Count</span></a>
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Redigera</a>
-
-            </div>
-        }
+            <a asp-action="PastRegattas" class="btn btn-outline-info ml-2 float-right">Tillbaka</a>
+        </div>
     </div>
 </div>

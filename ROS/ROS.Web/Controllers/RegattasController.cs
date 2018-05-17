@@ -29,6 +29,18 @@ namespace ROS.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Regattas
+                .Where(d => d.EndTime > DateTime.Now)
+                .Include(r => r.CreatedBy)
+                .ToListAsync());
+        }
+
+        // GET: Past Regattas
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> PastRegattas()
+        {
+            return View(await _context.Regattas
+                .Where(d => d.EndTime < DateTime.Now)
                 .Include(r => r.CreatedBy)
                 .ToListAsync());
         }

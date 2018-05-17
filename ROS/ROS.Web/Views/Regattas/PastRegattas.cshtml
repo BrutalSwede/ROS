@@ -1,18 +1,11 @@
 ﻿@model IEnumerable<ROS.Web.Models.Regatta>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "PastRegattas";
 }
 
-<h2>Kommande Regattor</h2>
+<h2>Tidigare Regattor</h2>
 <hr />
-@if (Context.User.Identity.IsAuthenticated)
-{
-    <p>
-        <a asp-action="Create">Skapa ny</a>
-    </p>
-}
-
 <div class="row no-gutters">
     @foreach (var item in Model)
     {
