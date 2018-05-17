@@ -6,22 +6,14 @@
 }
 <div class="container-fluid">
     <br />
-    <div class="card">
-        <div class="card-header">
-            Ansökan om medlemskap i <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
-        </div>
-        <div class="card-body">
+    Ansökan om medlemskap i <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
 
-            <form asp-action="Apply">
-                <input type="hidden" asp-for="Id" />
-                <input type="submit" value="Bekräfta" class="btn btn-lg btn-outline-danger float-left" />
-            </form>
-        </div>
-        <div class="card-footer">
-            <form asp-action="index">
-                <button class="btn btn-outline-info float-right">Tillbaka</button>
-            </form>
-        </div>
-    </div>
+    <form asp-action="Apply">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Bekräfta" class="btn btn-lg btn-success float-left" />
+    </form>
 
+    <form asp-action="index">
+        <button class="btn btn-outline-info btn-lg ml-2">Tillbaka</button>
+    </form>
 </div>
