@@ -46,9 +46,9 @@ namespace ROS.Web.Controllers
 
         //Samuels Api function. Gets number om members in specific club
         //GET: api/ApiClub/numberofmembers
-        public int NumberOfMembers(Guid id)
+        public int NumberOfMembers(string name)
         {
-            Club club = _context.Clubs.SingleOrDefault(o => o.Id == id);
+            Club club = _context.Clubs.SingleOrDefault(o => o.Name == name);
 
             if(club == null)
             {
