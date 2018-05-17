@@ -104,8 +104,11 @@
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            @Html.ActionLink("Till båtlista", "Details", new { id = "boatList" }, new { @class = "btn btn-outline-info ml-2 marginabove" })
+             @Html.ActionLink("Till båtlista", "Index", new { id = "BoatList" }, new { @class = "btn btn-outline-info ml-2 marginabove" }) 
         </div>
+
+        <!-- <a asp-route-for="" class="btn btn-outline-info ml-2 marginabove">Till Båtlista</a>  -->
+
         <div class="form-group col-md-2">
             <input type="submit" value="Registrera" class="btn btn-outline-info ml-2 marginabove" />
         </div>
