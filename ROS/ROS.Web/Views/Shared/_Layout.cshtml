@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ROS.Web</title>
+    <link rel="stylesheet" href="https://unpkg.com/popper.js@1.14.3/dist/" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -38,10 +39,19 @@
                     <div class="collapse" id="menu3" data-parent="#sidebar" style="">
                         <a asp-controller="Clubs" asp-action="MyClubs" class="list-group-item" data-parent="#menu3">Mina Klubbar</a>
                         <a asp-controller="Clubs" asp-action="Index" class="list-group-item" data-parent="#menu3">Alla Klubbar</a>
-                        <a asp-controller="Clubs" asp-action="Create" class="list-group-item" data-parent="#menu3">Registrera Klubb</a>
-                        <a asp-controller="Regattas" asp-action="Create" class="list-group-item" data-parent="#menu3">Skapa Regatta</a>
+                        <a asp-controller="Clubs" asp-action="Create" class="list-group-item" data-parent="#menu3">Skapa Klubb</a>
                     </div>
-                    <a asp-controller="Regattas" asp-action="Index" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="d-none d-md-inline">Regatta</span></a>
+
+                    <a href="#menu4" class="list-group-item d-inline-block" data-toggle="collapse" aria-expanded="false"><i class="fa fa-calendar"></i> <span class="d-none d-md-inline">Regatta</span></a>
+                    <div class="collapse" id="menu4" data-parent="#sidebar" style="">
+
+                        <a asp-controller="Regattas" asp-action="Index" class="list-group-item" data-parent="#menu4"> <span class="d-none d-md-inline">Kommande</span></a>
+
+                        <a asp-controller="Regattas" asp-action="PastRegattas" class="list-group-item" data-parent="#menu4"> <span class="d-none d-md-inline">Tidigare</span></a>
+                        <a asp-controller="Regattas" asp-action="Create" class="list-group-item" data-parent="#menu4">Skapa</a>
+                    </div>
+
+
                     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="list-group-item d-inline-block collapsed"><i class="fa fa-address-card"></i> <span class="d-none d-md-inline">Admin</span></a>
