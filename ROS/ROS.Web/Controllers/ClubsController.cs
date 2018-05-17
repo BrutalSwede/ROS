@@ -104,6 +104,97 @@ namespace ROS.Web.Controllers
 
             var club = await _context.Clubs
                 .Include(o => o.Owner)
+                .Include(u => u.ClubUsers)
+                .Include(a => a.Applications)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            var clubViewModel = new ClubDetailsViewModel
+            {
+                ClubId = club.Id,
+                Name = club.Name,
+                IsActive = club.IsActive,
+                Members = club.ClubUsers,
+                NumberOfMembers = club.ClubUsers.Count(),
+                FoundedDate = club.FoundedDate,
+                JoinedDate = club.JoinedDate,
+                Owner = club.Owner,
+                PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
+            };
+
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
+
+            return View(clubViewModel);
+        }
+
+        //GET: Clubs/ClubMembers
+        [HttpGet]
+        public async Task<IActionResult> ClubMembers(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var club = await _context.Clubs
+                .Include(o => o.Owner)
+                .Include(u => u.ClubUsers)
+                .ThenInclude(u => u.User)
+                .Include(a => a.Applications)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            var clubViewModel = new ClubDetailsViewModel
+            {
+                ClubId = club.Id,
+                Name = club.Name,
+                IsActive = club.IsActive,
+                Members = club.ClubUsers,
+                NumberOfMembers = club.ClubUsers.Count(),
+                FoundedDate = club.FoundedDate,
+                JoinedDate = club.JoinedDate,
+                Owner = club.Owner,
+                PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
+            };
+
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
+
+            return View(clubViewModel);
+        }
+
+        //GET: Clubs/Details/ClubApplications/id
+        [HttpGet]
+        public async Task<IActionResult> ClubApplications(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var club = await _context.Clubs
+                .Include(o => o.Owner)
                 .Include(c => c.ClubUsers)
                 .Include(a => a.Applications)
                 .ThenInclude(k => k.User)
@@ -126,6 +217,15 @@ namespace ROS.Web.Controllers
                 PendingApplications = club.Applications.Where(a => a.Status == ApplicationStatus.Pending).ToList()
             };
 
+            int numberOfApplicants = 0;
+
+            if (clubViewModel.PendingApplications != null)
+            {
+                numberOfApplicants = clubViewModel.PendingApplications.Count();
+            }
+
+            ViewData["NumberOfApplicants"] = numberOfApplicants;
+
             return View(clubViewModel);
         }
 
@@ -135,58 +235,73 @@ namespace ROS.Web.Controllers
         {
             string _userId = GetCurrentUser().Id;
 
-            var clubs = await _context.Clubs.Where(c => c.Owner.Id == _userId)
-                .Include(u => u.ClubUsers).ToListAsync();
+            var clubs = await _context.Clubs
+                .Include(o => o.Owner)
+                .Include(u => u.ClubUsers)
+                .ToListAsync();
 
-            if (clubs.Count() <= 0)
-            {
-                return RedirectToAction(nameof(Create));
-            }
             var clubVMList = new List<GetClubsViewModel>();
 
             foreach (var item in clubs)
             {
-                clubVMList.Add(new GetClubsViewModel { ClubId = item.Id, ClubName = item.Name, FoundedDate = item.FoundedDate, IsActive = item.IsActive, NumberOfMembers = item.ClubUsers.Count, Owner = item.Owner });
+                if(item.ClubUsers.Exists(m => m.UserId == _userId))
+                {
+                    clubVMList.Add(new GetClubsViewModel
+                    {
+                        ClubId = item.Id,
+                        ClubName = item.Name,
+                        FoundedDate = item.FoundedDate,
+                        IsActive = item.IsActive,
+                        IsMember = item.ClubUsers.Exists(m => m.UserId == _userId),
+                        NumberOfMembers = item.ClubUsers.Count,
+                        Owner = item.Owner
+                    });
+                }
+            }
+
+            if (clubVMList == null || clubVMList.Count() <= 0)
+            {
+                return RedirectToAction(nameof(Create));
             }
 
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
             ViewData["MemberSortParm"] = sortOrder == "member" ? "member_desc" : "member";
 
-            var sortQuery = from x in clubVMList
-                            select x;
+            var clubSort = from x in clubVMList
+                           select x;
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.ClubName);
+                    clubSort = clubSort.OrderByDescending(s => s.ClubName);
                     break;
 
                 case "name":
-                    sortQuery = sortQuery.OrderBy(s => s.ClubName);
+                    clubSort = clubSort.OrderBy(s => s.ClubName);
                     break;
 
                 case "date":
-                    sortQuery = sortQuery.OrderBy(s => s.FoundedDate);
+                    clubSort = clubSort.OrderBy(s => s.FoundedDate);
                     break;
 
                 case "date_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.FoundedDate);
+                    clubSort = clubSort.OrderByDescending(s => s.FoundedDate);
                     break;
 
                 case "member":
-                    sortQuery = sortQuery.OrderBy(s => s.NumberOfMembers);
+                    clubSort = clubSort.OrderBy(s => s.NumberOfMembers);
                     break;
 
                 case "member_desc":
-                    sortQuery = sortQuery.OrderByDescending(s => s.NumberOfMembers);
+                    clubSort = clubSort.OrderByDescending(s => s.NumberOfMembers);
                     break;
 
                 default:
                     break;
             }
 
-            return View(sortQuery);
+            return View(clubSort);
         }
 
         // GET: Clubs/Create
@@ -368,7 +483,7 @@ namespace ROS.Web.Controllers
 
         public async Task<IActionResult> ApproveApplication(Guid id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -379,7 +494,7 @@ namespace ROS.Web.Controllers
                 .ThenInclude(c => c.ClubUsers)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
-            if(application == null)
+            if (application == null)
             {
                 return NotFound();
             }
@@ -392,27 +507,59 @@ namespace ROS.Web.Controllers
             club.ClubUsers.Add(new ClubUser { Id = Guid.NewGuid(), Club = club, User = user });
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ClubApplications", club);
         }
 
         public async Task<IActionResult> RejectApplication(Guid id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var application = await _context.ClubApplications.SingleOrDefaultAsync(c => c.Id == id);
 
-            if(application == null)
+            if (application == null)
             {
                 return NotFound();
             }
 
+            var getClub = await _context.Clubs.FirstOrDefaultAsync(o => o.Id == application.ClubId);
+
             application.Status = ApplicationStatus.Rejected;
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ClubApplications", getClub);
+        }
+
+        //POST: KickMember from Club
+        public async Task<IActionResult> KickMember(Guid? clubUserId, Guid? clubId)
+        {
+            if (clubUserId == null || clubId == null)
+            {
+                return NotFound();
+            }
+
+            var club = await _context.Clubs.Include(c => c.ClubUsers).SingleOrDefaultAsync(o => o.Id == clubId);
+
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            var getUser = club.ClubUsers.SingleOrDefault(u => u.Id == clubUserId);
+
+            if (getUser == null)
+            {
+                return NotFound();
+            }
+
+            club.ClubUsers.Remove(getUser);
+            _context.Clubs.Update(club);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ClubMembers", club);
+
         }
 
         private bool ClubExists(Guid id)

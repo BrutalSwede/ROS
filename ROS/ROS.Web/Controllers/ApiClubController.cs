@@ -22,33 +22,6 @@ namespace ROS.Web.Controllers
             _context = context;
         }
 
-        // GET: api/ApiClub
-        [HttpGet]
-        public IEnumerable<Club> GetClubs()
-        {
-            return _context.Clubs;
-        }
-
-        // GET: api/ApiClub/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetClub([FromRoute] Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            var club = await _context.Clubs.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (club == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(club);
-        }
-
-
         //Jockes Api function. Gets the top 5 clubs sorted by most members 
         //GET: api/ApiClub/top5mostmembers
         [HttpGet("top5mostmembers")]

@@ -8,6 +8,77 @@ nav {
     height: 10vh;
 }
 
+#reg-row {
+    justify-content: center;
+}
+
+#reg-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+#login-row{
+    justify-content:center;
+}
+
+#login-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+#externlLogin-row {
+    justify-content: center;
+}
+
+#externalLogin-col {
+    margin-top: 5vh;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.iceice {
+    position: relative;
+}
+
+.iceice input {
+    text-indent: 32px;
+}
+
+.fa-facebook-square {
+    font-size: 40px;
+    color: #3B5998;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.fa-google-plus-official {
+    font-size: 40px;
+    color: #dd4b39;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+
+.fa-question-circle {
+    position: absolute;
+    text-align: right;
+    top: 10px;
+    left: 10px;
+}
+
+
 div .fixed-bottom {
     position: fixed;
     right: 0;
@@ -113,7 +184,6 @@ div .fixed-bottom {
     .body-content {
         padding-left: 0;
         padding-right: 0;
-        max-width: 16em;
         margin-left:45px;
     }
 }
@@ -165,7 +235,6 @@ div .fixed-bottom {
     .body-content {
         padding-left: 0;
         padding-right: 0;
-        max-width: 13em;
     }
 }
 
@@ -237,6 +306,15 @@ div .fixed-bottom {
     height: 320px;
     width: 300px;
     overflow-y: scroll;
+}
+
+/* 
+    This can be used on fields that are required
+    Set the the form-group should also have the class 'required' and then the label needs the class 'form-label'
+*/
+.form-group.required .form-label:after {
+    content:"*";
+    color:red;
 }
 
 /* Hide/rearrange for smaller screens */

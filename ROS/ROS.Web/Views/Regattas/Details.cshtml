@@ -2,74 +2,58 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h2>Details</h2>
-<div>
-    <h4>Regatta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StartTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StartTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EndTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy.UserName)
-        </dd>
-    </dl>
-</div>
-@if (Context.User.Identity.IsAuthenticated)
-{
-    @if (ViewBag.IsRegistered)
-    {
-        <div class="mb-1">
-            <a href="#" class="btn btn-success disabled">Du är redan anmäld</a>
-        </div>
-    }
-    else
-    {
-        <div class="mb-1">
-            <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">Anmäl dig</a>
-        </div>
-    }
 
-    <div class="mb-1">
-        <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title" class="btn btn-info">Kontakta värden</a>
+<div class="card col-12 col-md-10 mt-1">
+    <div class="card-header">
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
     </div>
-}
-<div>
-    <div class="btn-group mb-1" role="group">
+    <div class="card-body">
+        <div>
+            <span class="map-url">
+                <i class="fa fa-map"></i> <strong>Var?</strong>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
+            </span>
+        </div>
+        <div>
+            <span class="timespan">
+                <i class="far fa-clock"></i> <strong>När?</strong>
+                @Model.StartTime.ToString("HH:mm dd MMM yyy") <i class="fa fa-arrow-right"></i> @Model.EndTime.ToString("HH:mm dd MMM yyy")
+            </span>
+        </div>
+        <div>
+            <span class="regatta-host">
+                <i class="fa fa-user-circle"></i> <strong>Vem?</strong>
+                @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName)
+            </span>
+        </div>
+        <hr />
+        <h4>@Html.DisplayNameFor(model => model.Description)</h4>
+        <p class="regatta-description">
+            @Html.DisplayFor(model => model.Description)
+        </p>
+    </div>
+    <div class="card-footer">
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            @if (ViewBag.IsRegistered)
+            {
+                <a href="#" class="btn btn-success disabled">Du är redan anmäld</a>
+            }
+            else
+            {
+                <a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success">Anmäl dig</a>
+            }
+            <a href="mailto:@Model.CreatedBy.Email?subject=@Model.Title" class="btn btn-info">Kontakta värden</a>
+        }
+
         @if (Model.CreatedBy.Email == Context.User.Identity.Name)
         {
-            <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda</a>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Redigera</a>
+            <div class="btn-group" role="group">
+
+                <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda <span class="badge badge-light">@Model.Registrations.Count</span></a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Redigera</a>
+
+            </div>
         }
     </div>
 </div>
