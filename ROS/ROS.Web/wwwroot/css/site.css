@@ -184,7 +184,7 @@ div .fixed-bottom {
     .body-content {
         padding-left: 0;
         padding-right: 0;
-        max-width: 16em;
+        /*max-width: 16em;*/
         margin-left:45px;
     }
 }
@@ -236,7 +236,7 @@ div .fixed-bottom {
     .body-content {
         padding-left: 0;
         padding-right: 0;
-        max-width: 13em;
+        /*max-width: 13em;*/
     }
 }
 
