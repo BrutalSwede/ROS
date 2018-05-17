@@ -9,7 +9,10 @@
 </div>
 
 <p>
-    @Html.ActionLink("Registrera båt", "Create", new { id = "#" }, new { @class = "btn btn-outline-info ml-2 marginabove" })
+    @*   //funkar nu också när man satta id till null, men blir en länk och ingen knapp:
+        Html.ActionLink("Registrera båt", "Create", null, new { @class = "btn btn-outline-info ml-2 marginabove" })  *@
+
+    <a asp-controller="Boats" asp-action="Create" class="btn btn-outline-info ml-2 marginabove">Registrera båt</a>
 </p>
 
     
