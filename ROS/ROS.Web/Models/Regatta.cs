@@ -34,8 +34,9 @@ namespace ROS.Web.Models
 
         [Required]
         [DisplayName("Adress")]
-        public string Address { get; set; } // This might get changed depending on Google maps API
+        public string Address { get; set; }
 
+        [DisplayName("Värd")]
         public ApplicationUser CreatedBy { get; set; }
 
         public List<RegattaRegistration> Registrations { get; set; }
@@ -46,6 +47,11 @@ namespace ROS.Web.Models
             if (EndTime < StartTime)
             {
                 yield return new ValidationResult("Sluttiden måste vara efter starttiden.", new[] { "EndTime" });
+            }
+
+            if(StartTime < DateTime.Now)
+            {
+                yield return new ValidationResult("Starttiden får inte ha passerat", new[] { "StartTime" });
             }
         }
     }
