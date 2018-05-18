@@ -44,6 +44,22 @@ namespace ROS.Web.Controllers
             return clubApiViewModel.OrderByDescending(o => o.NumberOfMembers).Take(5);
         }
 
+        //All ClubsOwners
+        [HttpGet("clubowners")]
+        public IEnumerable<ClubOwnerApiViewModel> Clubowners()
+        {
+            var clubs = _context.Clubs.Include(o => o.ClubUsers).Include(s=> s.Owner);
+
+            if (clubs == null)
+                return null;
+
+            var clubOwnerApiViewModel = new List<ClubOwnerApiViewModel>();
+
+            foreach (var item in clubs)
+                clubOwnerApiViewModel.Add(new ClubOwnerApiViewModel { ClubName = item.Name, FirstName = item.Owner.FirstName, LastName = item.Owner.LastName, OwnerEmail = item.Owner.Email, IsActive = item.IsActive });
+
+            return clubOwnerApiViewModel.OrderByDescending(o => o.ClubName);
+        } 
 
         private bool ClubExists(Guid id)
         {
