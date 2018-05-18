@@ -66,13 +66,13 @@
                             <p>
                                 @foreach (var provider in loginProviders)
                                 {
-                                    if(@provider.Name == "Facebook")
+                                    if (@provider.Name == "Facebook")
                                     {
                                         <button type="submit" class="fab fa-facebook-square" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"></button>
                                     }
                                     else
                                     {
-                                        <button type="submit" class="fab fa-google-plus-square" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"></button>   @:FontAwesome 5.0.13's fault.                              
+                                        <button type="submit" class="fab fa-google-plus-square" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"></button>
                                     }
                                 }
                             </p>
