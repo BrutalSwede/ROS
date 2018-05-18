@@ -207,10 +207,14 @@ namespace ROS.Web.Migrations
                     b.Property<double?>("HandicapStandardWithoutForesail")
                         .IsRequired();
 
+                    b.Property<DateTime>("ModelYear");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<string>("OwnerId");
+
+                    b.Property<int>("SailNumber");
 
                     b.Property<string>("Type")
                         .IsRequired();

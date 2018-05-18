@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.BoatViewModels;
 
 namespace ROS.Web.Controllers
 {
@@ -67,17 +68,33 @@ namespace ROS.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(/*[Bind("Name,Type,Certificate,HandicapStandardWithForesail,HandicapStandardWithoutForesail,HandicapShorthandedWithForesail,HandicapShorthandedWithoutForesail,Id")] */Boat boat)
+        public async Task<IActionResult> Create(CreateBoatViewModel boatViewModel)
         {
+
             if (ModelState.IsValid)
             {
-                boat.Owner = GetCurrentUser();
-                boat.Id = Guid.NewGuid();
+
+                DateTime modelYear = new DateTime(boatViewModel.ModelYear, 1, 1);
+                Boat boat = new Boat
+                {
+                    Id = Guid.NewGuid(),
+                    Owner = GetCurrentUser(),
+                    ModelYear = modelYear,
+                    SailNumber = boatViewModel.SailNumber,
+                    Certificate = boatViewModel.Certificate,
+                    Name = boatViewModel.Name,
+                    Type = boatViewModel.Type,
+                    HandicapStandardWithForesail = boatViewModel.HandicapStandardWithForesail,
+                    HandicapShorthandedWithForesail = boatViewModel.HandicapShorthandedWithForesail,
+                    HandicapStandardWithoutForesail = boatViewModel.HandicapStandardWithoutForesail,
+                    HandicapShorthandedWithoutForesail = boatViewModel.HandicapShorthandedWithoutForesail
+                };
+
                 _context.Add(boat);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(boatViewModel);
         }
 
         // GET: Boats/Edit/5
