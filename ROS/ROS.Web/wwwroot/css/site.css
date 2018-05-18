@@ -85,6 +85,7 @@ div .fixed-bottom {
     left: 0.3em;
     align-content: center;
     color: white;
+    max-width:inherit;
 }
 
 .body-content{
