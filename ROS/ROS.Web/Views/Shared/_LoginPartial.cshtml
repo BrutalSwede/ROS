@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using ROS.Web.Models
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -13,7 +13,7 @@
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="btn btn-link text-light">V�lkommen  @user.FirstName!</a>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="btn btn-link text-light">Välkommen  @user.FirstName!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link text-light">Log out</button>
