@@ -11,3 +11,17 @@ $(document).on('click', '.panel-heading span.clickable', function(e){
 		$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
 	}
 })
+
+var maxDescLength = 1000;
+$('#desctextChars').keyup(function () {
+    var length = $(this).val().length;
+    var length = maxDescLength - length;
+    $('#descChars').text("(" + length + " tecken kvar)");
+});
+
+var maxTitleLength = 50;
+$('#titletextChars').keyup(function () {
+    var length = $(this).val().length;
+    var length = maxTitleLength - length;
+    $('#titleChars').text("(" + length + " tecken kvar)");
+});
