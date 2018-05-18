@@ -14,14 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <span class="max-glyph-count">(max 50 tecken)</span>
-                <input asp-for="Title" class="form-control" />
+                <span class="max-glyph-count" id="titleChars">(50 tecken kvar)</span>
+                <input asp-for="Title" class="form-control" id="titletextChars" maxlength="50"/>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <span class="max-glyph-count">(max 1000 tecken)</span>
-                <textarea asp-for="Description" class="form-control" ></textarea>
+                <span class="max-glyph-count" id="descChars">(1000 tecken kvar)</span>
+                <textarea asp-for="Description" class="form-control" id="desctextChars" maxlength="1000"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -62,5 +62,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    
+
 }
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
