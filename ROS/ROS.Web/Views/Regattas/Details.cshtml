@@ -3,37 +3,43 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
-    <div class="card mt-1">
-        <div class="card-header">
-            <h2>@Html.DisplayFor(model => model.Title)</h2>
+<div class="card col-12 col-md-10 mt-1">
+    <div class="card-header">
+        <h1 class="display-4">@Html.DisplayFor(model => model.Title)</h1>
+    </div>
+    <div class="card-body">
+        <div>
+            <span class="map-url">
+                <i class="fa fa-map"></i> <strong>Var?</strong>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
+            </span>
         </div>
-        <div class="card-body">
-            <div>
-                <span class="map-url">
-                    <i class="fa fa-map"></i> <strong>Var?</strong>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=@ViewBag.NavUrlEncoded" target="_blank">@Html.DisplayFor(model => model.Address)</a>
-                </span>
-            </div>
-            <div>
-                <span class="timespan">
-                    <i class="fa fa-clock-o"></i> <strong>När?</strong>
-                    @Model.StartTime.ToString("HH:mm dd MMM yyy") <i class="fa fa-arrow-right"></i> @Model.EndTime.ToString("HH:mm dd MMM yyy")
-                </span>
-            </div>
-            <div>
-                <span class="regatta-host">
-                    <i class="fa fa-user-circle"></i> <strong>Vem?</strong>
-                    @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName)
-                </span>
-            </div>
-            <hr />
-            <h4>@Html.DisplayNameFor(model => model.Description)</h4>
-            <p class="regatta-description">
-                @Html.DisplayFor(model => model.Description)
-            </p>
+        <div>
+            <span class="timespan">
+                <i class="far fa-clock"></i> <strong>När?</strong>
+                @Model.StartTime.ToString("HH:mm dd MMM yyy") <i class="fa fa-arrow-right"></i> @Model.EndTime.ToString("HH:mm dd MMM yyy")
+            </span>
         </div>
-        <div class="card-footer">
+        <div>
+            <span class="regatta-host">
+                <i class="fa fa-user-circle"></i> <strong>Vem?</strong>
+                @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName)
+            </span>
+        </div>
+        <hr />
+        <p>
+            @Html.DisplayFor(model => model.Description)
+        </p>
+    </div>
+    <div class="card-footer">
+        @if (Model.EndTime < DateTime.Now)
+        {
+            <span data-toggle="tooltip" data-placement="top" title="Regattans sluttid har redan varit"><a asp-action="Register" asp-route-id="@Model.Id" class="btn btn-success disabled">Anmäl dig</a></span>
+            <span data-toggle="tooltip" data-placement="top" title="Regattans sluttid har redan varit"><a href="#" class="btn btn-info disabled ">Kontakta värden</a></span>
+            <a asp-action="ViewRegistrations" asp-route-id="@Model.Id" class="btn btn-secondary">Visa anmälda <span class="badge badge-light">@Model.Registrations.Count</span></a>
+        }
+        else
+        {
             @if (Context.User.Identity.IsAuthenticated)
             {
                 @if (ViewBag.IsRegistered)
@@ -56,6 +62,8 @@
 
                 </div>
             }
-        </div>
+        }
+
+        <a asp-action="PastRegattas" class="btn btn-outline-info ml-2 float-right">Tillbaka</a>
     </div>
 </div>
