@@ -32,7 +32,8 @@
             <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                     <div class="card-text">@Html.DisplayFor(modelItem => item.Type)</div>
-                    <div class="card-text">Årtal</div>
+                    <div class="card-text">@Html.DisplayFor(modelItem => item.ModelYear)</div>
+                    
                     <p>
                         @Html.ActionLink("Visa mer >", "Details", new { id = @item.Id }, new { @class = "btn btn-outline-info ml-2 marginabove btn-sm float-right" })
 
