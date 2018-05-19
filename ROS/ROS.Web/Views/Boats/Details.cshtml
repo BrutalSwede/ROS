@@ -54,14 +54,14 @@
                 <li class="list-group-item col-md-12">
 
 
-                    <h4 class="card-title">
+                    <h4 class="card-title row">
                         <span class="small-text-grey col-md-4">Handikapp</span>
-                        <span class="small-text-grey  col-md-4">Normal</span>
-                        <span class="small-text-grey  col-md-4">Shorthand</span>
+                        <span class="small-text-grey col-md-4">Normal</span>
+                        <span class="small-text-grey col-md-4">Shorthand</span>
                     </h4>
 
 
-                    <p class="card-text">
+                    <p class="card-tex row">
                         <span class="col-md-4">Försegel</span>
                         <span class="col-md-4">@Html.DisplayFor(model => model.HandicapStandardWithForesail)</span>
                         <span class="col-md-4">@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</span>
@@ -69,7 +69,7 @@
 
 
 
-                    <p class="card-text">
+                    <p class="card-text row">
                         <span class="col-md-4">u. Försegel</span>
                         <span class="col-md-4">@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</span>
                         <span class="col-md-4">@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</span>
@@ -80,28 +80,31 @@
 
 
 
+                <li class="list-group-item col-md-12">
 
-                    <h5 class="card-title">
-                        <span class="card-text col-md-4">Besättningsnamn</span>
+                    <h5 class="">Besättning</h5>
+                    
+                    <h6 class="card-title row">
+                        <span class="card-text col-md-4">Namn</span>
                         <span class="card-text  col-md-4">Kapten</span>
-                        <span class="card-text col-md-4">Besättningsmedlemmar</span>
-                    </h5
-                
+                        <span class="card-text col-md-4">Medlemmar</span>
+                    </h6>
+
 
 
 
                     @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
                     {
-                        <p class="card-text">
+                        <p class="card-text row">
                             <span class="col-md-4">@Model.Crews[crewIndex].Name</span>
                             <span class="col-md-4">@Model.Crews[crewIndex].Captain.UserName</span>
                             <span class="col-md-4">@Model.Crews[crewIndex].Crewmen.Count()</span>
                         </p>
                     }
+                </li>
 
 
-
-      </ul>
+            </ul>
 
 
 
