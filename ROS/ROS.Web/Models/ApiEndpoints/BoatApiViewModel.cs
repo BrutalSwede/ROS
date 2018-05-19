@@ -14,7 +14,7 @@ namespace ROS.Web.Models.ApiEndpoints
 
         public string BoatType { get; set; }
 
-        public string BoatCert { get; set; }
+        public DateTime BoatYear { get; set; }
 
     }
 

@@ -44,14 +44,24 @@ namespace ROS.Web.Controllers
             }
 
 
-            var boatApiViewModel = new List<BoatApiViewModel>();
+            var boatApiViewModelList = new List<BoatApiViewModel>();
 
+            int boatsAmount =  boats.Count();
+
+            
             foreach (var item in boats)
             {
-                boatApiViewModel.Add(new BoatApiViewModel {NumberOfBoats = boats.Count(), BoatName = item.Name, BoatType = item.Type, BoatCert = item.Certificate });
+                BoatApiViewModel boatApiViewModel = new BoatApiViewModel();
+
+                    boatApiViewModel.NumberOfBoats = boatsAmount;
+                    boatApiViewModel.BoatName = item.Name;
+                    boatApiViewModel.BoatType = item.Type;
+                    boatApiViewModel.BoatYear = item.ModelYear;
+
+                boatApiViewModelList.Add(boatApiViewModel);
             }
 
-            return boatApiViewModel.OrderBy(o => o.BoatName);
+            return boatApiViewModelList.OrderBy(o => o.BoatName);
             
         }
 
