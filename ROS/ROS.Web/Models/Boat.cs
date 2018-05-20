@@ -29,7 +29,7 @@ namespace ROS.Web.Models
         public int SailNumber { get; set; }
 
         [DisplayName("Modellår")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "0:yyyy")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy}")]
         public DateTime ModelYear { get; set; }
 
 
