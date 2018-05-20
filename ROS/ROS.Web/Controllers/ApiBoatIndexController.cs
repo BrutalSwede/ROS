@@ -31,7 +31,7 @@ namespace ROS.Web.Controllers
 
         
         
-        //Tommy Api function, Gets the most basic information about the registered boats including amount
+        //Tommy Api function, Gets the most basic information about the registered boats 
         // GET: api/ApiBoatIndex/basicboatinfo
         [HttpGet("{basicboatinfo}")]
         public IEnumerable<BoatApiViewModel> BasicBoatInfo()
@@ -46,14 +46,13 @@ namespace ROS.Web.Controllers
 
             var boatApiViewModelList = new List<BoatApiViewModel>();
 
-            int boatsAmount =  boats.Count();
 
             
             foreach (var item in boats)
             {
                 BoatApiViewModel boatApiViewModel = new BoatApiViewModel();
 
-                    boatApiViewModel.NumberOfBoats = boatsAmount;
+                    
                     boatApiViewModel.BoatName = item.Name;
                     boatApiViewModel.BoatType = item.Type;
                     boatApiViewModel.BoatYear = item.ModelYear;

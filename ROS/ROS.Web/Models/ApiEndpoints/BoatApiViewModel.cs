@@ -8,7 +8,7 @@ namespace ROS.Web.Models.ApiEndpoints
     public class BoatApiViewModel
     {
 
-        public int NumberOfBoats { get; set; }
+        
 
         public string BoatName { get; set; }
 
