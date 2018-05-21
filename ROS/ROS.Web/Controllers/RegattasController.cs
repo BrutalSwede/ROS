@@ -148,6 +148,9 @@ namespace ROS.Web.Controllers
             var _boatItems = _context.Boats.Where(b => b.Owner.Id == GetCurrentUser().Id)
                 .Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.Name }).ToList();
 
+            // Insert default value.
+            _boatItems.Insert(0, new SelectListItem { Value = "", Text = "Välj båt" });
+
             var regattaVm = new RegattaRegistrationViewModel { Regatta = regatta, BoatItems = new SelectList(_boatItems, "Value", "Text") };
 
             return View(regattaVm);

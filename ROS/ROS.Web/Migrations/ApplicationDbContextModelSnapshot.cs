@@ -3,10 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
-using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
@@ -163,8 +160,6 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
-
-                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
@@ -366,6 +361,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("BoatId");
 
                     b.Property<string>("Message");
+
+                    b.Property<int>("NumberOfParticipants");
 
                     b.Property<Guid>("RegattaId");
 

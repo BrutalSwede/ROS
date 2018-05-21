@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ROS.Web.Models
 {
-    public class RegattaRegistration : BaseEntity
+    public class RegattaRegistration : BaseEntity, IValidatableObject
     {
         public RegattaRegistration()
         {
@@ -27,6 +28,21 @@ namespace ROS.Web.Models
         [DisplayName("Meddelande")]
         public string Message { get; set; }
 
-        // Add crews later?
+        [Required]
+        [DisplayName("Antal deltagare")]
+        public int NumberOfParticipants { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if(NumberOfParticipants < 1)
+            {
+                yield return new ValidationResult("Antal deltagare kan ej vara mindre än 1", new[] { "NumberOfParticipants" });
+            }
+
+            if(BoatId.Equals(Guid.Empty))
+            {
+                yield return new ValidationResult("Då måste välja en båt", new[] { "BoatId" });
+            }
+        }
     }
 }
