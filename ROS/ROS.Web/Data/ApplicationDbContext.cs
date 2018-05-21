@@ -25,6 +25,8 @@ namespace ROS.Web.Data
             //builder.Entity<ApplicationUser>().HasMany(u => u.Boats).WithOne(b => b.Owner).HasForeignKey(u => u.OwnerId);
 
             //builder.Entity<ClubUser>().HasKey(u => new { u.ClubId, u.UserId });
+
+            builder.Entity<Regatta>().HasOne(r => r.HostingClub).WithMany(c => c.Regattas).OnDelete(DeleteBehavior.SetNull);
         }
 
         public DbSet<Boat> Boats { get; set; }
