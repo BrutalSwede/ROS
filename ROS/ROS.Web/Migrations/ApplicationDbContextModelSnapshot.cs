@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ROS.Web.Data;
+using ROS.Web.Models;
 using System;
 
 namespace ROS.Web.Migrations
@@ -340,6 +343,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<DateTime>("EndTime");
 
+                    b.Property<Guid?>("HostingClubId");
+
                     b.Property<DateTime>("StartTime");
 
                     b.Property<string>("Title")
@@ -349,6 +354,8 @@ namespace ROS.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("HostingClubId");
 
                     b.ToTable("Regattas");
                 });
@@ -492,6 +499,11 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
+
+                    b.HasOne("ROS.Web.Models.Club", "HostingClub")
+                        .WithMany("Regattas")
+                        .HasForeignKey("HostingClubId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>

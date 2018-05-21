@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.Regatta
+﻿@model ROS.Web.Models.RegattaViewModels.CreateRegattaViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,6 +12,11 @@
     <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.HostingClubId)
+                @Html.DropDownListFor(m => m.HostingClubId, Model.HostingClubs, new { @class = "form-control" })
+                <span asp-validation-for="HostingClubId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <span class="max-glyph-count" id="titleChars">(50 tecken kvar)</span>

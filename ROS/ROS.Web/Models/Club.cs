@@ -35,5 +35,8 @@ namespace ROS.Web.Models
         public List<ClubApplication> Applications { get; set; }
 
         public List<ClubUser> ClubUsers { get; set; }
+
+        public List<Regatta> Regattas { get; set; }
+
     }
 }
