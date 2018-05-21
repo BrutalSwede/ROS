@@ -164,8 +164,6 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("Phone");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
@@ -345,6 +343,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<DateTime>("EndTime");
 
+                    b.Property<Guid?>("HostingClubId");
+
                     b.Property<DateTime>("StartTime");
 
                     b.Property<string>("Title")
@@ -354,6 +354,8 @@ namespace ROS.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("HostingClubId");
 
                     b.ToTable("Regattas");
                 });
@@ -366,6 +368,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("BoatId");
 
                     b.Property<string>("Message");
+
+                    b.Property<int>("NumberOfParticipants");
 
                     b.Property<Guid>("RegattaId");
 
@@ -495,6 +499,11 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
+
+                    b.HasOne("ROS.Web.Models.Club", "HostingClub")
+                        .WithMany("Regattas")
+                        .HasForeignKey("HostingClubId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>

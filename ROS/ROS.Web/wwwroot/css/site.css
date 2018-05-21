@@ -19,8 +19,8 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
-#login-row{
-    justify-content:center;
+#login-row {
+    justify-content: center;
 }
 
 #login-col {
@@ -44,9 +44,9 @@ nav {
     position: relative;
 }
 
-.iceice input {
-    text-indent: 32px;
-}
+    .iceice input {
+        text-indent: 32px;
+    }
 
 .fa-facebook-square {
     font-size: 40px;
@@ -85,20 +85,21 @@ div .fixed-bottom {
     left: 0.3em;
     align-content: center;
     color: white;
-    max-width:inherit;
+    max-width: inherit;
 }
 
-.body-content{
-    margin-left:180px;
+.body-content {
+    margin-left: 180px;
 }
 
 .list-group-item:first-child {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
 .list-group-item:last-child {
-    border-bottom-left-radius: 0; 
-    border-bottom-right-radius: 0; 
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 #navbarSupportedContent {
@@ -112,7 +113,7 @@ div .fixed-bottom {
     z-index: 3;
     background-color: black;
     margin-bottom: -101%;
-    padding-bottom:101%;
+    padding-bottom: 101%;
 }
 
     #sidebar .list-group-item {
@@ -185,7 +186,7 @@ div .fixed-bottom {
     .body-content {
         padding-left: 0;
         padding-right: 0;
-        margin-left:45px;
+        margin-left: 45px;
     }
 }
 
@@ -314,9 +315,17 @@ div .fixed-bottom {
     Set the the form-group should also have the class 'required' and then the label needs the class 'form-label'
 */
 .form-group.required .form-label:after {
-    content:"*";
-    color:red;
+    content: "*";
+    color: red;
 }
+
+.input-question-icon {
+    position: relative;
+}
+
+    .input-question-icon input {
+        text-indent: 20px;
+    }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
@@ -326,18 +335,15 @@ div .fixed-bottom {
     }
 }
 
-.card{
-    padding:0;
+.card {
+    padding: 0;
 }
 
-.forsail{
-    font-weight:bold;
-    font-size:larger;
-
+.forsail {
+    font-weight: bold;
+    font-size: larger;
 }
 
 .marginabove {
     margin-top: 1.875rem;
 }
-
-
