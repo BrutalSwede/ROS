@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using ROS.Web.Data;
 using ROS.Web.Models;
 using ROS.Web.Services;
+using System.IO;
 
 namespace ROS.Web
 {
@@ -18,8 +20,11 @@ namespace ROS.Web
     {
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
-
             var builder = new ConfigurationBuilder();
+
+            builder.SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
@@ -27,6 +32,15 @@ namespace ROS.Web
             }
 
             Configuration = builder.Build();
+
+            if (env.IsProduction())
+            {
+                builder.AddAzureKeyVault(
+                    $"https://{Configuration["AzureVault:Vault"]}.vault.azure.net/",
+                    Configuration["AzureVault:ClientId"],
+                    Configuration["AzureVault:ClientSecret"]
+                     );
+            }
         }
 
         public IConfiguration Configuration { get; }
@@ -74,7 +88,7 @@ namespace ROS.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
