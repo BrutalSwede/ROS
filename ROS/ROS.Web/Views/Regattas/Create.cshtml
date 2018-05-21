@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.Regatta
+﻿@model ROS.Web.Models.RegattaViewModels.CreateRegattaViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,9 +13,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                @Html.LabelFor(m => m.HostingClubId)
+                @Html.DropDownListFor(m => m.HostingClubId, Model.HostingClubs, new { @class = "form-control" })
+                <span asp-validation-for="HostingClubId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <span class="max-glyph-count" id="titleChars">(50 tecken kvar)</span>
-                <input asp-for="Title" class="form-control" id="titletextChars" maxlength="50"/>
+                <input asp-for="Title" class="form-control" id="titletextChars" maxlength="50" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,15 +29,17 @@
                 <textarea asp-for="Description" class="form-control" id="desctextChars" maxlength="1000"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="StartTime" class="control-label"></label>
+                    <input asp-for="StartTime" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <div id="map" style="height:300px; width: 100%;"></div>
