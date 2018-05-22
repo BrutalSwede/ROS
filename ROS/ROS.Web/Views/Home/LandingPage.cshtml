@@ -1,4 +1,4 @@
-﻿@model ROS.Web.Models.ApplicationUser
+﻿@model ROS.Web.Models.LandingPageViewModels.LandingPageViewModel
 
 @{
     ViewData["Title"] = "LandingPage";
@@ -9,12 +9,12 @@
 <div class="jumbotron">
     <h1 class="HeaderSize">Välkommen @Model.FirstName @Model.LastName</h1>
     <hr />
-    <li class="page-item">
-        Antal aktiva ansökningar
+    <h3 class="SmallHeaderSize">
+        Antal aktiva ansökningar till dina klubbar 
         @if (Model.Applications != null)
         {
             <span class="badge badge-success" style="vertical-align: top">
-                @Model.Applications.Count();
+                @Model.Applications.Count()
             </span>
         }
         else
@@ -23,8 +23,7 @@
                 0
             </span>
         }
-
-    </li>
+    </h3>
 </div>
 
 

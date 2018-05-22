@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.LandingPageViewModels;
 
 namespace ROS.Web.Controllers
 {
@@ -51,7 +52,28 @@ namespace ROS.Web.Controllers
         public IActionResult LandingPage()
         {
             ApplicationUser applicationUser = _context.ApplicationUser.SingleOrDefault(m => m.Email == HttpContext.User.Identity.Name);
-            return View(applicationUser);
+            IList<Club> clubList = new List<Club>();
+            LandingPageViewModel landingPageView = new LandingPageViewModel { FirstName = applicationUser.FirstName, LastName = applicationUser.LastName, Applications = new List<ClubApplication>() };
+            foreach (Club club in _context.Clubs)
+            {
+                if (club.Owner != null && club.Owner == applicationUser)
+                {
+                    clubList.Add(club);
+                }
+
+            }
+
+            foreach (ClubApplication clubAppl in _context.ClubApplications)
+            {
+                foreach (Club C in clubList)
+                {
+                    if (clubAppl.ClubId == C.Id)
+                    {
+                        landingPageView.Applications.Add(clubAppl);
+                    }
+                }
+            }
+            return View(landingPageView);
         }
     }
 }
