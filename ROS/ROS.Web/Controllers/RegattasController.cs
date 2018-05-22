@@ -95,6 +95,8 @@ namespace ROS.Web.Controllers
                 .Include(r => r.Boat)
                 .Where(r => r.RegattaId == id).ToListAsync();
 
+            ViewData["TotalParticipants"] = registrations.Sum(r => r.NumberOfParticipants);
+
 
             if (registrations == null)
             {
@@ -199,11 +201,13 @@ namespace ROS.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                Regatta regatta = await _context.Regattas.SingleOrDefaultAsync(r => r.Id == id);
+                Regatta regatta = await _context.Regattas
+                    .Include(r => r.Registrations)
+                    .SingleOrDefaultAsync(r => r.Id == id);
                 var _user = GetCurrentUser();
 
                 // Check if there is already a registration for this user
-                if (_context.RegattaRegistration.FirstOrDefault(r => r.User.Id == _user.Id) != null)
+                if (regatta.Registrations.Exists(r => r.UserId == _user.Id))
                 {
                     // If you have already registered you should be redirected somewhere else.
                     return RedirectToAction(nameof(Index));
@@ -217,7 +221,8 @@ namespace ROS.Web.Controllers
                     Regatta = regatta,
                     Boat = _boat,
                     User = _user,
-                    Message = registration.Message
+                    Message = registration.Message,
+                    NumberOfParticipants = registration.NumberOfParticipants
                 };
 
                 _context.RegattaRegistration.Add(newRegistration);
