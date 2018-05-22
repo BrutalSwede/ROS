@@ -238,6 +238,10 @@ div .fixed-bottom {
         padding-left: 0;
         padding-right: 0;
     }
+
+    .container {
+        width:80%;
+    }
 }
 
 
