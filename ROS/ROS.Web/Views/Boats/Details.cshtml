@@ -4,6 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <div>
     <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
     <hr />
@@ -69,3 +73,149 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+
+<!--  B O A T  -  D E T A I L S        -->
+
+
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="card-header">
+            Båt <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
+        </div>
+
+        <hr />
+
+
+       
+        <div class="card-body">
+            <img src="https://via.placeholder.com/500x300" class="img-fluid rounded float-right" alt="boat-logo">
+
+            <h4 class="ml-2">Båtinfo</h4>
+
+            <ul class="list-group col-12 col-md-6 float-left">
+
+
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.Type)
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.Type)
+                    </p>
+                </li>
+
+
+                <li class="list-group-item">
+                    <h5 class="card-title">
+                        @Html.DisplayNameFor(model => model.Certificate)
+
+                    </h5>
+                    <p class="card-text">
+                        @Html.DisplayFor(model => model.Certificate)
+                    </p>
+                </li>
+
+
+
+
+                <li class="list-group-item col-md-12">
+
+
+                    <h4 class="card-title">
+                        <span class="small-text-grey col-md-4">Handikapp</span>
+                        <span class="small-text-grey  col-md-4">Normal</span>
+                        <span class="small-text-grey  col-md-4">Shorthand</span>
+                    </h4>
+
+
+                   
+
+
+                    <p class="card-text">
+                        <span class="col-md-4">Försegel</span>
+                        <span class="col-md-4">@Html.DisplayFor(model => model.HandicapStandardWithForesail)</span>
+                        <span class="col-md-4">@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</span>
+                    </p>
+
+
+
+                    <p class="card-text">
+                        <span class="col-md-4">u. Försegel</span>
+                        <span class="col-md-4">@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</span>
+                        <span class="col-md-4">@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</span>
+                    </p>
+
+
+             </li>
+
+
+
+                
+                
+                
+                <h5 class="card-title">
+                    
+                    <span>Besättningsnamn</span>
+                    <span>Kapten</span>
+                    <span>Besättningsmedlemmar</span>
+                 </h5>       
+                        
+                    
+                <table>  
+                 
+                    @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
+                    {
+                        <tr>
+                            <td>@Model.Crews[crewIndex].Name</td>
+                            <td>@Model.Crews[crewIndex].Captain.UserName</td>
+                            <td>@Model.Crews[crewIndex].Crewmen.Count()</td>
+                        </tr>
+                    }
+                        
+                </table>
+
+
+
+
+</ul>
+
+
+
+
+        </div>
+            
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger float-right mr-2 ml-1">Ändra</a>
+                    <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-info float-right">Till båtlistan</a>
+                </div>
+
+
+
+
+            
+
+        
+
+        </div>
+  </div>
+
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
