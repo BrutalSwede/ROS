@@ -118,7 +118,12 @@ namespace ROS.Web.Controllers
 
             clubsSelectListItems.Insert(0, new SelectListItem { Value = "", Text = "Välj värdklubb" });
 
-            var createRegattaViewModel = new CreateRegattaViewModel { HostingClubs = new SelectList(clubsSelectListItems, "Value", "Text") };
+            var createRegattaViewModel = new CreateRegattaViewModel
+            {
+                HostingClubs = new SelectList(clubsSelectListItems, "Value", "Text"),
+                StartTime = DateTime.Today,
+                EndTime = DateTime.Today.AddDays(1)
+            };
 
             return View(createRegattaViewModel);
         }
@@ -141,7 +146,7 @@ namespace ROS.Web.Controllers
                     CreatedBy = _currentUser,
                     HostingClub = hostClub,
                     Title = regatta.Title,
-                    Address = regatta.Description,
+                    Address = regatta.Address,
                     Description = regatta.Description,
                     StartTime = regatta.StartTime,
                     EndTime = regatta.EndTime
