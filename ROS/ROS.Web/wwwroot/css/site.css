@@ -128,6 +128,12 @@ div .fixed-bottom {
     background-size: cover;
 }
 
+.HeaderSize {
+    font-size: 65px; 
+    color: white; 
+    text-align: center;
+}
+
 @media (max-width:768px) {
     #sidebar {
         min-width: 35px;
@@ -192,6 +198,12 @@ div .fixed-bottom {
         padding-right: 0;
         margin-left: 45px;
     }
+
+    .HeaderSize {
+        font-size: 50px;
+        color: white;
+        text-align: center;
+    }
 }
 
 @media (max-width:322px) {
@@ -245,6 +257,12 @@ div .fixed-bottom {
 
     .container {
         width:85%;
+    }
+
+    .HeaderSize {
+        font-size: 25px;
+        color: white;
+        text-align: center;
     }
 }
 
