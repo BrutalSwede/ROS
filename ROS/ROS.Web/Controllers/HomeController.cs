@@ -21,8 +21,11 @@ namespace ROS.Web.Controllers
 
         public IActionResult Index()
         {
-            List<Regatta> RList = _context.Regattas.ToList();
-            return View(RList);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(LandingPage));
+            }
+            return View();
         }
 
         public IActionResult About()
