@@ -8,8 +8,13 @@
     <h1 class="display-4">Alla klubbar</h1>
 </div>
 <hr />
+
 @if (Context.User.Identity.IsAuthenticated)
 {
+    <p>
+        <a asp-action="Create" class="btn btn-outline-dark">Skapa ny</a>
+    </p>
+
     <h5 class="pb-1">
         @Html.DisplayNameFor(model => model.ClubName) <a asp-action="index" asp-route-sortorder="@ViewData["NameSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
         @Html.DisplayNameFor(model => model.NumberOfMembers) <a asp-action="index" asp-route-sortorder="@ViewData["MemberSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
