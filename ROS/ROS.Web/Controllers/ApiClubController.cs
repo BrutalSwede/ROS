@@ -49,11 +49,7 @@ namespace ROS.Web.Controllers
         public int NumberOfMembers(string name)
         {
             Club club = _context.Clubs.SingleOrDefault(o => o.Name == name);
-        //All ClubsOwners
-        [HttpGet("clubowners")]
-        public IEnumerable<ClubOwnerApiViewModel> Clubowners()
-        {
-            var clubs = _context.Clubs.Include(o => o.ClubUsers).Include(s=> s.Owner);
+        
 
             if(club == null)
             {
@@ -63,6 +59,12 @@ namespace ROS.Web.Controllers
             return club.ClubUsers.Count();
         }
 
+
+        //All ClubsOwners
+        [HttpGet("clubowners")]
+        public IEnumerable<ClubOwnerApiViewModel> Clubowners()
+        {
+            var clubs = _context.Clubs.Include(o => o.ClubUsers).Include(s => s.Owner);
 
             if (clubs == null)
                 return null;

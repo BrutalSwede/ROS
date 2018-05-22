@@ -123,7 +123,7 @@ div .fixed-bottom {
 
 .jumbotron {
     background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
-    height: 90vh;
+    height: 100vh;
     width: 100%;
     background-size: cover;
 }
