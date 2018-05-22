@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="display-4">Kommande Regattor</h1>
+<h1 class="display-4">Aktuella Regattor</h1>
 <hr />
 @if (Context.User.Identity.IsAuthenticated)
 {
     <p>
-        <a asp-action="Create">Skapa ny</a>
+        <a asp-action="Create" class="btn btn-outline-dark">Skapa ny</a>
     </p>
 }
 
