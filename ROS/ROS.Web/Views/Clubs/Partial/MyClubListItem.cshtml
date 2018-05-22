@@ -13,16 +13,17 @@
                 <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark">
                     @Html.DisplayFor(modelItem => Model.ClubName)
                 </a>
-                @if (Context.User.Identity.Name == Model.Owner.UserName)
-                {
-                    <span class="badge badge-info float-right">Ägare</span>
-                }
-                else
-                {
-                    <span class="badge badge-info float-right">Medlem</span>
-                }
-            </h5>
 
+            </h5>
+            @if (Context.User.Identity.Name == Model.Owner.UserName)
+            {
+                <span class="badge badge-info float-left">Ägare</span>
+            }
+            else
+            {
+                <span class="badge badge-info float-left">Medlem</span>
+            }
+            <br />
             <p class="card-text">
                 <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
             </p>
@@ -34,12 +35,12 @@
             <p class="card-text">
                 @if (Model.IsActive)
                 {
-                    @:Klubben är <strong>aktiv</strong>
-                }
+                    @:Klubben är aktiv
+}
                 else
                 {
-                    @:Klubben är <strong>inaktiv</strong>
-                }
+                    @:Klubben är inaktiv
+}
             </p>
 
         </div>
