@@ -24,7 +24,7 @@ namespace ROS.Web.Models.ClubViewModels
         [DisplayName("Aktiv")]
         public bool IsActive { get; set; }
 
-        [DisplayName("Skapad")]
+        [DisplayName("Grundad")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime FoundedDate { get; set; }
 
