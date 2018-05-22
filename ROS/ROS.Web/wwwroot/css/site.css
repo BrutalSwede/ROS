@@ -140,6 +140,10 @@ div .fixed-bottom {
         visibility: visible;
     }
 
+    .container {
+        width: 85%;
+    }
+
 
     #navbarSupportedContent {
         text-align: right;
@@ -240,7 +244,7 @@ div .fixed-bottom {
     }
 
     .container {
-        width:80%;
+        width:85%;
     }
 }
 
