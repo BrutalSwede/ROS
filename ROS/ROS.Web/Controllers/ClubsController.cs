@@ -237,28 +237,31 @@ namespace ROS.Web.Controllers
 
             var clubs = await _context.Clubs
                 .Include(o => o.Owner)
-                .Include(u => u.ClubUsers).ToListAsync();
+                .Include(u => u.ClubUsers)
+                .ToListAsync();
 
-
-            if (clubs.Count() <= 0)
-            {
-                return RedirectToAction(nameof(Create));
-            }
             var clubVMList = new List<GetClubsViewModel>();
-
 
             foreach (var item in clubs)
             {
-                clubVMList.Add(new GetClubsViewModel
+                if(item.ClubUsers.Exists(m => m.UserId == _userId))
                 {
-                    ClubId = item.Id,
-                    ClubName = item.Name,
-                    FoundedDate = item.FoundedDate,
-                    IsActive = item.IsActive,
-                    IsMember = item.ClubUsers.Exists(m => m.UserId == _userId),
-                    NumberOfMembers = item.ClubUsers.Count,
-                    Owner = item.Owner
-                });
+                    clubVMList.Add(new GetClubsViewModel
+                    {
+                        ClubId = item.Id,
+                        ClubName = item.Name,
+                        FoundedDate = item.FoundedDate,
+                        IsActive = item.IsActive,
+                        IsMember = item.ClubUsers.Exists(m => m.UserId == _userId),
+                        NumberOfMembers = item.ClubUsers.Count,
+                        Owner = item.Owner
+                    });
+                }
+            }
+
+            if (clubVMList == null || clubVMList.Count() <= 0)
+            {
+                return RedirectToAction(nameof(Create));
             }
 
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";

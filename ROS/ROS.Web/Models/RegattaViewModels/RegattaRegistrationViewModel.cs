@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ROS.Web.Models.RegattaViewModels
 {
-    public class RegattaRegistrationViewModel
+    public class RegattaRegistrationViewModel : IValidatableObject
     {
         public Regatta Regatta { get; set; }
 
@@ -21,5 +21,15 @@ namespace ROS.Web.Models.RegattaViewModels
         [DisplayName("Meddelande")]
         public string Message { get; set; }
 
+        [DisplayName("Antal deltagare")]
+        public int NumberOfParticipants { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (SelectedBoatId.Equals(Guid.Empty))
+            {
+                yield return new ValidationResult("Då måste välja en båt", new[] { "SelectedBoatId" });
+            }
+        }
     }
 }

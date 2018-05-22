@@ -1,19 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ROS.Web.Models
+namespace ROS.Web.Models.RegattaViewModels
 {
-    public class Regatta : BaseEntity, IValidatableObject
+    public class CreateRegattaViewModel
     {
-        public Regatta()
-        {
-
-        }
-
         [Required]
         [MaxLength(50)]
         [DisplayName("Titel")]
@@ -38,25 +34,10 @@ namespace ROS.Web.Models
 
         [DisplayName("Värd")]
         public ApplicationUser CreatedBy { get; set; }
-        
+
         [DisplayName("Värdklubb")]
-        public Club HostingClub { get; set; }
+        public Guid HostingClubId { get; set; }
 
-
-        public List<RegattaRegistration> Registrations { get; set; }
-
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (EndTime < StartTime)
-            {
-                yield return new ValidationResult("Sluttiden måste vara efter starttiden.", new[] { "EndTime" });
-            }
-
-            if(StartTime < DateTime.Now)
-            {
-                yield return new ValidationResult("Starttiden får inte ha passerat", new[] { "StartTime" });
-            }
-        }
+        public IEnumerable<SelectListItem> HostingClubs { get; set; }
     }
 }

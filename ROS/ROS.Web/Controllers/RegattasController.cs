@@ -29,6 +29,18 @@ namespace ROS.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Regattas
+                .Where(d => d.EndTime > DateTime.Now)
+                .Include(r => r.CreatedBy)
+                .ToListAsync());
+        }
+
+        // GET: Past Regattas
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> PastRegattas()
+        {
+            return View(await _context.Regattas
+                .Where(d => d.EndTime < DateTime.Now)
                 .Include(r => r.CreatedBy)
                 .ToListAsync());
         }
@@ -44,6 +56,7 @@ namespace ROS.Web.Controllers
             var regatta = await _context.Regattas
                 .Include(r => r.CreatedBy)
                 .Include(r => r.Registrations)
+                .Include(r => r.HostingClub)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (regatta == null)
@@ -61,7 +74,7 @@ namespace ROS.Web.Controllers
 
         public async Task<IActionResult> ViewRegistrations(Guid? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -72,18 +85,18 @@ namespace ROS.Web.Controllers
 
             ViewData["RegattaTitle"] = regatta.Title;
 
-            if(HttpContext.User.Identity.Name != regatta.CreatedBy.Email)
+            if (HttpContext.User.Identity.Name != regatta.CreatedBy.Email)
             {
                 return Forbid();
             }
-            
+
             var registrations = await _context.RegattaRegistration
                 .Include(r => r.User)
                 .Include(r => r.Boat)
                 .Where(r => r.RegattaId == id).ToListAsync();
 
 
-            if(registrations == null)
+            if (registrations == null)
             {
                 return NotFound();
             }
@@ -92,9 +105,22 @@ namespace ROS.Web.Controllers
         }
 
         // GET: Regattas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+
+            var userId = GetCurrentUser().Id;
+
+            var clubsSelectListItems = await _context.Clubs
+                .Include(c => c.Owner)
+                .Where(c => c.Owner.Id == userId)
+                .Select(club => new SelectListItem { Value = club.Id.ToString(), Text = club.Name })
+                .ToListAsync();
+
+            clubsSelectListItems.Insert(0, new SelectListItem { Value = "", Text = "Välj värdklubb" });
+
+            var createRegattaViewModel = new CreateRegattaViewModel { HostingClubs = new SelectList(clubsSelectListItems, "Value", "Text") };
+
+            return View(createRegattaViewModel);
         }
 
         // POST: Regattas/Create
@@ -102,18 +128,30 @@ namespace ROS.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,StartTime,EndTime,Address,Id")] Regatta regatta)
+        public async Task<IActionResult> Create([Bind("Title,HostingClubId,Description,StartTime,EndTime,Address,Id")] CreateRegattaViewModel regatta)
         {
             if (ModelState.IsValid)
             {
                 var _currentUser = GetCurrentUser();
+                var hostClub = await _context.Clubs.SingleOrDefaultAsync(c => c.Id.Equals(regatta.HostingClubId));
 
-                regatta.CreatedBy = _currentUser;
-                regatta.Id = Guid.NewGuid();
-                _context.Add(regatta);
+                var newRegatta = new Regatta
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedBy = _currentUser,
+                    HostingClub = hostClub,
+                    Title = regatta.Title,
+                    Address = regatta.Description,
+                    Description = regatta.Description,
+                    StartTime = regatta.StartTime,
+                    EndTime = regatta.EndTime
+                };
+
+                _context.Add(newRegatta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(regatta);
         }
 
@@ -136,6 +174,9 @@ namespace ROS.Web.Controllers
             var _boatItems = _context.Boats.Where(b => b.Owner.Id == GetCurrentUser().Id)
                 .Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.Name }).ToList();
 
+            // Insert default value.
+            _boatItems.Insert(0, new SelectListItem { Value = "", Text = "Välj båt" });
+
             var regattaVm = new RegattaRegistrationViewModel { Regatta = regatta, BoatItems = new SelectList(_boatItems, "Value", "Text") };
 
             return View(regattaVm);
@@ -157,7 +198,7 @@ namespace ROS.Web.Controllers
                 var _user = GetCurrentUser();
 
                 // Check if there is already a registration for this user
-                if(_context.RegattaRegistration.FirstOrDefault(r => r.User.Id == _user.Id) != null)
+                if (_context.RegattaRegistration.FirstOrDefault(r => r.User.Id == _user.Id) != null)
                 {
                     // If you have already registered you should be redirected somewhere else.
                     return RedirectToAction(nameof(Index));

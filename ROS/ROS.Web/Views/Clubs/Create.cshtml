@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.FoundedDate) <br />
-                @Html.TextBoxFor(m => m.FoundedDate, "{0:dd/MM/yyy}", new { placeholder = " dd/mm/åååå " })
+                @Html.TextBoxFor(m => m.FoundedDate, "{0:dd/MM/yyy}", new { placeholder = " dd/mm/åååå ", @class = "form-control" })
                 <span asp-validation-for="FoundedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
