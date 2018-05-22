@@ -22,14 +22,7 @@ namespace ROS.Web.Controllers
             _context = context;
         }
 
-        // GET: api/ApiBoatIndex
-        [HttpGet]
-        public IEnumerable<Boat> GetBoats()
-        {
-            return _context.Boats;
-        }
-
-        
+       
         
         //Tommy Api function, Gets the most basic information about the registered boats 
         // GET: api/ApiBoatIndex/basicboatinfo
@@ -47,25 +40,23 @@ namespace ROS.Web.Controllers
             var boatApiViewModelList = new List<BoatApiViewModel>();
 
 
-            
             foreach (var item in boats)
             {
                 BoatApiViewModel boatApiViewModel = new BoatApiViewModel();
 
-                    
-                    boatApiViewModel.BoatName = item.Name;
-                    boatApiViewModel.BoatType = item.Type;
-                    boatApiViewModel.BoatYear = item.ModelYear;
+
+                boatApiViewModel.BoatName = item.Name;
+                boatApiViewModel.BoatType = item.Type;
+                boatApiViewModel.BoatYear = item.ModelYear;
 
                 boatApiViewModelList.Add(boatApiViewModel);
+                
             }
 
             return boatApiViewModelList.OrderBy(o => o.BoatName);
             
         }
 
-        
-        
         
         
         private bool BoatExists(Guid id)
