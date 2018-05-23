@@ -30,6 +30,21 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
+#pro-row {
+    justify-content: center;
+}
+
+#pro-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.profile-lable{
+    font-weight:bold;
+}
+
 #externlLogin-row {
     justify-content: center;
 }

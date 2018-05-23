@@ -1,0 +1,51 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row" id="pro-row">
+    <div class="col-md-6 border" id="pro-col">
+        <h2>Profile</h2>
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.FirstName)</span><br />
+                @Html.DisplayFor(model => model.FirstName)
+            </div>
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.LastName)</span><br />
+                @Html.DisplayFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.Address)</span><br />
+                @Html.DisplayFor(model => model.Address)
+            </div>
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.Email)</span><br />
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.Phone)</span><br />
+                @Html.DisplayFor(model => model.Phone)
+            </div>
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.IcePhone)</span><br />
+                @Html.DisplayFor(model => model.IcePhone)
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6 required">
+                <span class="profile-lable"> @Html.DisplayNameFor(model => model.AmountOfBoats)</span><br />
+                @Html.DisplayFor(model => model.AmountOfBoats)
+            </div>
+        </div>
+        <div>
+            <a asp-controller="Manage" asp-action="Index">Manage Account</a>
+        </div>
+    </div>
+        </div>
