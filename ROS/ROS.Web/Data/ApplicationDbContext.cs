@@ -35,5 +35,6 @@ namespace ROS.Web.Data
         public DbSet<Regatta> Regattas { get; set; }
         public DbSet<RegattaRegistration> RegattaRegistration { get; set; }
         public DbSet<ClubApplication> ClubApplications { get; set; }
+        public DbSet<ROS.Web.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }

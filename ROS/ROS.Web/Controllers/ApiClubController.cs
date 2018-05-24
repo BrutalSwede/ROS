@@ -44,11 +44,27 @@ namespace ROS.Web.Controllers
             return clubApiViewModel.OrderByDescending(o => o.NumberOfMembers).Take(5);
         }
 
+        //Samuels Api function. Gets number om members in specific club
+        //GET: api/ApiClub/numberofmembers
+        public int NumberOfMembers(string name)
+        {
+            Club club = _context.Clubs.SingleOrDefault(o => o.Name == name);
+        
+
+            if(club == null)
+            {
+                return 0;
+            }
+
+            return club.ClubUsers.Count();
+        }
+
+
         //All ClubsOwners
         [HttpGet("clubowners")]
         public IEnumerable<ClubOwnerApiViewModel> Clubowners()
         {
-            var clubs = _context.Clubs.Include(o => o.ClubUsers).Include(s=> s.Owner);
+            var clubs = _context.Clubs.Include(o => o.ClubUsers).Include(s => s.Owner);
 
             if (clubs == null)
                 return null;

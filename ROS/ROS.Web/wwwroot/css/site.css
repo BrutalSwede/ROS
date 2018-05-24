@@ -157,9 +157,21 @@ div .fixed-bottom {
 
 .jumbotron {
     background: linear-gradient( rgba(39, 39, 39, 0.2), rgba(39, 39, 39, 0.5) ),url(/images/beach-blue-boat-996328.jpg);
-    height: 90vh;
-    width: 175vh;
+    height: 100vh;
     background-size: cover;
+}
+
+.HeaderSize {
+    font-size: 55px;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.SmallHeaderSize {
+    font-size: 21px;
+    color: white;
+    text-align: left;
 }
 
 @media (max-width:768px) {
@@ -230,6 +242,19 @@ div .fixed-bottom {
         padding-right: 0;
         margin-left: 45px;
     }
+
+    .HeaderSize {
+        font-size: 34px;
+        color: white;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .SmallHeaderSize {
+        font-size: 13px;
+        color: white;
+        text-align: left;
+    }
 }
 
 @media (max-width:322px) {
@@ -287,6 +312,19 @@ div .fixed-bottom {
 
     .container {
         width: 85%;
+    }
+
+    .HeaderSize {
+        font-size: 21px;
+        color: white;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .SmallHeaderSize {
+        font-size: 8px;
+        color: white;
+        text-align: left;
     }
 }
 
@@ -397,3 +435,4 @@ div .fixed-bottom {
 .marginabove {
     margin-top: 1.875rem;
 }
+

@@ -1,0 +1,29 @@
+﻿@model ROS.Web.Models.LandingPageViewModels.LandingPageViewModel
+
+@{
+    ViewData["Title"] = "LandingPage";
+}
+
+
+
+<div class="jumbotron">
+    <h1 class="HeaderSize">Välkommen @Model.FirstName @Model.LastName</h1>
+    <hr />
+    <a asp-action="Index" asp-controller="Clubs" class="btn btn-info SmallHeaderSize">
+        Ansökningar
+        @if (Model.Applications != null)
+        {
+            <span class="badge badge-success" style="vertical-align: top">
+                @Model.Applications.Count()
+            </span>
+        }
+        else
+        {
+            <span class="badge badge-success" style="vertical-align: top">
+                0
+            </span>
+        }
+    </a>
+</div>
+
+
