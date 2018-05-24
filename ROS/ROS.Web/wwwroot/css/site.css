@@ -8,6 +8,21 @@ nav {
     height: 10vh;
 }
 
+#pro-row {
+    justify-content: center;
+}
+
+#pro-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.profile-lable{
+    font-weight:bold;
+}
+
 #reg-row {
     justify-content: center;
 }
@@ -30,20 +45,6 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
-#pro-row {
-    justify-content: center;
-}
-
-#pro-col {
-    margin-top: 5vh;
-    border: 1px solid;
-    padding: 10px;
-    box-shadow: 5px 10px 8px #888888;
-}
-
-.profile-lable{
-    font-weight:bold;
-}
 
 #externlLogin-row {
     justify-content: center;
@@ -103,6 +104,10 @@ div .fixed-bottom {
     max-width: inherit;
 }
 
+.fixed-bottom p {
+    color: #696969;
+}
+
 .body-content {
     margin-left: 180px;
 }
@@ -129,6 +134,11 @@ div .fixed-bottom {
     background-color: black;
     margin-bottom: -101%;
     padding-bottom: 101%;
+}
+#ros {
+    font-size: 40px;
+    padding:.75rem 1.25rem;
+    color:white;
 }
 
     #sidebar .list-group-item {
