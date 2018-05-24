@@ -134,10 +134,11 @@ div .fixed-bottom {
     text-align: center;
 }
 
-.SmallHeaderSize{
-    font-size: 34px;
+.SmallHeaderSize {
+    font-size: 21px;
     color: white;
     text-align: left;
+    background-color: lightblue;
 }
 
 @media (max-width:768px) {
@@ -212,9 +213,10 @@ div .fixed-bottom {
     }
 
     .SmallHeaderSize {
-        font-size: 21px;
+        font-size: 13px;
         color: white;
         text-align: left;
+        background-color: lightblue;
     }
 }
 
@@ -278,9 +280,10 @@ div .fixed-bottom {
     }
 
     .SmallHeaderSize {
-        font-size: 13px;
+        font-size: 8px;
         color: white;
         text-align: left;
+        background-color: lightblue;
     }
 }
 

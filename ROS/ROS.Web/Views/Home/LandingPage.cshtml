@@ -9,8 +9,8 @@
 <div class="jumbotron">
     <h1 class="HeaderSize">Välkommen @Model.FirstName @Model.LastName</h1>
     <hr />
-    <h3 class="SmallHeaderSize">
-        Antal aktiva ansökningar till dina klubbar 
+    <a asp-action="Index" asp-controller="Clubs" class="btn btn-outline-info ml-2 SmallHeaderSize">
+        Ansökningar
         @if (Model.Applications != null)
         {
             <span class="badge badge-success" style="vertical-align: top">
@@ -23,7 +23,7 @@
                 0
             </span>
         }
-    </h3>
+    </a>
 </div>
 
 
