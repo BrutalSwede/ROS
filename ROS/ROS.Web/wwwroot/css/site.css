@@ -144,16 +144,16 @@ div .fixed-bottom {
 }
 
 .HeaderSize {
-    font-size: 55px; 
-    color: white; 
+    font-size: 55px;
+    color: white;
     text-align: center;
+    white-space: nowrap;
 }
 
 .SmallHeaderSize {
     font-size: 21px;
     color: white;
     text-align: left;
-    background-color: lightblue;
 }
 
 @media (max-width:768px) {
@@ -229,13 +229,13 @@ div .fixed-bottom {
         font-size: 34px;
         color: white;
         text-align: center;
+        white-space: nowrap;
     }
 
     .SmallHeaderSize {
         font-size: 13px;
         color: white;
         text-align: left;
-        background-color: lightblue;
     }
 }
 
@@ -300,13 +300,13 @@ div .fixed-bottom {
         font-size: 21px;
         color: white;
         text-align: center;
+        white-space: nowrap;
     }
 
     .SmallHeaderSize {
         font-size: 8px;
         color: white;
         text-align: left;
-        background-color: lightblue;
     }
 }
 
