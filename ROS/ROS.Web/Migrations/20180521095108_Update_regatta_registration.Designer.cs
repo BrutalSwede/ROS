@@ -12,8 +12,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180517080107_UpdateBoatModel")]
-    partial class UpdateBoatModel
+    [Migration("20180521095108_Update_regatta_registration")]
+    partial class Update_regatta_registration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,8 +164,6 @@ namespace ROS.Web.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
-
-                    b.Property<string>("Phone");
 
                     b.Property<string>("PhoneNumber");
 
@@ -367,6 +365,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("BoatId");
 
                     b.Property<string>("Message");
+
+                    b.Property<int>("NumberOfParticipants");
 
                     b.Property<Guid>("RegattaId");
 

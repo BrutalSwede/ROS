@@ -4,69 +4,53 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<div>
+    <h1 class="display-6">Förteckning över båtar</h1>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @*   //funkar nu också när man satta id till null, men blir en länk och ingen knapp:
+        Html.ActionLink("Registrera båt", "Create", null, new { @class = "btn btn-outline-info ml-2 marginabove" })  *@
+
+    <a asp-controller="Boats" asp-action="Create" class="btn btn-outline-info ml-2 marginabove">Registrera båt</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Certificate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapStandardWithForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapStandardWithoutForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapShorthandedWithForesail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HandicapShorthandedWithoutForesail)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Certificate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapStandardWithForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapStandardWithoutForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithForesail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HandicapShorthandedWithoutForesail)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+    
+
+<div class="card-deck">
+
+    @foreach (var item in Model)
+    {
+
+        <div class="card col-md-3 bg-light border-dark">
+
+            
+                <img class="img-responsive img-thumbnail" src="~/images/beach-blue-boat-996328.jpg" alt="Boat Image">
+            
+            
+            
+            <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <div class="card-text">@Html.DisplayFor(modelItem => item.Type)</div>
+                    <div class="card-text">@Html.DisplayFor(modelItem => item.ModelYear)</div>
+                    
+                    <p>
+                        @Html.ActionLink("Visa mer >", "Details", new { id = @item.Id }, new { @class = "btn btn-outline-info ml-2 marginabove btn-sm float-right" })
+
+                    </p>
+
+                </div>
+            </div>
+        
+
+    }
+
+</div>
+
+
+
+
+
+
+
+

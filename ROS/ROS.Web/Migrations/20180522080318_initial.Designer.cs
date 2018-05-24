@@ -12,8 +12,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180513163905_Initial")]
-    partial class Initial
+    [Migration("20180522080318_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -165,8 +165,6 @@ namespace ROS.Web.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("Phone");
-
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
@@ -208,10 +206,14 @@ namespace ROS.Web.Migrations
                     b.Property<double?>("HandicapStandardWithoutForesail")
                         .IsRequired();
 
+                    b.Property<DateTime>("ModelYear");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<string>("OwnerId");
+
+                    b.Property<int>("SailNumber");
 
                     b.Property<string>("Type")
                         .IsRequired();
@@ -342,6 +344,8 @@ namespace ROS.Web.Migrations
 
                     b.Property<DateTime>("EndTime");
 
+                    b.Property<Guid?>("HostingClubId");
+
                     b.Property<DateTime>("StartTime");
 
                     b.Property<string>("Title")
@@ -351,6 +355,8 @@ namespace ROS.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("HostingClubId");
 
                     b.ToTable("Regattas");
                 });
@@ -363,6 +369,8 @@ namespace ROS.Web.Migrations
                     b.Property<Guid>("BoatId");
 
                     b.Property<string>("Message");
+
+                    b.Property<int>("NumberOfParticipants");
 
                     b.Property<Guid>("RegattaId");
 
@@ -492,6 +500,11 @@ namespace ROS.Web.Migrations
                     b.HasOne("ROS.Web.Models.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
+
+                    b.HasOne("ROS.Web.Models.Club", "HostingClub")
+                        .WithMany("Regattas")
+                        .HasForeignKey("HostingClubId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("ROS.Web.Models.RegattaRegistration", b =>

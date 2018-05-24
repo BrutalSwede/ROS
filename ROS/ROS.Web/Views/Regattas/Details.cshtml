@@ -5,7 +5,7 @@
 
 <div class="card col-12 col-md-10 mt-1">
     <div class="card-header">
-        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <h1 class="display-4">@Html.DisplayFor(model => model.Title)</h1>
     </div>
     <div class="card-body">
         <div>
@@ -23,7 +23,7 @@
         <div>
             <span class="regatta-host">
                 <i class="fa fa-user-circle"></i> <strong>Vem?</strong>
-                @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName)
+                @Html.DisplayFor(model => model.CreatedBy.FirstName) @Html.DisplayFor(model => model.CreatedBy.LastName) för @Html.DisplayFor(model => model.HostingClub.Name)
             </span>
         </div>
         <hr />
@@ -63,7 +63,5 @@
                 </div>
             }
         }
-
-        <a asp-action="PastRegattas" class="btn btn-outline-info ml-2 float-right">Tillbaka</a>
     </div>
 </div>
