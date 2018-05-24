@@ -12,17 +12,6 @@
     <None Remove="Models\Admin\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20180521110130_Require_Num_Participants.cs" />
-    <Compile Remove="Migrations\20180521110130_Require_Num_Participants.Designer.cs" />
-    <Compile Remove="Migrations\20180521133401_update_migration.cs" />
-    <Compile Remove="Migrations\20180521133401_update_migration.Designer.cs" />
-    <Compile Remove="Migrations\20180521133852_change_cascade.cs" />
-    <Compile Remove="Migrations\20180521133852_change_cascade.Designer.cs" />
-    <Compile Remove="Migrations\20180521134126_change_cascade.cs" />
-    <Compile Remove="Migrations\20180521134126_change_cascade.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />

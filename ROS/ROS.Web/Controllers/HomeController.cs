@@ -53,7 +53,12 @@ namespace ROS.Web.Controllers
         {
             ApplicationUser applicationUser = _context.ApplicationUser.SingleOrDefault(m => m.Email == HttpContext.User.Identity.Name);
             IList<Club> clubList = new List<Club>();
-            LandingPageViewModel landingPageView = new LandingPageViewModel { FirstName = applicationUser.FirstName, LastName = applicationUser.LastName, Applications = new List<ClubApplication>() };
+            LandingPageViewModel landingPageView = new LandingPageViewModel();
+            if(applicationUser != null)
+            {
+                landingPageView = new LandingPageViewModel { FirstName = applicationUser.FirstName, LastName = applicationUser.LastName, Applications = new List<ClubApplication>() };
+            }
+            
             foreach (Club club in _context.Clubs)
             {
                 if (club.Owner != null && club.Owner == applicationUser)

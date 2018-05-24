@@ -12,8 +12,8 @@ using System;
 namespace ROS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180522131902_AddLandingPageViewModel")]
-    partial class AddLandingPageViewModel
+    [Migration("20180524090831_NewStart")]
+    partial class NewStart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
