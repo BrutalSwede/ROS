@@ -27,18 +27,18 @@ namespace ROS.Web.Models.BoatViewModels
         [DisplayName("Certifikat")]
         public string Certificate { get; set; }
 
-        [DisplayName("SRS")]
+        [DisplayName("Standard")]
         public double? HandicapStandardWithForesail { get; set; }
 
         [Required]
-        [DisplayName("SRS u. flygande segel")]
+        [DisplayName("Standard u. flygande segel")]
         public double? HandicapStandardWithoutForesail { get; set; }
 
-        [DisplayName("SRS S/H")]
+        [DisplayName("Shorthand")]
         public double? HandicapShorthandedWithForesail { get; set; }
 
         [Required]
-        [DisplayName("SRS S/H u. flygande segel")]
+        [DisplayName("Shorthand u. flygande segel")]
         public double? HandicapShorthandedWithoutForesail { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
