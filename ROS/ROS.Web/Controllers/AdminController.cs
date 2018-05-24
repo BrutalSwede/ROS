@@ -8,10 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ROS.Web.Data;
 using ROS.Web.Models;
+using ROS.Web.Models.AdminViewModels;
 
 namespace ROS.Web.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -35,11 +36,41 @@ namespace ROS.Web.Controllers
         }
 
         // GET all users
-        public IActionResult UserManagement()
-        {
-            var users = _userManager.Users;
 
-            return View(users);
+        // FUNKAR INTE JUST NU:
+        // userList.Role får nu enbart objektets namn.ToString 
+
+        [HttpGet]
+        public async Task<IActionResult> UserManagement()
+        {
+            var userList = new List<UserRolesViewModel>();
+
+            var users = _userManager.Users;
+            var roles = await _roleManager.FindByNameAsync("Admin");
+
+            foreach (var item in users)
+            {
+                string temp;
+
+                if(await _userManager.IsInRoleAsync(item, roles.Name))
+                {
+                    temp = "Admin"; 
+                }
+                else
+                {
+                    temp = "User";
+                }
+
+                userList.Add(new UserRolesViewModel
+                {
+                    User = item,
+                    UserId = item.Id,
+                    Role = temp
+                });
+
+                temp = null;
+            }
+            return View(userList);
         }
 
 
@@ -49,7 +80,7 @@ namespace ROS.Web.Controllers
         {
             var user = await _userManager.FindByIdAsync(id);
 
-            if(user != null)
+            if (user != null)
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
@@ -69,11 +100,36 @@ namespace ROS.Web.Controllers
             return View("UserManagement", _userManager.Users);
         }
 
+        //POST: Promote to Admin
+        [HttpPost]
+        public async Task<IActionResult> Promote(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            var result = await _userManager.AddToRoleAsync(user, "Admin");
+
+            if (result.Succeeded == true)
+            {
+                return RedirectToAction("UserManagement");
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return RedirectToAction("UserManagement");
+        }
+
         // GET all boats
         public async Task<IActionResult> BoatManagement()
         {
             var boats = await _context.Boats.Include(o => o.Owner).ToListAsync();
-            
+
             return View(boats);
         }
 
@@ -112,7 +168,7 @@ namespace ROS.Web.Controllers
         {
             var club = await _context.Clubs.FindAsync(id);
 
-            if(club != null)
+            if (club != null)
             {
                 _context.Clubs.Remove(club);
                 await _context.SaveChangesAsync();
@@ -141,7 +197,7 @@ namespace ROS.Web.Controllers
         {
             var regatta = await _context.Regattas.FindAsync(id);
 
-            if (regatta!= null)
+            if (regatta != null)
             {
                 _context.Regattas.Remove(regatta);
                 await _context.SaveChangesAsync();
@@ -155,9 +211,6 @@ namespace ROS.Web.Controllers
 
             return View("RegattaManagement", _context.Regattas);
         }
-
-        //TODO: Edit User, Boat, Club, Regatta?
-
 
     }
 }
