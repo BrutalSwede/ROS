@@ -37,9 +37,6 @@ namespace ROS.Web.Controllers
 
         // GET all users
 
-        // FUNKAR INTE JUST NU:
-        // userList.Role får nu enbart objektets namn.ToString 
-
         [HttpGet]
         public async Task<IActionResult> UserManagement()
         {
