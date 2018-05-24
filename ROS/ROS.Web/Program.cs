@@ -29,7 +29,9 @@ namespace ROS.Web
                     var context = services.GetRequiredService<ApplicationDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    DbInitializer.Initialize(context, userManager, roleManager);
+
+                    DbInitializer initializer = new DbInitializer(context, userManager, roleManager);
+                    initializer.Initialize();
                 }
                 catch (Exception ex)
                 {
