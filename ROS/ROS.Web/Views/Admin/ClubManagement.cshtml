@@ -28,7 +28,6 @@ else
 
                 <td>
                     <form asp-action="DeleteClub" asp-route-id="@club.Id" method="post">
-                        @*<a class="btn btn-sm btn-primary" asp-action="EditClubb" asp-route-id="@club.Id">Edit</a>*@
                         <button type="submit" onclick="return confirm('Do you really want to delete this club?');" class="btn btn-sm btn-danger">
                             Delete
                         </button>

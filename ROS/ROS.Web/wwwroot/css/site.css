@@ -30,6 +30,21 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
+#pro-row {
+    justify-content: center;
+}
+
+#pro-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.profile-lable{
+    font-weight:bold;
+}
+
 #externlLogin-row {
     justify-content: center;
 }
@@ -162,6 +177,10 @@ div .fixed-bottom {
         text-align: right;
     }
 
+    #boat-details-handicap {
+        box-shadow: -5px 0px 5px rgba(0,0,0,0.2) inset;
+    }
+
     .navbar-text {
         background: #085394;
         padding-left: 2vh;
@@ -239,6 +258,10 @@ div .fixed-bottom {
 
     .fixed-bottom {
         font-size: 8px;
+    }
+
+    #boat-details-handicap {
+        box-shadow: -5px 0px 5px rgba(0,0,0,0.2) inset;
     }
 
     #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {

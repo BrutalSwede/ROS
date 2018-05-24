@@ -1,33 +1,20 @@
 ﻿@model ROS.Web.Models.Boat
-
 @{
     ViewData["Title"] = "Details";
 }
-
 <!--  B O A T  -  D E T A I L S        -->
 
-
-
 <div class="container">
-
     <div class="card">
-
         <div class="card-header">
             Båt <h1 class="display-4">@Html.DisplayFor(model => model.Name)</h1>
         </div>
-
         <hr />
-
-
 
         <div class="card-body">
             <img src="https://via.placeholder.com/500x300" class="img-fluid rounded float-right" alt="boat-logo">
-
             <h4 class="ml-2">Båtinfo</h4>
-
-            <ul class="list-group col-12 col-md-6 float-left">
-
-
+            <ul class="list-group col-12 col-md-6 float-left mb-1">
                 <li class="list-group-item">
                     <h5 class="card-title">
                         @Html.DisplayNameFor(model => model.Type)
@@ -37,92 +24,42 @@
                     </p>
                 </li>
 
-
                 <li class="list-group-item">
                     <h5 class="card-title">
                         @Html.DisplayNameFor(model => model.Certificate)
-
                     </h5>
                     <p class="card-text">
                         @Html.DisplayFor(model => model.Certificate)
                     </p>
                 </li>
-
-
-
-
-                <li class="list-group-item col-md-12">
-
-                    <table id="boat-details-handicap" class="table-bordered">
-                        <thead>
-                            <tr>
-                                <th><h4><span class="small-text-grey" scope="row">Handikapp</span></h4></th>
-                                <th><h4><span class="small-text-grey" scope="row">Normal</span></h4></th>
-                                <th><h4><span class="small-text-grey" scope="row">Shorthand</span></h4></th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">Försegel</th>
-                                <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
-                                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">u. Försegel</th>
-                                <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
-                                <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-
-                </li>
-
-
-
-                <li class="list-group-item col-md-12">
-
-                    <h5 class="">Besättning</h5>
-
-                    <h6 class="card-title row">
-                        <span class="card-text col-md-4">Namn</span>
-                        <span class="card-text  col-md-4">Kapten</span>
-                        <span class="card-text col-md-4">Medlemmar</span>
-                    </h6>
-
-
-
-
-                    @for (int crewIndex = 0; crewIndex < Model.Crews.Count(); crewIndex++)
-                    {
-                        <p class="card-text row">
-                            <span class="col-md-4">@Model.Crews[crewIndex].Name</span>
-                            <span class="col-md-4">@Model.Crews[crewIndex].Captain.UserName</span>
-                            <span class="col-md-4">@Model.Crews[crewIndex].Crewmen.Count()</span>
-                        </p>
-                    }
-                </li>
-
-
             </ul>
 
-
-
-
+            <table id="boat-details-handicap" class="table-responsive table-bordered border-0 px-0 col-md-4">
+                <thead>
+                    <tr>
+                        <th><h4><span class="small-text-grey" scope="row">Handikapp</span></h4></th>
+                        <th><h4><span class="small-text-grey" scope="row">Normal</span></h4></th>
+                        <th><h4><span class="small-text-grey" scope="row">Shorthand</span></h4></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Försegel</th>
+                        <td>@Html.DisplayFor(model => model.HandicapStandardWithForesail)</td>
+                        <td>@Html.DisplayFor(model => model.HandicapShorthandedWithForesail)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">u. Försegel</th>
+                        <td>@Html.DisplayFor(model => model.HandicapStandardWithoutForesail)</td>
+                        <td>@Html.DisplayFor(model => model.HandicapShorthandedWithoutForesail)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
         <div class="card-footer">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-danger float-right mr-2 ml-1">Ändra</a>
             <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-info float-right">Till båtlistan</a>
         </div>
-
-
-
-
-
     </div>
 </div>
-
 

@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<ROS.Web.Models.ApplicationUser>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<ROS.Web.Models.AdminViewModels.UserRolesViewModel>
 
 <h2>User Management</h2>
 
@@ -14,23 +16,46 @@ else
             <th>User ID</th>
             <th>User name</th>
             <th>Email</th>
-            <th>Actions</th>
+            <th>Delete</th>
+            <th>Promote</th>
         </tr>
 
-        @foreach (IdentityUser user in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-
+                <td>@item.User.Id</td>
                 <td>
-                    <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
-                        <button type="submit" onclick="return confirm('Do you really want to delete this User?');" class="btn btn-sm btn-danger">
-                            Delete
-                        </button>
-                    </form>
+                    @item.User.UserName
                 </td>
+                <td>@item.User.Email</td>
+
+                @if (!item.Role.Equals("Admin"))
+                {
+                    <td>
+                        <form asp-action="DeleteUser" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onclick="return confirm('Do you really want to delete this User?');" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="Promote" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onlclick="return confirm('Vill du verkligen uppgradera denna användaren till Administratör?');" class="btn btn-sm btn-outline-dark">Promote to Admin</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <form asp-action="DeleteUser" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onclick="return confirm('Do you really want to delete this User?');" class="btn btn-sm btn-danger" disabled>
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                    <td> <strong>@item.Role</strong></td>
+                }
+
             </tr>
         }
     </table>
