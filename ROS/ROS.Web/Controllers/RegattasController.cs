@@ -116,6 +116,11 @@ namespace ROS.Web.Controllers
                 .Select(club => new SelectListItem { Value = club.Id.ToString(), Text = club.Name })
                 .ToListAsync();
 
+            if(clubsSelectListItems.Count == 0)
+            {
+                return RedirectToAction("Create", "Clubs");
+            }
+
             clubsSelectListItems.Insert(0, new SelectListItem { Value = "", Text = "Välj värdklubb" });
 
             var createRegattaViewModel = new CreateRegattaViewModel
