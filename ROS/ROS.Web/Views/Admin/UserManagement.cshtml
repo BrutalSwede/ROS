@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IEnumerable<ROS.Web.Models.AdminViewModels.UserRolesViewModel>
+
+<h2>User Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No User Accounts in the Database</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>User ID</th>
+            <th>User name</th>
+            <th>Email</th>
+            <th>Delete</th>
+            <th>Promote</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User.Id</td>
+                <td>
+                    @item.User.UserName
+                </td>
+                <td>@item.User.Email</td>
+
+                @if (!item.Role.Equals("Admin"))
+                {
+                    <td>
+                        <form asp-action="DeleteUser" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onclick="return confirm('Do you really want to delete this User?');" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="Promote" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onlclick="return confirm('Vill du verkligen uppgradera denna användaren till Administratör?');" class="btn btn-sm btn-outline-dark">Promote to Admin</button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <form asp-action="DeleteUser" asp-route-id="@item.User.Id" method="post">
+                            <button type="submit" onclick="return confirm('Do you really want to delete this User?');" class="btn btn-sm btn-danger" disabled>
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                    <td> <strong>@item.Role</strong></td>
+                }
+
+            </tr>
+        }
+    </table>
+}

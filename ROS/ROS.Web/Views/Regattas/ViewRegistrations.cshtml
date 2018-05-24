@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ROS.Web.Models.RegattaRegistration>
+
+
+<h1 class="display-4">Anmälningar till @ViewData["RegattaTitle"]</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfParticipants), (@ViewBag.TotalParticipants totalt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.IcePhone)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Boat.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfParticipants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.IcePhone)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Details" asp-route-id="" class="btn btn-info">Tillbaka</a>
+</div>

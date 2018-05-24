@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ROS.Web.Models.ClubViewModels.GetClubsViewModel>
+
+@{
+    ViewData["Title"] = "MyClubs";
+}
+
+<div>
+    <h1 class="display-4">Mina klubbar</h1>
+</div>
+<hr />
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-outline-dark">Skapa ny</a>
+    </p>
+
+    <h5 class="pb-1">
+        @Html.DisplayNameFor(model => model.ClubName) <a asp-action="MyClubs" asp-route-sortorder="@ViewData["NameSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
+        @Html.DisplayNameFor(model => model.NumberOfMembers) <a asp-action="MyClubs" asp-route-sortorder="@ViewData["MemberSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
+
+        @Html.DisplayNameFor(model => model.FoundedDate)
+        <a asp-action="MyClubs" asp-route-sortorder="@ViewData["DateSortParm"]" class="fa fa-fw fa-sort text-dark"></a>
+    </h5>
+    <div class="row no-gutters">
+        @foreach (var item in Model)
+        {
+            @await Html.PartialAsync("Partial/MyClubListItem", item);
+        }
+    </div>
+}
+

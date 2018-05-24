@@ -1,0 +1,49 @@
+﻿@model TwoFactorAuthenticationViewModel
+@{
+    ViewData["Title"] = "Two-factor authentication";
+    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+}
+
+<h4>Tvåfaktorsautentisering</h4>
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>Du har inga återställningskoder kvar.</strong>
+            <p>Du måste <a asp-action="GenerateRecoveryCodes">generera ett nytt set med återställning </a> innan du kan logga in med en återställningskod.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>Du har 1 återställningskod kvar.</strong>
+            <p>Du kan <a asp-action="GenerateRecoveryCodes">generera ett nytt sett med återställningskoder</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>Du har @Model.RecoveryCodesLeft återställningskoder kvar.</strong>
+            <p>Du bör <a asp-action="GenerateRecoveryCodes">generera ett nytt sett med återställningskoder</a>.</p>
+        </div>
+    }
+
+    <a asp-action="Disable2faWarning" class="btn btn-default">Disable 2FA</a>
+    <a asp-action="GenerateRecoveryCodesWarning" class="btn btn-default">Återställ återställningskoder.</a>
+}
+
+<h5>Autentiseringsapplikation</h5>
+@if (!Model.HasAuthenticator)
+{
+    <a asp-action="EnableAuthenticator" class="btn btn-default">Lägg till autentiseringsapplikation</a>
+}
+else
+{
+    <a asp-action="EnableAuthenticator" class="btn btn-default">Konfigurera återställningsapplikation</a>
+    <a asp-action="ResetAuthenticatorWarning" class="btn btn-default">Återställ autentiseringsnyckel</a>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

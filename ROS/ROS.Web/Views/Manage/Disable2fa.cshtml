@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Avaktivera tvåfaktorsautentiseringsapplikation(2FA)";
+    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Detta avaktiverar 2FA.</strong>
+    </p>
+    <p>
+        Genom att avaktivera 2FA ändras inte några nycklar i dina autentiseringsapplikationer. Om du önskar att ändra nyckeln som används i en autentiseringsapplikation bör du <a asp-action="ResetAuthenticatorWarning">återställa dina autentiseringsnycklar.</a>
+    </p>
+</div>
+
+<div>
+    <form asp-action="Disable2fa" method="post" class="form-group">
+        <button class="btn btn-danger" type="submit">Avaktivera 2FA</button>
+    </form>
+</div>

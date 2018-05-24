@@ -1,0 +1,16 @@
+﻿@using ROS.Web.Views.Manage
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<ul class="nav flex-column">
+    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">Profil</a></li>
+    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a asp-action="ChangePassword">Lösenord</a></li>
+    @if (hasExternalLogins)
+    {
+        <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext)"><a asp-action="ExternalLogins">Extern inloggning</a></li>
+    }
+    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)"><a asp-action="TwoFactorAuthentication">Tvåfaktorsautentisering</a></li>
+</ul>
+

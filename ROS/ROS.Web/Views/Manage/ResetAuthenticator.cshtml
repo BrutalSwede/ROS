@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Reset authenticator key";
+    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+}
+
+<h4>Återställ autentiseringsnyckel</h4>
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Om du återställer din autentiseringsnyckel kommer din autentiseringsapplikation inte att fungera tills du återkonfigurerar den. </strong>
+    </p>
+    <p>
+        Denna process hindrar Tvåfaktorsautentisering tills du har verifierat din autentiseringsapplikation och kommer även att återställa dina Tåvfaktorsautentiserings-koder. 
+        Om du inte färdigställer konfigureringen av din autentiseringsapplikation kan du förlora tillgång till ditt konto.
+    </p>
+</div>
+<div>
+    <form asp-action="ResetAuthenticator" method="post" class="form-group">
+        <button class="btn btn-danger" type="submit">Återställ autentiseringsnyckel</button>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+﻿@model ROS.Web.Models.ClubViewModels.GetClubsViewModel;
+
+
+@{
+    ViewData["Title"] = "ClubListItem";
+}
+
+<div class="card col-12 col-md-3" style="margin:0 5px 5px 0;">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a asp-action="Details" asp-route-id="@Model.ClubId" class="text-dark"> @Html.DisplayFor(modelItem => Model.ClubName)</a>
+
+        </h5>
+        @if (Context.User.Identity.Name == Model.Owner.UserName)
+        {
+            <p><span class="badge badge-info float-left">Ägare</span></p>
+        }
+        else if (Model.IsMember == true)
+        {
+            <p><span class="badge badge-info float-left">Medlem</span></p>
+        }
+        <br />
+        <p class="card-text">
+            <strong> @Html.DisplayNameFor(modelItem => Model.NumberOfMembers):</strong> @Html.DisplayFor(modelItem => Model.NumberOfMembers)
+        </p>
+        <p class="card-text">
+            <strong>@Html.DisplayNameFor(modelItem => Model.FoundedDate):</strong>
+            @Model.FoundedDate.ToString("dd MMM yyyy")
+        </p>
+        <br>
+        <p class="card-text">
+            @if (Model.IsActive)
+            {
+                @:Klubben är aktiv
+            }
+            else
+            {
+                @:Klubben är inaktiv
+}
+        </p>
+
+    </div>
+    <div class="card-footer">
+        @if (Context.User.Identity.Name != Model.Owner.UserName)
+        {
+            @if (!Model.HasApplied && !Model.IsMember)
+            {
+                <a asp-action="Apply" asp-route-id="@Model.ClubId" class="btn btn-outline-dark">Ansök</a>
+            }
+            else if (Model.HasApplied && !Model.IsMember)
+            {
+                <span class="badge badge-secondary float-left">Du har en aktiv ansökan</span>
+            }
+        }
+        <a asp-action="Details" asp-route-id="@Model.ClubId" class="btn btn-success float-right">Visa ></a>
+    </div>
+</div>
