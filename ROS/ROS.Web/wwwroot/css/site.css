@@ -8,6 +8,27 @@ nav {
     height: 10vh;
 }
 
+pre {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+#pro-row {
+    justify-content: center;
+}
+
+#pro-col {
+    margin-top: 5vh;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.profile-lable{
+    font-weight:bold;
+}
+
 #reg-row {
     justify-content: center;
 }
@@ -30,19 +51,8 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
-#pro-row {
-    justify-content: center;
-}
-
-#pro-col {
-    margin-top: 5vh;
-    border: 1px solid;
-    padding: 10px;
-    box-shadow: 5px 10px 8px #888888;
-}
-
-.profile-lable{
-    font-weight:bold;
+.profile-lable {
+    font-weight: bold;
 }
 
 #externlLogin-row {
@@ -103,8 +113,12 @@ div .fixed-bottom {
     max-width: inherit;
 }
 
-.body-content{
-    margin-left:180px;
+.fixed-bottom p {
+    color: #696969;
+}
+
+.body-content {
+    margin-left: 180px;
 }
 
 .list-group-item:first-child {
@@ -129,6 +143,11 @@ div .fixed-bottom {
     background-color: black;
     margin-bottom: -101%;
     padding-bottom: 101%;
+}
+#ros {
+    font-size: 40px;
+    padding:.75rem 1.25rem;
+    color:white;
 }
 
     #sidebar .list-group-item {
@@ -292,7 +311,7 @@ div .fixed-bottom {
     }
 
     .container {
-        width:85%;
+        width: 85%;
     }
 
     .HeaderSize {
