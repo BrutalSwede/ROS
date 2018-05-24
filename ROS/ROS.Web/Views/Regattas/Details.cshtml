@@ -27,9 +27,7 @@
             </span>
         </div>
         <hr />
-        <p>
-            @Html.DisplayFor(model => model.Description)
-        </p>
+        <pre>@Html.DisplayFor(model => model.Description)</pre>
     </div>
     <div class="card-footer">
         @if (Model.EndTime < DateTime.Now)

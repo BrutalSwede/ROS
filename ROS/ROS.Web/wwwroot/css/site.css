@@ -8,6 +8,12 @@ nav {
     height: 10vh;
 }
 
+pre {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
 #reg-row {
     justify-content: center;
 }
@@ -41,8 +47,8 @@ nav {
     box-shadow: 5px 10px 8px #888888;
 }
 
-.profile-lable{
-    font-weight:bold;
+.profile-lable {
+    font-weight: bold;
 }
 
 #externlLogin-row {
@@ -267,7 +273,7 @@ div .fixed-bottom {
     }
 
     .container {
-        width:85%;
+        width: 85%;
     }
 }
 
