@@ -164,6 +164,10 @@ div .fixed-bottom {
         text-align: right;
     }
 
+    #boat-details-handicap {
+        box-shadow: -5px 0px 5px rgba(0,0,0,0.2) inset;
+    }
+
     .navbar-text {
         background: #085394;
         padding-left: 2vh;
@@ -228,6 +232,10 @@ div .fixed-bottom {
 
     .fixed-bottom {
         font-size: 8px;
+    }
+
+    #boat-details-handicap {
+        box-shadow: -5px 0px 5px rgba(0,0,0,0.2) inset;
     }
 
     #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
