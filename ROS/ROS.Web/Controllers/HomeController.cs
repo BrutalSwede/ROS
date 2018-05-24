@@ -67,7 +67,7 @@ namespace ROS.Web.Controllers
             {
                 foreach (Club C in clubList)
                 {
-                    if (clubAppl.ClubId == C.Id)
+                    if (clubAppl.ClubId == C.Id && clubAppl.Status == ApplicationStatus.Pending)
                     {
                         landingPageView.Applications.Add(clubAppl);
                     }
